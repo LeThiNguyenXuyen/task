@@ -18,7 +18,6 @@ import "./globals.css";
 import "@smastrom/react-rating/style.css";
 import "react-toastify/dist/ReactToastify.css";
 import "swiper/css";
-import PWAButton from "@/core/components/Button/PWAButton";
 
 const beVietnamPro = Be_Vietnam_Pro({
     subsets: ["latin"],
