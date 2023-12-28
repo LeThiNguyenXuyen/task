@@ -9,7 +9,7 @@ import { useParams, useRouter } from "next/navigation";
 import { Dialog, Listbox, Menu, Popover, Transition } from "@headlessui/react";
 import { CheckIcon, EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { ChevronLeft } from "akar-icons";
+import { ArrowLeft, ChevronLeft, ChevronRight } from "akar-icons";
 import clsx from "clsx";
 import joi from "joi";
 import _get from "lodash/get";
@@ -163,17 +163,16 @@ const Page: NextPage<PageProps> = () => {
                 ) : (
                     <>
                         <div className="fixed z-50 flex flex-col h-screen w-screen bg-white fade-in left-0 top-0">
-                            <div className="flex justify-between items-center z-10 p-2 gap-4 border-b border-black">
-                                <div className="flex items-center gap-4">
-                                    <Link href={NKRouter.app.chat.index()} className=" text-black  w-6 h-6 rounded-lg">
-                                        <div>
-                                            <ChevronLeft strokeWidth={2} size={24} />
-                                        </div>
-                                    </Link>
-
+                            <div className="flex justify-between relative items-start z-10 p-4 gap-4 h-48 from-blue-500 via-blue-400 to-indigo-600 bg-gradient-to-tr">
+                                <Link href={NKRouter.app.chat.index()} className=" text-white  w-6 h-6 rounded-lg">
+                                    <div>
+                                        <ArrowLeft strokeWidth={2} size={24} />
+                                    </div>
+                                </Link>
+                                <div className="flex items-center gap-1 absolute bottom-1 left-1/2 -translate-x-1/2">
                                     {Boolean(chatUser || chat.data.isGroup) && (
-                                        <button onClick={() => {}} className={clsx("flex-1 flex gap-4 items-center  w-full")}>
-                                            <div className="w-10 h-10 flex-shrink-0  overflow-hidden relative">
+                                        <button onClick={() => {}} className={clsx("flex-1 flex gap-1 items-center  w-full flex-col")}>
+                                            <div className="w-14 h-14 flex-shrink-0  overflow-hidden relative">
                                                 <img
                                                     className="w-full h-full rounded-full overflow-hidden"
                                                     src={chat.data.isGroup ? chat.data.banner : chatUser?.avatar}
@@ -185,96 +184,14 @@ const Page: NextPage<PageProps> = () => {
                                                     </>
                                                 )}
                                             </div>
-                                            <div className="flex flex-col justify-center  text-left">
+                                            <div className="flex flex-col justify-center  text-left text-white">
                                                 <div className="font-semibold ">{chat.data.name}</div>
-                                                <div className="text-xs">
-                                                    {isActiveTime(chatUser?.lastActive) ? "Online" : HKMoment.moment(chatUser?.lastActive).fromNow()}
-                                                </div>
                                             </div>
                                         </button>
                                     )}
                                 </div>
-                                <div>
-                                    <div></div>
-                                    <Menu as="div" className="relative inline-block text-left">
-                                        <div className="flex items-center justify-center">
-                                            <Menu.Button className="h-6 w-6 flex-shrink-0 text-black">
-                                                <EllipsisVerticalIcon />
-                                            </Menu.Button>
-                                        </div>
-                                        <Transition
-                                            as={React.Fragment}
-                                            enter="transition ease-out duration-100"
-                                            enterFrom="transform opacity-0 scale-95"
-                                            enterTo="transform opacity-100 scale-100"
-                                            leave="transition ease-in duration-75"
-                                            leaveFrom="transform opacity-100 scale-100"
-                                            leaveTo="transform opacity-0 scale-95"
-                                        >
-                                            <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                                <div className="px-1 py-1 ">
-                                                    <Menu.Item>
-                                                        {({ active }) => (
-                                                            <button
-                                                                onClick={() => setIsOpenChangeLanguage(true)}
-                                                                className={`${
-                                                                    active ? "bg-violet-500 text-white" : "text-gray-900"
-                                                                } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                                                            >
-                                                                Change language
-                                                            </button>
-                                                        )}
-                                                    </Menu.Item>
-                                                    {!chat.data.isGroup ? (
-                                                        <Menu.Item>
-                                                            {({ active }) => (
-                                                                <button
-                                                                    onClick={() =>
-                                                                        createGroupChatMutation.mutateAsync().then((data) => {
-                                                                            if (!data) return;
-                                                                            router.push(NKRouter.app.chat.detail(data.id));
-                                                                        })
-                                                                    }
-                                                                    className={`${
-                                                                        active ? "bg-violet-500 text-white" : "text-gray-900"
-                                                                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                                                                >
-                                                                    Create group chat with {chatUser?.name}
-                                                                </button>
-                                                            )}
-                                                        </Menu.Item>
-                                                    ) : (
-                                                        <React.Fragment>
-                                                            <Menu.Item>
-                                                                <button
-                                                                    onClick={() => setIsOpen(true)}
-                                                                    className={`group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-900`}
-                                                                >
-                                                                    Add member
-                                                                </button>
-                                                            </Menu.Item>
-                                                            <Menu.Item>
-                                                                <button
-                                                                    onClick={() => setOpenUpdateInfo(true)}
-                                                                    className={`group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-900`}
-                                                                >
-                                                                    Change group info
-                                                                </button>
-                                                            </Menu.Item>
-                                                            <Menu.Item>
-                                                                <button
-                                                                    onClick={() => setOpenLeave(true)}
-                                                                    className={`group flex w-full items-center rounded-md px-2 py-2 text-sm text-red-400`}
-                                                                >
-                                                                    Leave the group chat
-                                                                </button>
-                                                            </Menu.Item>
-                                                        </React.Fragment>
-                                                    )}
-                                                </div>
-                                            </Menu.Items>
-                                        </Transition>
-                                    </Menu>
+                                <div className="text-xs text-white">
+                                    {isActiveTime(chatUser?.lastActive) ? "Online" : HKMoment.moment(chatUser?.lastActive).fromNow()}
                                 </div>
                             </div>
 
@@ -308,8 +225,8 @@ const Page: NextPage<PageProps> = () => {
                                                             ) : (
                                                                 <p
                                                                     className={clsx("break-words  px-4 py-2 rounded-md", {
-                                                                        "bg-[#EADA99]": message.user.id === userState.id,
-                                                                        "bg-[#F1F1F1]": message.user.id !== userState.id,
+                                                                        "bg-indigo-700 text-white": message.user.id === userState.id,
+                                                                        "bg-[#F1F1F1] text-black": message.user.id !== userState.id,
                                                                     })}
                                                                 >
                                                                     {_get(message, "content", "")}
@@ -329,8 +246,8 @@ const Page: NextPage<PageProps> = () => {
                                         })}
                                 </div>
                             </div>
-                            <form className="w-full z-50 bg-white py-6 relative">
-                                <div className="flex w-full px-4 rounded-sm  relative">
+                            <form className="w-full z-50 bg-gray-100 py-6 relative">
+                                <div className="flex w-full px-4 py-4 rounded-sm  relative bg-white">
                                     <Popover className="left-0 px-0  bottom-full z-50 absolute">
                                         <Popover.Button ref={stickerBtn}></Popover.Button>
 
@@ -372,15 +289,11 @@ const Page: NextPage<PageProps> = () => {
                                             </div>
                                         </Popover.Panel>
                                     </Popover>
-                                    <input
-                                        placeholder=""
-                                        className="w-full h-10 px-4 focus:outline-none border"
-                                        {...formMethods.register("message")}
-                                    />
+                                    <input placeholder="" className="w-full h-10 px-4 focus:outline-none" {...formMethods.register("message")} />
 
                                     <div className="relative">
                                         <Popover>
-                                            <Popover.Button className="text-2xl w-10 h-10 shrink-0 flex items-center justify-center bg-[#EADA99] text-white">
+                                            <Popover.Button className="text-xl w-10 h-10 shrink-0 flex items-center justify-center text-gray-400">
                                                 <BsImage />
                                             </Popover.Button>
                                             <Popover.Panel className="absolute flex  flex-col bottom-[120%] left-0 fade-in">
@@ -397,14 +310,14 @@ const Page: NextPage<PageProps> = () => {
                                                     />
                                                     <label
                                                         htmlFor="file"
-                                                        className="text-2xl w-10 h-10 shrink-0 flex items-center justify-center bg-[#EADA99] text-white"
+                                                        className="text-2xl w-10 h-10 shrink-0 flex items-center justify-center bg-indigo-700 text-white"
                                                     >
                                                         <BsImage />
                                                     </label>
                                                 </div>
                                                 {userSubscription.data && (
                                                     <button
-                                                        className="text-2xl w-10 h-10 shrink-0 flex items-center justify-center bg-[#EADA99] text-white"
+                                                        className="text-2xl w-10 h-10 shrink-0 flex items-center justify-center bg-indigo-700 text-white"
                                                         onClick={() => {
                                                             stickerBtn.current?.click();
                                                         }}
@@ -421,9 +334,9 @@ const Page: NextPage<PageProps> = () => {
                                             sendMessageMutation.mutate(data.message);
                                             formMethods.reset();
                                         })}
-                                        className="text-2xl w-10 h-10 shrink-0 flex items-center justify-center bg-[#EADA99] text-white"
+                                        className="text-2xl w-10 h-10 shrink-0 flex items-center rounded-full justify-center bg-indigo-700 text-white"
                                     >
-                                        <FiSend />
+                                        <ChevronRight size={24} />
                                     </button>
                                 </div>
                             </form>
