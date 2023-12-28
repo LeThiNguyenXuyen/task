@@ -21,16 +21,14 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 import { NKRouter } from "@/core/NKRouter";
-import { chatMessageApi } from "@/core/api/chat-message.api";
 import { photoGroupApi } from "@/core/api/photo-group.api";
 import { uploadFileApi } from "@/core/api/upload-file.api";
 import { IV1PutGroupChat, userMeChatApi } from "@/core/api/user-me-chat.api";
-import { userMeSettingApi } from "@/core/api/user-me-setting.api";
 import { userMeSubscriptionApi } from "@/core/api/user-me-subscription.api";
 import { userApi } from "@/core/api/user.api";
 import NKFormWrapper from "@/core/components/form/NKFormWrapper";
-import NKSelectField from "@/core/components/form/NKSelectField";
 import NKTextField, { NKTextFieldTheme } from "@/core/components/form/NKTextField";
+import { useChat } from "@/core/hooks/useChat";
 import { FilterComparator } from "@/core/models/common";
 import { PhotoGroup } from "@/core/models/photoGroup";
 import { User } from "@/core/models/user";
@@ -58,136 +56,37 @@ const Page: NextPage<PageProps> = () => {
     const userState = useSelector<RootState, UserState>((state) => state.user);
     const [isOpen, setIsOpen] = React.useState(false);
     const [isOpenChangeLanguage, setIsOpenChangeLanguage] = React.useState(false);
-    const wrapperRef = React.useRef<HTMLDivElement>(null);
-    const [lastMessageId, setLastMessageId] = React.useState<string>("");
-    const [lastMessageScrollId, setLastMessageScrollId] = React.useState<string>("");
-    const [chatUser, setChatUser] = React.useState<User>();
     const [selectedPhotoGroup, setSelectedPhotoGroup] = React.useState<PhotoGroup>();
-    const [isShowSticker, setIsShowSticker] = React.useState<boolean>(false);
     const stickerBtn = React.useRef<HTMLButtonElement>(null);
 
-    React.useEffect(() => {
-        if (lastMessageId !== lastMessageScrollId) {
-            setLastMessageScrollId(lastMessageId);
-            setTimeout(() => {
-                scrollToBottom();
-            }, 1000);
-        }
-    }, [lastMessageId]);
+    const {
+        chat,
+        chatUser,
+        sendImageMessageMutation,
+        sendMessageMutation,
+        sendStickerMessageMutation,
+        wrapperRef,
+        leaveGroupChatMutation,
+        addUsersMutation,
+    } = useChat(chatId);
 
-    const scrollToBottom = () => {
-        wrapperRef.current?.scrollTo({
-            top: wrapperRef.current?.scrollHeight,
-            behavior: "smooth",
-        });
-    };
     const userSubscription = useQuery(["subscription", "me"], async () => {
         const res = await userMeSubscriptionApi.v1Get();
         return Boolean(res.id);
     });
 
-    // const { chatId }: { chatId: string } = useParams();
-
-    const chat = useQuery(
-        ["chat", chatId],
-        async () => {
-            const res = await userMeChatApi.v1GetById(chatId);
-            const chatUser = res.users.filter((u) => u.id !== userState.id)[0];
-
-            const isActive = res.users.every((u) => {
-                return isActiveTime(u.lastActive);
-            });
-
-            if (chatUser) {
-                setChatUser(chatUser);
-            }
-            return res;
-        },
-        {
-            refetchInterval: 1000,
-            enabled: Boolean(chatId),
-            onSuccess: (data) => {
-                if (!data.chatMessages.length) return;
-                setLastMessageId(data.chatMessages[data.chatMessages.length - 1].id);
-            },
-        }
-    );
-
-    const sendMessageMutation = useMutation(
-        (message: string) => {
-            return userMeChatApi.v1CreateMessage(chatId, {
-                content: message,
-                type: "TEXT",
-            });
-        },
-        {
-            onSuccess: (data) => {
-                chat.refetch();
-                setTimeout(() => {
-                    scrollToBottom();
-                }, 1000);
-            },
-        }
-    );
-
-    const sendStickerMessageMutation = useMutation(
-        async (image: string) => {
-            return userMeChatApi.v1CreateMessage(chatId, {
-                content: image,
-                type: "IMAGE",
-            });
-        },
-        {
-            onSuccess: (data) => {
-                chat.refetch();
-                setTimeout(() => {
-                    scrollToBottom();
-                }, 1000);
-            },
-        }
-    );
-    const sendImageMessageMutation = useMutation(
-        async (file: File) => {
-            const res = await uploadFileApi.v1UploadFile(file);
-
-            return userMeChatApi.v1CreateMessage(chatId, {
-                content: res,
-                type: "IMAGE",
-            });
-        },
-        {
-            onSuccess: (data) => {
-                chat.refetch();
-                setTimeout(() => {
-                    scrollToBottom();
-                }, 1000);
-            },
-        }
-    );
     const router = useRouter();
-
-    const createGroupChatMutation = useMutation(
-        async () => {
-            if (!chatUser) return;
-
-            const res = await userMeChatApi.v1PostCreateWithGroup({
-                name: `Nhóm chat của ${userState.name} và ${chatUser?.name}`,
-                userId: chatUser.id,
-            });
-
-            return res;
-        },
-        {
-            onSuccess: (data) => {
-                if (!data) return;
-                router.push(NKRouter.app.chat.detail(data.id));
-            },
-        }
-    );
 
     const closeModal = () => {
         setSelected([]);
         setIsOpen(false);
+    };
+
+    const handleAddUsers = async () => {
+        const userIds = selected.map((user) => user.id);
+        addUsersMutation.mutateAsync(userIds).then(() => {
+            closeModal();
+        });
     };
 
     const [selected, setSelected] = React.useState<User[]>([]);
@@ -217,66 +116,9 @@ const Page: NextPage<PageProps> = () => {
         }
     );
 
-    const addUsersMutation = useMutation(
-        async () => {
-            if (!chat.data || !chat.data.isGroup) return;
-
-            const res = await userMeChatApi.v1PostAddUsers(chatId, {
-                userIds: selected.map((user) => user.id),
-            });
-
-            return res;
-        },
-        {
-            onSuccess: (data) => {
-                chat.refetch();
-                setSelected([]);
-                closeModal();
-            },
-        }
-    );
-
     // NOTE - Leave user to group chat
 
     const [openLeave, setOpenLeave] = React.useState<boolean>(false);
-
-    const leaveGroupChatMutation = useMutation(
-        async () => {
-            if (!chat.data || !chat.data.isGroup) return;
-
-            const res = await userMeChatApi.v1PostLeave(chatId);
-
-            return res;
-        },
-        {
-            onSuccess: (data) => {
-                router.push(NKRouter.app.chat.index());
-            },
-        }
-    );
-
-    const userSettingQuery = useQuery<UserSetting>(
-        ["settings"],
-        async () => {
-            return await userMeSettingApi.v1GetAll();
-        },
-        {
-            initialData: {
-                lang: "englishContent",
-            },
-        }
-    );
-
-    const languagesQuery = useQuery(
-        ["languages"],
-        async () => {
-            const res = await chatMessageApi.v1GetEnumLanguage();
-            return res;
-        },
-        {
-            initialData: [],
-        }
-    );
 
     const photoGroup = useQuery(
         ["photo-group"],
@@ -295,6 +137,17 @@ const Page: NextPage<PageProps> = () => {
             },
         }
     );
+
+    const createGroupChatMutation = useMutation(async () => {
+        if (!chatUser) return;
+
+        const res = await userMeChatApi.v1PostCreateWithGroup({
+            name: `Nhóm chat của ${userState.name} và ${chatUser?.name}`,
+            userId: chatUser.id,
+        });
+
+        return res;
+    });
 
     const [openUpdateInfo, setOpenUpdateInfo] = React.useState<boolean>(false);
 
@@ -376,7 +229,12 @@ const Page: NextPage<PageProps> = () => {
                                                         <Menu.Item>
                                                             {({ active }) => (
                                                                 <button
-                                                                    onClick={() => createGroupChatMutation.mutateAsync()}
+                                                                    onClick={() =>
+                                                                        createGroupChatMutation.mutateAsync().then((data) => {
+                                                                            if (!data) return;
+                                                                            router.push(NKRouter.app.chat.detail(data.id));
+                                                                        })
+                                                                    }
                                                                     className={`${
                                                                         active ? "bg-violet-500 text-white" : "text-gray-900"
                                                                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
@@ -454,7 +312,7 @@ const Page: NextPage<PageProps> = () => {
                                                                         "bg-[#F1F1F1]": message.user.id !== userState.id,
                                                                     })}
                                                                 >
-                                                                    {_get(message, userSettingQuery.data.lang, message.content)}
+                                                                    {_get(message, "content", "")}
                                                                 </p>
                                                             )}
                                                         </div>
@@ -471,7 +329,7 @@ const Page: NextPage<PageProps> = () => {
                                         })}
                                 </div>
                             </div>
-                            <div className="w-full z-50 bg-white py-6 relative">
+                            <form className="w-full z-50 bg-white py-6 relative">
                                 <div className="flex w-full px-4 rounded-sm  relative">
                                     <Popover className="left-0 px-0  bottom-full z-50 absolute">
                                         <Popover.Button ref={stickerBtn}></Popover.Button>
@@ -550,6 +408,7 @@ const Page: NextPage<PageProps> = () => {
                                                         onClick={() => {
                                                             stickerBtn.current?.click();
                                                         }}
+                                                        type="button"
                                                     >
                                                         <PiSmileySticker />
                                                     </button>
@@ -567,7 +426,7 @@ const Page: NextPage<PageProps> = () => {
                                         <FiSend />
                                     </button>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                         {/* NOTE - Add user to group chat */}
                         <Transition appear show={isOpen} as={React.Fragment}>
@@ -681,85 +540,11 @@ const Page: NextPage<PageProps> = () => {
                                                     <button
                                                         type="button"
                                                         className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                                                        onClick={() => addUsersMutation.mutateAsync()}
+                                                        onClick={() => handleAddUsers()}
                                                     >
                                                         Add member
                                                     </button>
                                                 </div>
-                                            </Dialog.Panel>
-                                        </Transition.Child>
-                                    </div>
-                                </div>
-                            </Dialog>
-                        </Transition>
-
-                        {/* NOTE - Change language */}
-                        <Transition appear show={isOpenChangeLanguage} as={React.Fragment}>
-                            <Dialog as="div" className="relative z-50" onClose={() => setIsOpenChangeLanguage(false)}>
-                                <Transition.Child
-                                    as={React.Fragment}
-                                    enter="ease-out duration-300"
-                                    enterFrom="opacity-0"
-                                    enterTo="opacity-100"
-                                    leave="ease-in duration-200"
-                                    leaveFrom="opacity-100"
-                                    leaveTo="opacity-0"
-                                >
-                                    <div className="fixed inset-0 z-0  bg-black bg-opacity-25" />
-                                </Transition.Child>
-
-                                <div className="fixed inset-0 z-10  h-full overflow-y-auto">
-                                    <div className="flex min-h-[640px] h-full items-center justify-center p-4 text-center">
-                                        <Transition.Child
-                                            as={React.Fragment}
-                                            enter="ease-out duration-300"
-                                            enterFrom="opacity-0 scale-95"
-                                            enterTo="opacity-100 scale-100"
-                                            leave="ease-in duration-200"
-                                            leaveFrom="opacity-100 scale-100"
-                                            leaveTo="opacity-0 scale-95"
-                                        >
-                                            <Dialog.Panel className="w-full max-w-sm rounded bg-white p-4">
-                                                <NKFormWrapper<SettingForm>
-                                                    apiAction={async (data) => {
-                                                        await userMeSettingApi.v1PutSetting({
-                                                            key: "lang",
-                                                            value: data.lang,
-                                                        });
-                                                    }}
-                                                    defaultValues={{
-                                                        lang: userSettingQuery.data.lang ?? "",
-                                                    }}
-                                                    schema={{
-                                                        lang: joi.string().required(),
-                                                    }}
-                                                    onExtraSuccessAction={(data) => {
-                                                        toast.success("Update language success");
-                                                        setIsOpenChangeLanguage(false);
-                                                        userSettingQuery.refetch();
-                                                    }}
-                                                >
-                                                    <div className="flex flex-col gap-3">
-                                                        <NKSelectField
-                                                            isShow={true}
-                                                            name="lang"
-                                                            label="Language"
-                                                            theme={NKTextFieldTheme.AUTH}
-                                                            className="text-white"
-                                                            options={languagesQuery.data.map((item) => ({
-                                                                label: item.label,
-                                                                value: item.value,
-                                                            }))}
-                                                            defaultValue={userSettingQuery.data.lang}
-                                                        />
-
-                                                        <div className="flex items-center justify-center w-full">
-                                                            <button className="rounded-xl w-full text-black bg-[#DEE1E6] px-2.5 py-3 text-sm font-semibold  shadow-sm hover:bg-yellow-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-200">
-                                                                Update language
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </NKFormWrapper>
                                             </Dialog.Panel>
                                         </Transition.Child>
                                     </div>
@@ -782,10 +567,7 @@ const Page: NextPage<PageProps> = () => {
                                     <div className="fixed inset-0 z-0  bg-black bg-opacity-25" />
                                 </Transition.Child>
 
-                                <div
-                                    className="fixed inset-0 z-10  h-full overflo
-                                w-y-auto"
-                                >
+                                <div className="fixed inset-0 z-10  h-full overflow-y-auto">
                                     <div className="flex min-h-[640px] h-full items-center justify-center p-4 text-center">
                                         <Transition.Child
                                             as={React.Fragment}
@@ -914,7 +696,11 @@ const Page: NextPage<PageProps> = () => {
                                                     <button
                                                         type="button"
                                                         className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
-                                                        onClick={() => leaveGroupChatMutation.mutateAsync()}
+                                                        onClick={() =>
+                                                            leaveGroupChatMutation.mutateAsync().then(() => {
+                                                                router.push(NKRouter.app.chat.index());
+                                                            })
+                                                        }
                                                     >
                                                         Leave the group chat
                                                     </button>
