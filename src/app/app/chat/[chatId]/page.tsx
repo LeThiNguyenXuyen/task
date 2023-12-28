@@ -65,7 +65,7 @@ const Page: NextPage<PageProps> = () => {
         sendImageMessageMutation,
         sendMessageMutation,
         sendStickerMessageMutation,
-        wrapperRef,
+        chatContainerRef,
         leaveGroupChatMutation,
         addUsersMutation,
     } = useChat(chatId);
@@ -195,7 +195,7 @@ const Page: NextPage<PageProps> = () => {
                                 </div>
                             </div>
 
-                            <div className="flex   h-full relative flex-col justify-end overflow-y-scroll" ref={wrapperRef}>
+                            <div className="flex   h-full relative flex-col justify-end overflow-y-scroll" ref={chatContainerRef}>
                                 <div className="flex   min-h-full justify-start  flex-col h-fit gap-2 py-10 w-full  absolute top-0 left-0 px-2 ">
                                     {chat.data.chatMessages
                                         .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())

@@ -1,13 +1,13 @@
-import * as React from 'react';
+import * as React from "react";
 
-import clsx from 'clsx';
-import { Controller, useFormContext } from 'react-hook-form';
+import clsx from "clsx";
+import { Controller, useFormContext } from "react-hook-form";
 
-import NKFieldWrapper from './NKFieldWrapper';
+import NKFieldWrapper from "./NKFieldWrapper";
 
 export enum NKTextFieldTheme {
-    DEFAULT = 'DEFAULT',
-    AUTH = 'AUTH',
+    DEFAULT = "DEFAULT",
+    AUTH = "AUTH",
 }
 
 interface NKTextFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -31,15 +31,15 @@ const NKTextField: React.FC<NKTextFieldProps> = ({ name, isShow = true, label, l
                 render={({ field }) => (
                     <div
                         className={clsx([], {
-                            '': theme === NKTextFieldTheme.AUTH,
+                            "": theme === NKTextFieldTheme.AUTH,
                         })}
                     >
                         {icon}
                         <input
                             {...field}
                             {...rest}
-                            className={clsx(['w-full focus:outline-none'], {
-                                'block w-full rounded-xl  py-3 text-gray-900 shadow-sm focus:outline-none bg-[#F3F4F6] placeholder:text-gray-400  sm:text-sm sm:leading-6 px-4':
+                            className={clsx(["w-full focus:outline-none"], {
+                                "block w-full rounded-xl border border-gray-100  py-3 text-gray-900 shadow-sm focus:outline-none bg-[#F3F4F6] placeholder:text-gray-400  sm:text-sm text-sm sm:leading-6 px-4":
                                     theme === NKTextFieldTheme.AUTH,
                             })}
                         />

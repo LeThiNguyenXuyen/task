@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 
 import type { Metadata } from "next";
-import { Be_Vietnam_Pro } from "next/font/google";
+import { Roboto } from "next/font/google";
 import Script from "next/script";
 
 import clsx from "clsx";
@@ -19,9 +19,10 @@ import "@smastrom/react-rating/style.css";
 import "react-toastify/dist/ReactToastify.css";
 import "swiper/css";
 
-const beVietnamPro = Be_Vietnam_Pro({
-    subsets: ["latin"],
-    weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+const roboto = Roboto({
+    display: "swap",
+    subsets: ["latin-ext", "vietnamese"],
+    weight: ["100", "300", "400", "500", "700", "900"],
 });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -46,7 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 `}
                 </Script>
             </head>
-            <body className={clsx(beVietnamPro.className, "min-h-screen w-full flex flex-col")}>
+            <body className={clsx(roboto.className, "min-h-screen w-full flex flex-col")}>
                 <Provider store={store}>
                     <TanQueryClient>
                         <TryAuthWrapper>

@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import React, { use, useEffect } from 'react';
+import React, { use, useEffect } from "react";
 
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
-import { Bell, Gear, PaperAirplane } from 'akar-icons';
-import { toast } from 'react-toastify';
+import { Bell, Gear, PaperAirplane } from "akar-icons";
+import { toast } from "react-toastify";
 
-import { NKConstant } from '@/core/NKConstant';
-import AuthWrapper from '@/core/components/wrapper/AuthWrapper';
+import { NKConstant } from "@/core/NKConstant";
+import AuthWrapper from "@/core/components/wrapper/AuthWrapper";
 
 interface HomePageProps {}
 

@@ -14,7 +14,7 @@ export const useChat = (chatId: string) => {
     const [chatUser, setChatUser] = React.useState<User>();
     const [lastMessageId, setLastMessageId] = React.useState<string>("");
     const [lastMessageScrollId, setLastMessageScrollId] = React.useState<string>("");
-    const wrapperRef = React.useRef<HTMLDivElement>(null);
+    const chatContainerRef = React.useRef<HTMLDivElement>(null);
 
     const chat = useQuery(
         ["chat", chatId],
@@ -51,8 +51,8 @@ export const useChat = (chatId: string) => {
     }, [lastMessageId]);
 
     const scrollToBottom = () => {
-        wrapperRef.current?.scrollTo({
-            top: wrapperRef.current?.scrollHeight,
+        chatContainerRef.current?.scrollTo({
+            top: chatContainerRef.current?.scrollHeight,
             behavior: "smooth",
         });
     };
@@ -138,7 +138,7 @@ export const useChat = (chatId: string) => {
     return {
         chat,
         chatUser,
-        wrapperRef,
+        chatContainerRef,
         sendMessageMutation,
         sendStickerMessageMutation,
         sendImageMessageMutation,
