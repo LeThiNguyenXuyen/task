@@ -30,5 +30,9 @@ export const NKRouter = {
         notification: {
             index: () => "/app/notification",
         },
+        product: {
+            index: () => "/app/product",
+            detail: (id: string) => `/app/product/${id}`,
+        },
     },
 };

@@ -3,10 +3,10 @@
 import React, { useEffect } from "react";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname, useSearchParams } from "next/navigation";
 
 import { useQuery } from "@tanstack/react-query";
-import { Bell, Gear, Home, PaperAirplane } from "akar-icons";
+import { Bell, Gear, Home, PaperAirplane, ShoppingBag } from "akar-icons";
 import clsx from "clsx";
 import { useSelector } from "react-redux";
 
@@ -50,6 +50,8 @@ const Layout: React.FunctionComponent<LayoutProps> = ({ children }) => {
         }
     );
 
+    if (pathName.startsWith(NKRouter.app.product.detail(""))) return <AuthWrapper>{children}</AuthWrapper>;
+
     return (
         <AuthWrapper>
             <div className="h-screen flex-col flex ">
@@ -58,7 +60,7 @@ const Layout: React.FunctionComponent<LayoutProps> = ({ children }) => {
                     <Link
                         href={NKRouter.app.hone()}
                         className={clsx("", {
-                            "text-yellow-600": pathName === NKRouter.app.hone(),
+                            "text-indigo-600": pathName === NKRouter.app.hone(),
                         })}
                     >
                         <Home strokeWidth={2} size={24} />
@@ -66,7 +68,7 @@ const Layout: React.FunctionComponent<LayoutProps> = ({ children }) => {
                     <Link
                         href={NKRouter.app.chat.index()}
                         className={clsx("", {
-                            "text-yellow-600": pathName.includes("chat"),
+                            "text-indigo-600": pathName.includes("chat"),
                         })}
                     >
                         <PaperAirplane strokeWidth={2} size={24} />
@@ -74,7 +76,7 @@ const Layout: React.FunctionComponent<LayoutProps> = ({ children }) => {
                     <Link
                         href={NKRouter.app.notification.index()}
                         className={clsx("relative", {
-                            "text-yellow-600": pathName.includes("notification"),
+                            "text-indigo-600": pathName.includes("notification"),
                         })}
                     >
                         {Boolean(countUnread.data) && (
@@ -83,6 +85,19 @@ const Layout: React.FunctionComponent<LayoutProps> = ({ children }) => {
                             </div>
                         )}
                         <Bell strokeWidth={2} size={24} />
+                    </Link>
+                    <Link
+                        href={NKRouter.app.product.index()}
+                        className={clsx("relative", {
+                            "text-indigo-600": pathName.includes("product"),
+                        })}
+                    >
+                        {Boolean(countUnread.data) && (
+                            <div className="absolute -top-2 -right-2 w-5 h-5 text-xs flex items-center justify-center rounded-full text-white bg-red-500">
+                                {countUnread.data}
+                            </div>
+                        )}
+                        <ShoppingBag strokeWidth={2} size={24} />
                     </Link>
                     <Link
                         className={clsx("", {

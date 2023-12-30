@@ -32,7 +32,7 @@ const Page: React.FC<PageProps> = () => {
                         {["1p", "2p", "3p", "4p", "5p", "6p", "7p", "8p"].map((item, index) => (
                             <SwiperSlide key={item} className="w-full h-full">
                                 <div className="h-full w-full rounded-3xl overflow-hidden relative">
-                                    <Link href={NKRouter.app.photographers.detail("test")} className="absolute h-full w-fulltop-0 left-0 z-0">
+                                    <Link href={NKRouter.app.photographers.detail("test")} className="absolute h-full w-full top-0 left-0 z-0">
                                         <img src="https://dummyimage.com/168x208/67729D/fff" className="w-full h-full" alt="" />
                                     </Link>
                                     <button className="text-rose-700 absolute left-4 top-4 text-lg z-10">

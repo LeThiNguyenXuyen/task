@@ -6,16 +6,15 @@ import { NextPage } from "next";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 
-import { Dialog, Listbox, Menu, Popover, Transition } from "@headlessui/react";
-import { CheckIcon, EllipsisVerticalIcon } from "@heroicons/react/20/solid";
+import { Dialog, Listbox, Popover, Transition } from "@headlessui/react";
+import { CheckIcon } from "@heroicons/react/20/solid";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { ArrowLeft, ChevronLeft, ChevronRight } from "akar-icons";
+import { ArrowLeft, ChevronRight } from "akar-icons";
 import clsx from "clsx";
 import joi from "joi";
 import _get from "lodash/get";
 import { useForm } from "react-hook-form";
 import { BsImage } from "react-icons/bs";
-import { FiSend } from "react-icons/fi";
 import { PiSmileySticker } from "react-icons/pi";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -28,17 +27,15 @@ import { userMeSubscriptionApi } from "@/core/api/user-me-subscription.api";
 import { userApi } from "@/core/api/user.api";
 import NKFormWrapper from "@/core/components/form/NKFormWrapper";
 import NKTextField, { NKTextFieldTheme } from "@/core/components/form/NKTextField";
-import { useChat } from "@/core/hooks/useChat";
+import { useChatContext } from "@/core/contexts/useChatContext";
 import { FilterComparator } from "@/core/models/common";
 import { PhotoGroup } from "@/core/models/photoGroup";
 import { User } from "@/core/models/user";
-import { UserSetting } from "@/core/models/userSetting";
 import { RootState } from "@/core/store";
 import { UserState } from "@/core/store/user";
 import { isActiveTime } from "@/core/utils/data.helper";
 import { HKMoment } from "@/core/utils/moment";
 
-interface SettingForm extends Pick<UserSetting, "lang"> {}
 interface PageProps {}
 
 interface SendMessageForm {
@@ -55,20 +52,25 @@ const Page: NextPage<PageProps> = () => {
     const formMethods = useForm<SendMessageForm>({ defaultValues });
     const userState = useSelector<RootState, UserState>((state) => state.user);
     const [isOpen, setIsOpen] = React.useState(false);
-    const [isOpenChangeLanguage, setIsOpenChangeLanguage] = React.useState(false);
     const [selectedPhotoGroup, setSelectedPhotoGroup] = React.useState<PhotoGroup>();
     const stickerBtn = React.useRef<HTMLButtonElement>(null);
 
     const {
+        addUsersMutation,
         chat,
+        chatContainerRef,
         chatUser,
+        isActive,
+        leaveGroupChatMutation,
         sendImageMessageMutation,
         sendMessageMutation,
         sendStickerMessageMutation,
-        chatContainerRef,
-        leaveGroupChatMutation,
-        addUsersMutation,
-    } = useChat(chatId);
+        setChatId,
+    } = useChatContext();
+
+    React.useEffect(() => {
+        setChatId(chatId);
+    }, [chatId]);
 
     const userSubscription = useQuery(["subscription", "me"], async () => {
         const res = await userMeSubscriptionApi.v1Get();
@@ -111,7 +113,7 @@ const Page: NextPage<PageProps> = () => {
             return res.data.filter((user) => user.id !== userState.id);
         },
         {
-            enabled: Boolean(chat.data?.isGroup),
+            enabled: Boolean(chat?.data?.isGroup),
             initialData: [],
         }
     );
@@ -158,7 +160,7 @@ const Page: NextPage<PageProps> = () => {
     return (
         <>
             <div className="flex flex-1 flex-col  w-full gap-4 overflow-y-auto h-[calc(100vh-4.5rem)]">
-                {!chat.isSuccess ? (
+                {!chat?.isSuccess ? (
                     <div className="flex flex-1 justify-center items-center">Loading...</div>
                 ) : (
                     <>
