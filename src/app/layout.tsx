@@ -18,6 +18,7 @@ import "./globals.css";
 import "@smastrom/react-rating/style.css";
 import "react-toastify/dist/ReactToastify.css";
 import "swiper/css";
+import { CartProvider } from "@/core/contexts/CartContext";
 
 const roboto = Roboto({
     display: "swap",
@@ -32,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <link rel="manifest" href="/manifest.json" />
                 <link rel="apple-touch-icon" href="/apple-touch-icon.png"></link>
                 <meta name="theme-color" content="#fff" />
-                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
 
                 <Script strategy="lazyOnload" src={`https://www.googletagmanager.com/gtag/js?id=G-RJSXHSX9ZW`} />
 
@@ -51,7 +52,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Provider store={store}>
                     <TanQueryClient>
                         <TryAuthWrapper>
-                            <div className="flex-1 flex flex-col">{children}</div>
+                            <CartProvider>
+                                <div className="flex-1 flex flex-col">{children}</div>
+                            </CartProvider>
                             <ToastContainer closeButton={false} position="bottom-center" autoClose={4000} limit={2} />
                             {/* <div className="fixed bottom-10 right-10 bg-gray-200 py-2 px-4 z-50 rounded font-semibold">
                                 <PWAButton />

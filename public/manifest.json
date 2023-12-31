@@ -4,19 +4,19 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "Well Tran",
-    "short_name": "Well Tran",
+    "name": "Snapix",
+    "short_name": "Snapix",
     "description": "A PWA boilerplate with Next Js TypeScript",
     "icons": [
-      {
-        "src": "/android-chrome-192x192.png",
-        "sizes": "192x192",
-        "type": "image/png"
-      },
-      {
-        "src": "/android-chrome-512x512.png",
-        "sizes": "512x512",
-        "type": "image/png"
-      }
+        {
+            "src": "/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
     ]
-  }
+}

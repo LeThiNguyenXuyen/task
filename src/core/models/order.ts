@@ -1,10 +1,11 @@
-import { OrderDiscount } from './orderDiscount';
-import { OrderItem } from './orderItem';
-import { User } from './user';
+import { OrderDiscount } from "./orderDiscount";
+import { OrderItem } from "./orderItem";
+import { User } from "./user";
 
 export interface Order {
     id: string;
     createdAt: string;
+    status: string;
     updatedAt: string;
     isDeleted: boolean;
     isRequiredUpdate: boolean;
@@ -20,4 +21,6 @@ export interface Order {
     afterDiscountTotal: number;
     discountAmount: number;
     note: string;
+    paymentMethod: string;
+    extraFee: number;
 }

@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import * as React from 'react';
+import * as React from "react";
 
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-import joi from 'joi';
-import { toast } from 'react-toastify';
+import joi from "joi";
+import { toast } from "react-toastify";
 
-import { NKRouter } from '@/core/NKRouter';
-import { IV1AuthRegister, authApi } from '@/core/api/auth.api';
-import NKFormWrapper from '@/core/components/form/NKFormWrapper';
-import NKTextField, { NKTextFieldTheme } from '@/core/components/form/NKTextField';
+import { NKRouter } from "@/core/NKRouter";
+import { IV1AuthRegister, authApi } from "@/core/api/auth.api";
+import NKFormWrapper from "@/core/components/form/NKFormWrapper";
+import NKTextField, { NKTextFieldTheme } from "@/core/components/form/NKTextField";
 
 interface RegisterExtendsForm extends IV1AuthRegister {
     confirmPassword: string;
@@ -36,11 +36,11 @@ const RegisterPage: React.FunctionComponent<RegisterPageProps> = () => {
                             });
                         }}
                         defaultValues={{
-                            email: '',
-                            password: '',
-                            username: '',
-                            name: '',
-                            confirmPassword: '',
+                            email: "",
+                            password: "",
+                            username: "",
+                            name: "",
+                            confirmPassword: "",
                         }}
                         schema={{
                             email: joi
@@ -59,7 +59,7 @@ const RegisterPage: React.FunctionComponent<RegisterPageProps> = () => {
                             username: joi.string().trim().lowercase().required(),
                         }}
                         onExtraSuccessAction={(data) => {
-                            toast.success('Đăng ký thành công');
+                            toast.success("Đăng ký thành công");
                             router.push(NKRouter.auth.login());
                         }}
                     >
@@ -110,13 +110,13 @@ const RegisterPage: React.FunctionComponent<RegisterPageProps> = () => {
                                 className="text-white"
                             />
                             <div className="flex flex-col  gap-4">
-                                <button className="rounded-xl text-black bg-[#DEE1E6] px-2.5 py-3 text-sm font-semibold  shadow-sm hover:bg-yellow-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-200">
+                                <button className="rounded-xl text-black bg-[#DEE1E6] px-2.5 py-3 text-sm font-semibold  shadow-sm hover:bg-purple-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-200">
                                     Sign Up
                                 </button>
 
                                 <div className="text-sm leading-6 justify-center  flex gap-1">
                                     <div>Already have an account?</div>
-                                    <Link href={NKRouter.auth.login()} className="font-semibold text-yellow-500 hover:text-yellow-500">
+                                    <Link href={NKRouter.auth.login()} className="font-semibold text-purple-500 hover:text-purple-500">
                                         Sign in
                                     </Link>
                                 </div>

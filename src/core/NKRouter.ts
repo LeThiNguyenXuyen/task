@@ -12,6 +12,7 @@ export const NKRouter = {
             update: () => "/app/settings/update",
             changePassword: () => "/app/settings/change-password",
             language: () => "/app/settings/language",
+            orderHistory: () => "/app/settings/order-history",
         },
         photographers: {
             index: () => "/app/photographers",

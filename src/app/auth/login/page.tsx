@@ -89,7 +89,7 @@ const AuthLogin: React.FC<AuthLoginProps> = () => {
                                     </Link>
                                 </div>
                                 <div className="flex flex-col  gap-4">
-                                    <button className="rounded-xl text-black bg-[#DEE1E6] px-2.5 py-3 text-sm font-semibold  shadow-sm hover:bg-yellow-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-200">
+                                    <button className="rounded-xl text-black bg-[#DEE1E6] px-2.5 py-3 text-sm font-semibold  shadow-sm hover:bg-purple-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-200">
                                         LOG IN
                                     </button>
                                     <Link
@@ -118,7 +118,7 @@ const AuthLogin: React.FC<AuthLoginProps> = () => {
                                     </Link>
                                     <div className="text-sm leading-6 justify-center  flex gap-1">
                                         <div>Don&apos;t have an account?</div>
-                                        <Link href={NKRouter.auth.register()} className="font-semibold text-yellow-500 hover:text-yellow-500">
+                                        <Link href={NKRouter.auth.register()} className="font-semibold text-purple-500 hover:text-purple-500">
                                             Sign up
                                         </Link>
                                     </div>
