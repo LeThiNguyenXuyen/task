@@ -5,7 +5,7 @@ import * as React from 'react';
 import Link from 'next/link';
 
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { ChevronLeft } from 'akar-icons';
+import { ArrowLeft, ChevronLeft } from 'akar-icons';
 import joi from 'joi';
 import moment from 'moment';
 import { BsImage } from 'react-icons/bs';
@@ -40,55 +40,24 @@ const Page: React.FC<PageProps> = () => {
     });
 
     return (
-        <div className="fade-in flex w-full flex-1 flex-col bg-white">
+        <div className="fade-in flex w-full flex-1 flex-col rounded-t-xl ">
             {Boolean(userMeQuery.data?.id) && (
-                <>
+                <div
+                    style={{
+                        backgroundImage: `url('/assets/images/bg-1.png')`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                    }}
+                >
                     <div className="relative">
-                        <Link href={NKRouter.app.settings.index()} className="absolute left-4  top-4 h-6 w-6 rounded-lg bg-white/90 text-black">
-                            <div>
-                                <ChevronLeft strokeWidth={2} size={24} />
+                        <Link href={NKRouter.app.settings.index()} className="absolute left-4  top-4 h-6 w-6 rounded-lg  text-white">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-black">
+                                <ArrowLeft strokeWidth={2} size={24} />
                             </div>
                         </Link>
-                        <div
-                            className="h-40"
-                            style={{
-                                backgroundImage: `url(${userMeQuery.data?.banner})`,
-                                backgroundSize: 'cover',
-                                backgroundPosition: 'center',
-                            }}
-                            onClick={() => {
-                                // create a new input element
-                                const input = document.createElement('input');
-                                // set its type to file
-                                input.type = 'file';
-                                // set how many files it can accept
-                                input.accept = 'image/*';
-                                // set onchange event to call callback when user has selected file
+                        <div className="h-40"></div>
 
-                                input.onchange = async (e: any) => {
-                                    const file = e.target.files[0];
-                                    if (file) {
-                                        const url = await uploadImageMutation.mutateAsync(file);
-                                        await userMeApi.v1Put({
-                                            address: userMeQuery.data?.address ?? '',
-                                            name: userMeQuery.data?.name ?? '',
-                                            phone: userMeQuery.data?.phone ?? '',
-                                            avatar: userMeQuery.data?.avatar ?? '',
-                                            dob: moment(userMeQuery.data?.dob).format('YYYY-MM-DD'),
-                                            banner: url,
-                                            facebookUrl: '',
-                                            major: '',
-                                            studentId: '',
-                                        });
-                                        window.location.reload();
-                                    }
-                                };
-                                // click the input element to show file browser dialog
-                                input.click();
-                            }}
-                        ></div>
-
-                        <div className="absolute -bottom-1/4 left-1/2 -translate-x-1/2 rounded-full border border-indigo-700">
+                        <div className="absolute -bottom-1/4 left-1/2 -translate-x-1/2 rounded-full border-[5px] border-white">
                             <div
                                 className="relative"
                                 onClick={() => {
@@ -103,19 +72,20 @@ const Page: React.FC<PageProps> = () => {
                                     input.onchange = async (e: any) => {
                                         const file = e.target.files[0];
                                         if (file) {
-                                            const url = await uploadImageMutation.mutateAsync(file);
+                                            const fileLocation = await uploadImageMutation.mutateAsync(file);
+                                            console.log(fileLocation);
                                             await userMeApi.v1Put({
                                                 address: userMeQuery.data?.address ?? '',
                                                 name: userMeQuery.data?.name ?? '',
                                                 phone: userMeQuery.data?.phone ?? '',
-                                                avatar: url,
+                                                avatar: fileLocation,
                                                 banner: userMeQuery.data?.banner ?? '',
                                                 dob: moment(userMeQuery.data?.dob).format('YYYY-MM-DD'),
                                                 facebookUrl: '',
                                                 major: '',
                                                 studentId: '',
                                             });
-                                            window.location.reload();
+                                            userMeQuery.refetch();
                                         }
                                     };
                                     // click the input element to show file browser dialog
@@ -123,13 +93,10 @@ const Page: React.FC<PageProps> = () => {
                                 }}
                             >
                                 <img src={userMeQuery.data?.avatar} alt={userMeQuery.data?.name} className="h-20 w-20 rounded-full" />
-                                <div className="absolute bottom-1 right-1 text-xl text-indigo-700">
-                                    <BsImage />
-                                </div>
                             </div>
                         </div>
                     </div>
-                    <div className="mt-10 flex flex-col gap-2 px-4">
+                    <div className="flex flex-col gap-2 rounded-t-[50px] bg-white px-4 pt-10">
                         <NKFormWrapper<IV1UpdateProfileDto>
                             apiAction={userMeApi.v1Put}
                             defaultValues={{
@@ -158,20 +125,20 @@ const Page: React.FC<PageProps> = () => {
                                 toast.success('Cập nhật thông tin thành công');
                             }}
                         >
-                            <div className="flex flex-col gap-3">
-                                <NKTextField name="name" label="Name" placeholder="Name" theme={NKTextFieldTheme.AUTH} className="text-white" />
+                            <div className="flex flex-col gap-5">
+                                <NKTextField name="name" label="Họ và tên" placeholder="Name" theme={NKTextFieldTheme.AUTH} className="text-white" />
                                 <NKTextField
                                     name="phone"
                                     type="text"
-                                    label="Phone"
-                                    placeholder="Phone"
+                                    label="Số điện thoại"
+                                    placeholder="Số điện thoại"
                                     theme={NKTextFieldTheme.AUTH}
                                     className="text-white"
                                 />
                                 <NKTextField
                                     name="address"
-                                    label="Address"
-                                    placeholder="Address"
+                                    label="Địa chỉ"
+                                    placeholder="Địa chỉ"
                                     theme={NKTextFieldTheme.AUTH}
                                     className="text-white"
                                 />
@@ -179,15 +146,18 @@ const Page: React.FC<PageProps> = () => {
                                     <NKDateField label="Ngày sinh" name="dob" theme={'AUTH'} />
                                 </div>
 
-                                <div className="flex w-full items-center justify-center">
-                                    <button className="w-full rounded-xl bg-blue-900 px-2.5 py-3 text-sm font-semibold text-white  shadow-sm hover:bg-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-200">
-                                        Update Profile
+                                <div className=" w-full">
+                                    <button
+                                        type="submit"
+                                        className="w-full rounded-full bg-blue-600 px-2.5 py-3  font-semibold text-white  shadow-sm hover:bg-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-200"
+                                    >
+                                        CẬP NHẬT
                                     </button>
                                 </div>
                             </div>
                         </NKFormWrapper>
                     </div>
-                </>
+                </div>
             )}
         </div>
     );

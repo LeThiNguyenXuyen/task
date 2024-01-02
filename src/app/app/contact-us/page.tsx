@@ -92,7 +92,7 @@ const Page: React.FC<PageProps> = () => {
                     </div>
                     <div className="absolute  left-0 top-2 flex h-10 w-full  items-center justify-start px-4">
                         <Link href={NKRouter.app.settings.index()}>
-                            <ChevronLeft strokeWidth={2} size={24} />
+                            <ChevronLeft strokeWidth={3} size={24} />
                         </Link>
                     </div>
                 </div>
@@ -151,7 +151,7 @@ const Page: React.FC<PageProps> = () => {
                                 formMethods.reset();
                             })}
                             type="submit"
-                            className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#EADA99] text-2xl text-white"
+                            className="flex h-10 w-10 shrink-0 items-center justify-center bg-blue-600 text-2xl text-white"
                         >
                             <FiSend />
                         </button>

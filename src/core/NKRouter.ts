@@ -13,6 +13,8 @@ export const NKRouter = {
             changePassword: () => '/app/settings/change-password',
             language: () => '/app/settings/language',
             orderHistory: () => '/app/settings/order-history',
+            terms: () => '/app/settings/terms',
+            policy: () => '/app/settings/policy',
         },
         photographers: {
             index: () => '/app/photographers',
@@ -21,6 +23,7 @@ export const NKRouter = {
         contactUs: {
             index: () => '/app/contact-us',
         },
+
         premium: {
             index: () => '/app/premium',
         },

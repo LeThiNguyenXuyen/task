@@ -31,10 +31,10 @@ const Page: React.FC<PageProps> = () => {
             <div className="flex-1 p-4  ">
                 <Link href={NKRouter.app.settings.index()}>
                     <div>
-                        <ChevronLeft strokeWidth={2} size={24} />
+                        <ChevronLeft strokeWidth={3} size={24} />
                     </div>
                 </Link>
-                <div className="mb-4 mt-16 text-lg font-bold">Change Password</div>
+                <div className="mb-4 mt-16 text-lg font-bold">Đỗi Mật Khẩu</div>
                 <NKFormWrapper<ChangePasswordForm>
                     apiAction={(data) => {
                         return userMeApi.v1PutChangePassword({
@@ -54,39 +54,39 @@ const Page: React.FC<PageProps> = () => {
                     }}
                     onExtraSuccessAction={(data) => {
                         toast.success('Cập nhật thông tin thành công');
-                        window.location.reload();
                     }}
                 >
-                    <div className="flex flex-col gap-3">
+                    <div className="flex flex-col gap-5">
                         <NKTextField
                             name="password"
-                            label="Password"
+                            label="Mật khẩu cũ"
                             type="password"
-                            placeholder="Password"
+                            placeholder="Mật khẩu cũ"
                             theme={NKTextFieldTheme.AUTH}
                             className="text-white"
                         />
                         <NKTextField
                             name="newPassword"
-                            label="New Password"
+                            label="Mật khẩu mới"
                             type="password"
-                            placeholder="New Password"
+                            placeholder="Mật khẩu mới"
                             theme={NKTextFieldTheme.AUTH}
                             className="text-white"
                         />
                         <NKTextField
                             name="confirmPassword"
                             type="password"
-                            label="Confirm Password"
-                            placeholder="Confirm Password"
+                            label="Xác nhận mật khẩu"
+                            placeholder="Xác nhận mật khẩu"
                             theme={NKTextFieldTheme.AUTH}
                             className="text-white"
                         />
-                        <div className="flex w-full items-center justify-center">
-                            <button className="w-full rounded-xl bg-[#DEE1E6] px-2.5 py-3 text-sm font-semibold text-black  shadow-sm hover:bg-yellow-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-200">
-                                Update Password
-                            </button>
-                        </div>
+                        <button
+                            type="submit"
+                            className="rounded-full bg-blue-600 px-2.5 py-3  font-semibold text-white  shadow-sm hover:bg-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-200"
+                        >
+                            CẬP NHẬT
+                        </button>
                     </div>
                 </NKFormWrapper>
             </div>
