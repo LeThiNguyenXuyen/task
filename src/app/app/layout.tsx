@@ -51,12 +51,16 @@ const Layout: React.FunctionComponent<LayoutProps> = ({ children }) => {
     );
 
     if (pathName.startsWith(NKRouter.app.product.detail("")) || pathName.startsWith(NKRouter.app.settings.index()))
-        return <AuthWrapper>{children}</AuthWrapper>;
+        return (
+            <AuthWrapper>
+                <div className="flex-1 flex flex-col justify-center items-center overflow-y-scroll h-full">{children}</div>
+            </AuthWrapper>
+        );
 
     return (
         <AuthWrapper>
             <div className="h-screen flex-col flex ">
-                <div className="flex-1 flex flex-col justify-center items-center overflow-y-scroll">{children}</div>
+                <div className="flex-1 flex flex-col justify-center items-center overflow-y-scroll h-full">{children}</div>
                 <div className=" z-40 w-full items-center justify-between px-16 py-6 flex bg-white rounded-t-xl bottom-0  bottom-bar">
                     <Link
                         href={NKRouter.app.home()}

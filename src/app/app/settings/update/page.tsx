@@ -19,6 +19,7 @@ import { RootState } from "@/core/store";
 import { UserState } from "@/core/store/user";
 import { BsImage } from "react-icons/bs";
 import NKDateField from "@/core/components/form/NKDateField";
+import moment from "moment";
 
 interface PageProps {}
 
@@ -73,6 +74,7 @@ const Page: React.FC<PageProps> = () => {
                                             name: userMeQuery.data?.name ?? "",
                                             phone: userMeQuery.data?.phone ?? "",
                                             avatar: userMeQuery.data?.avatar ?? "",
+                                            dob: moment(userMeQuery.data?.dob).format("YYYY-MM-DD"),
                                             banner: url,
                                             facebookUrl: "",
                                             major: "",
@@ -108,6 +110,7 @@ const Page: React.FC<PageProps> = () => {
                                                 phone: userMeQuery.data?.phone ?? "",
                                                 avatar: url,
                                                 banner: userMeQuery.data?.banner ?? "",
+                                                dob: moment(userMeQuery.data?.dob).format("YYYY-MM-DD"),
                                                 facebookUrl: "",
                                                 major: "",
                                                 studentId: "",
@@ -138,6 +141,7 @@ const Page: React.FC<PageProps> = () => {
                                 facebookUrl: "",
                                 major: "",
                                 studentId: "",
+                                dob: moment(userMeQuery.data?.dob).format("YYYY-MM-DD"),
                             }}
                             schema={{
                                 address: joi.string().required(),
@@ -148,6 +152,7 @@ const Page: React.FC<PageProps> = () => {
                                 facebookUrl: joi.any().optional(),
                                 major: joi.any().optional(),
                                 studentId: joi.any().optional(),
+                                dob: joi.date().required(),
                             }}
                             onExtraSuccessAction={(data) => {
                                 toast.success("Cập nhật thông tin thành công");

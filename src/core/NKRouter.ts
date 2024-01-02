@@ -35,5 +35,6 @@ export const NKRouter = {
             index: () => "/app/product",
             detail: (id: string) => `/app/product/${id}`,
         },
+        cart: () => "/app/cart",
     },
 };

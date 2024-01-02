@@ -190,7 +190,7 @@ export default function Example() {
                                 </div>
 
                                 {/* Payment */}
-                                <div className="mt-10 border-t border-gray-200 pt-10">
+                                <div className="mt-2 border-t border-gray-200 pt-10">
                                     <Controller
                                         name="paymentMethod"
                                         control={formMethods.control}
@@ -201,7 +201,7 @@ export default function Example() {
                                                     Phương thức thanh toán
                                                 </RadioGroup.Label>
 
-                                                <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
+                                                <div className="mt-4 grid grid-cols-2 gap-y-6  gap-2">
                                                     {paymentMethods.map((deliveryMethod) => (
                                                         <RadioGroup.Option
                                                             key={deliveryMethod.id}
