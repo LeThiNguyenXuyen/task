@@ -20,6 +20,7 @@ import { useCart } from "@/core/contexts/CartContext";
 import AuthWrapper from "@/core/components/wrapper/AuthWrapper";
 import NKTextareaField, { NKTextareaFieldTheme } from "@/core/components/form/NKTextareaField";
 import { formatNumber } from "@/core/utils/number.helper";
+import NKDateField from "@/core/components/form/NKDateField";
 
 const deliveryMethods = [
     {
@@ -130,7 +131,7 @@ export default function Example() {
                                                     Phương thức giao hàng
                                                 </RadioGroup.Label>
 
-                                                <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
+                                                <div className="mt-4 grid grid-cols-2 gap-y-6 gap-2">
                                                     {deliveryMethods.map((deliveryMethod) => (
                                                         <RadioGroup.Option
                                                             key={deliveryMethod.id}

@@ -18,6 +18,7 @@ import NKTextField, { NKTextFieldTheme } from "@/core/components/form/NKTextFiel
 import { RootState } from "@/core/store";
 import { UserState } from "@/core/store/user";
 import { BsImage } from "react-icons/bs";
+import NKDateField from "@/core/components/form/NKDateField";
 
 interface PageProps {}
 
@@ -73,6 +74,9 @@ const Page: React.FC<PageProps> = () => {
                                             phone: userMeQuery.data?.phone ?? "",
                                             avatar: userMeQuery.data?.avatar ?? "",
                                             banner: url,
+                                            facebookUrl: "",
+                                            major: "",
+                                            studentId: "",
                                         });
                                         window.location.reload();
                                     }
@@ -104,6 +108,9 @@ const Page: React.FC<PageProps> = () => {
                                                 phone: userMeQuery.data?.phone ?? "",
                                                 avatar: url,
                                                 banner: userMeQuery.data?.banner ?? "",
+                                                facebookUrl: "",
+                                                major: "",
+                                                studentId: "",
                                             });
                                             window.location.reload();
                                         }
@@ -128,6 +135,9 @@ const Page: React.FC<PageProps> = () => {
                                 phone: userMeQuery.data?.phone ?? "",
                                 avatar: userMeQuery.data?.avatar ?? "",
                                 banner: userMeQuery.data?.banner ?? "",
+                                facebookUrl: "",
+                                major: "",
+                                studentId: "",
                             }}
                             schema={{
                                 address: joi.string().required(),
@@ -135,6 +145,9 @@ const Page: React.FC<PageProps> = () => {
                                 phone: joi.string().required(),
                                 avatar: joi.string().required(),
                                 banner: joi.string().required(),
+                                facebookUrl: joi.any().optional(),
+                                major: joi.any().optional(),
+                                studentId: joi.any().optional(),
                             }}
                             onExtraSuccessAction={(data) => {
                                 toast.success("Cập nhật thông tin thành công");
@@ -157,8 +170,12 @@ const Page: React.FC<PageProps> = () => {
                                     theme={NKTextFieldTheme.AUTH}
                                     className="text-white"
                                 />
+                                <div className="sm:col-span-2">
+                                    <NKDateField label="Ngày sinh" name="dob" theme={"AUTH"} />
+                                </div>
+
                                 <div className="flex items-center justify-center w-full">
-                                    <button className="rounded-xl w-full bg-blue-900 text-white px-2.5 py-3 text-sm font-semibold  shadow-sm hover:bg-yellow-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-200">
+                                    <button className="rounded-xl w-full bg-blue-900 text-white px-2.5 py-3 text-sm font-semibold  shadow-sm hover:bg-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-200">
                                         Update Profile
                                     </button>
                                 </div>

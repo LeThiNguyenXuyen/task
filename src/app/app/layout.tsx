@@ -50,7 +50,8 @@ const Layout: React.FunctionComponent<LayoutProps> = ({ children }) => {
         }
     );
 
-    if (pathName.startsWith(NKRouter.app.product.detail(""))) return <AuthWrapper>{children}</AuthWrapper>;
+    if (pathName.startsWith(NKRouter.app.product.detail("")) || pathName.startsWith(NKRouter.app.settings.index()))
+        return <AuthWrapper>{children}</AuthWrapper>;
 
     return (
         <AuthWrapper>
@@ -58,9 +59,9 @@ const Layout: React.FunctionComponent<LayoutProps> = ({ children }) => {
                 <div className="flex-1 flex flex-col justify-center items-center overflow-y-scroll">{children}</div>
                 <div className=" z-40 w-full items-center justify-between px-16 py-6 flex bg-white rounded-t-xl bottom-0  bottom-bar">
                     <Link
-                        href={NKRouter.app.hone()}
+                        href={NKRouter.app.home()}
                         className={clsx("", {
-                            "text-indigo-600": pathName === NKRouter.app.hone(),
+                            "text-indigo-600": pathName === NKRouter.app.home(),
                         })}
                     >
                         <Home strokeWidth={2} size={24} />
@@ -101,7 +102,7 @@ const Layout: React.FunctionComponent<LayoutProps> = ({ children }) => {
                     </Link>
                     <Link
                         className={clsx("", {
-                            "text-yellow-600": pathName.includes("settings"),
+                            "text-indigo-600": pathName.includes("settings"),
                         })}
                         href={NKRouter.app.settings.index()}
                     >

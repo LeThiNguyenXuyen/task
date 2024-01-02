@@ -6,7 +6,7 @@ export const NKRouter = {
     },
 
     app: {
-        hone: () => "/app",
+        home: () => "/app",
         settings: {
             index: () => "/app/settings",
             update: () => "/app/settings/update",
