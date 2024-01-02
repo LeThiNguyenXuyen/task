@@ -33,7 +33,7 @@ interface TaskProps {
 const Task = (props: TaskProps) => {
     const [selected, setSelected] = useState<number>(props.color.valueOf());
     return (
-        <div className="bg-[#E2E8F0] border-dashed border-2 border-[#CBD5E1] p-[12PX] flex justify-between gap-10 ">
+        <div className="flex justify-between gap-10 border-2 border-dashed border-[#CBD5E1] bg-[#E2E8F0] p-[12PX] ">
             {props.avatar ? <img src={props.avatar} /> : <div className="w-10"></div>}
             <div className="flex flex-col items-center">
                 <div className="text-[14px]">{props.title}</div>
@@ -58,14 +58,14 @@ const Task = (props: TaskProps) => {
                             </Listbox.Button>
 
                             <Transition show={open} as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
-                                <Listbox.Options className="z-10 mt-1  overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm w-32">
+                                <Listbox.Options className="z-10 mt-1  w-32 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                                     {options.map((status) => (
                                         <Listbox.Option
                                             key={status.id}
                                             className={({ active }) =>
                                                 classNames(
                                                     active ? 'bg-indigo-600 text-white' : 'text-gray-900',
-                                                    'text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9',
+                                                    'relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900',
                                                 )
                                             }
                                             value={status.id}

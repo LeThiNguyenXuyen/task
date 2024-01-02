@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import React, { use, useEffect } from "react";
+import React, { use, useEffect } from 'react';
 
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
 
-import { Bell, Gear, PaperAirplane } from "akar-icons";
-import { toast } from "react-toastify";
+import { Bell, Gear, PaperAirplane } from 'akar-icons';
+import { toast } from 'react-toastify';
 
-import { NKConstant } from "@/core/NKConstant";
-import AuthWrapper from "@/core/components/wrapper/AuthWrapper";
+import { NKConstant } from '@/core/NKConstant';
+import AuthWrapper from '@/core/components/wrapper/AuthWrapper';
 
 interface HomePageProps {}
 
@@ -20,10 +20,10 @@ const HomePage: React.FunctionComponent<HomePageProps> = () => {
     }, []);
     return (
         <AuthWrapper>
-            <div className="h-screen flex-col flex">
-                <div className="flex-1 flex flex-col justify-center items-center">
-                    <div className="flex justify-center flex-col items-center">
-                        <img className="w-20 h-20 " src="/assets/images/logo.png " alt="banner" />
+            <div className="flex h-screen flex-col">
+                <div className="flex flex-1 flex-col items-center justify-center">
+                    <div className="flex flex-col items-center justify-center">
+                        <img className="h-20 w-20 " src="/assets/images/logo.png " alt="banner" />
                     </div>
                 </div>
             </div>

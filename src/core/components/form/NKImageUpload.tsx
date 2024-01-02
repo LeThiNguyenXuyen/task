@@ -47,7 +47,7 @@ const NKImageUpload: React.FC<NKImageUploadProps> = ({ label, name, extraProps, 
     return (
         <NKFieldWrapper className={labelClassName} isShow={isShow} label={label} name={name}>
             <button
-                className="flex items-center justify-center h-20 w-20 rounded-full overflow-hidden"
+                className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-full"
                 type="button"
                 onClick={() => {
                     // create a new input element
@@ -74,7 +74,7 @@ const NKImageUpload: React.FC<NKImageUploadProps> = ({ label, name, extraProps, 
                     </>
                 ) : (
                     <>
-                        <img className="w-full h-full object-cover" src={imageUrl} alt={name} />
+                        <img className="h-full w-full object-cover" src={imageUrl} alt={name} />
                     </>
                 )}
             </button>

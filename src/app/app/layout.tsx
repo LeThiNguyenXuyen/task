@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
-import Link from "next/link";
-import { useParams, usePathname, useSearchParams } from "next/navigation";
+import Link from 'next/link';
+import { useParams, usePathname, useSearchParams } from 'next/navigation';
 
-import { useQuery } from "@tanstack/react-query";
-import { Bell, Gear, Home, PaperAirplane, ShoppingBag } from "akar-icons";
-import clsx from "clsx";
-import { useSelector } from "react-redux";
+import { useQuery } from '@tanstack/react-query';
+import { Bell, Gear, Home, PaperAirplane, ShoppingBag } from 'akar-icons';
+import clsx from 'clsx';
+import { useSelector } from 'react-redux';
 
-import { NKRouter } from "@/core/NKRouter";
-import { userMeNotificationApi } from "@/core/api/user-me-notification";
-import { userMeApi } from "@/core/api/user-me.api";
-import AuthWrapper from "@/core/components/wrapper/AuthWrapper";
-import { askForPermissionToReceiveNotifications } from "@/core/services/push-notification";
-import { RootState } from "@/core/store";
-import { UserState } from "@/core/store/user";
+import { NKRouter } from '@/core/NKRouter';
+import { userMeNotificationApi } from '@/core/api/user-me-notification';
+import { userMeApi } from '@/core/api/user-me.api';
+import AuthWrapper from '@/core/components/wrapper/AuthWrapper';
+import { askForPermissionToReceiveNotifications } from '@/core/services/push-notification';
+import { RootState } from '@/core/store';
+import { UserState } from '@/core/store/user';
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -38,7 +38,7 @@ const Layout: React.FunctionComponent<LayoutProps> = ({ children }) => {
     }, [userState.isAuth]);
 
     const countUnread = useQuery(
-        ["count-unread"],
+        ['count-unread'],
         async () => {
             const res = await userMeNotificationApi.v1GetCountUnread();
 
@@ -47,45 +47,45 @@ const Layout: React.FunctionComponent<LayoutProps> = ({ children }) => {
         {
             refetchInterval: 2000,
             initialData: 0,
-        }
+        },
     );
 
-    if (pathName.startsWith(NKRouter.app.product.detail("")) || pathName.startsWith(NKRouter.app.settings.index()))
+    if (pathName.startsWith(NKRouter.app.product.detail('')) || pathName.startsWith(NKRouter.app.settings.index()))
         return (
             <AuthWrapper>
-                <div className="flex-1 flex flex-col justify-center items-center overflow-y-scroll h-full">{children}</div>
+                <div className="flex h-full flex-1 flex-col items-center justify-center overflow-y-scroll">{children}</div>
             </AuthWrapper>
         );
 
     return (
         <AuthWrapper>
-            <div className="h-screen flex-col flex ">
-                <div className="flex-1 flex flex-col justify-center items-center overflow-y-scroll h-full">{children}</div>
-                <div className=" z-40 w-full items-center justify-between px-16 py-6 flex bg-white rounded-t-xl bottom-0  bottom-bar">
+            <div className="flex h-screen flex-col ">
+                <div className="flex h-full flex-1 flex-col items-center justify-center overflow-y-scroll">{children}</div>
+                <div className=" bottom-bar bottom-0 z-40 flex w-full items-center justify-between rounded-t-xl bg-white px-16  py-6">
                     <Link
                         href={NKRouter.app.home()}
-                        className={clsx("", {
-                            "text-indigo-600": pathName === NKRouter.app.home(),
+                        className={clsx('', {
+                            'text-indigo-600': pathName === NKRouter.app.home(),
                         })}
                     >
                         <Home strokeWidth={2} size={24} />
                     </Link>
                     <Link
                         href={NKRouter.app.chat.index()}
-                        className={clsx("", {
-                            "text-indigo-600": pathName.includes("chat"),
+                        className={clsx('', {
+                            'text-indigo-600': pathName.includes('chat'),
                         })}
                     >
                         <PaperAirplane strokeWidth={2} size={24} />
                     </Link>
                     <Link
                         href={NKRouter.app.notification.index()}
-                        className={clsx("relative", {
-                            "text-indigo-600": pathName.includes("notification"),
+                        className={clsx('relative', {
+                            'text-indigo-600': pathName.includes('notification'),
                         })}
                     >
                         {Boolean(countUnread.data) && (
-                            <div className="absolute -top-2 -right-2 w-5 h-5 text-xs flex items-center justify-center rounded-full text-white bg-red-500">
+                            <div className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
                                 {countUnread.data}
                             </div>
                         )}
@@ -93,20 +93,20 @@ const Layout: React.FunctionComponent<LayoutProps> = ({ children }) => {
                     </Link>
                     <Link
                         href={NKRouter.app.product.index()}
-                        className={clsx("relative", {
-                            "text-indigo-600": pathName.includes("product"),
+                        className={clsx('relative', {
+                            'text-indigo-600': pathName.includes('product'),
                         })}
                     >
                         {Boolean(countUnread.data) && (
-                            <div className="absolute -top-2 -right-2 w-5 h-5 text-xs flex items-center justify-center rounded-full text-white bg-red-500">
+                            <div className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
                                 {countUnread.data}
                             </div>
                         )}
                         <ShoppingBag strokeWidth={2} size={24} />
                     </Link>
                     <Link
-                        className={clsx("", {
-                            "text-indigo-600": pathName.includes("settings"),
+                        className={clsx('', {
+                            'text-indigo-600': pathName.includes('settings'),
                         })}
                         href={NKRouter.app.settings.index()}
                     >

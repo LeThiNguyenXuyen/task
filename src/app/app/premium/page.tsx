@@ -53,27 +53,27 @@ const Page: React.FC<PageProps> = () => {
     );
 
     return (
-        <div className="flex flex-1 bg-white w-full flex-col fade-in">
-            <div className={`bg-[url('/assets/images/premium-bg.png')] bg-cover py-8 px-4 relative`}>
-                <Link href={NKRouter.app.settings.index()} className="absolute text-white  top-4 left-4 w-6 h-6 rounded-lg">
+        <div className="fade-in flex w-full flex-1 flex-col bg-white">
+            <div className={`relative bg-[url('/assets/images/premium-bg.png')] bg-cover px-4 py-8`}>
+                <Link href={NKRouter.app.settings.index()} className="absolute left-4  top-4 h-6 w-6 rounded-lg text-white">
                     <div>
                         <ChevronLeft strokeWidth={2} size={24} />
                     </div>
                 </Link>
                 <div className="flex flex-col items-center text-center text-white">
-                    <img src="/assets/images/premium.png" className="w-32 h-32" />
-                    <div className="font-semibold text-xl">Well-Trans Premium</div>
+                    <img src="/assets/images/premium.png" className="h-32 w-32" />
+                    <div className="text-xl font-semibold">Well-Trans Premium</div>
                     <div className="text-sm ">Go beyond the limit, get exclusive features and support us by subscribing to Well-Trans Premium.</div>
                 </div>
             </div>
-            <div className="bg-[#382153] px-4 py-8 flex-1">
+            <div className="flex-1 bg-[#382153] px-4 py-8">
                 <img src="/assets/images/premium-content.png" className="w-full" />
-                <div className="text-sm px-4 mt-4 text-gray-300">
+                <div className="mt-4 px-4 text-sm text-gray-300">
                     By subscribing to Well-Trans Premium you agree to the Well-Trans Terms of Service and Privacy Policy.
                 </div>
             </div>
             <button
-                className="bg-[#382153] fixed bottom-0 z-50"
+                className="fixed bottom-0 z-50 bg-[#382153]"
                 onClick={() => {
                     registerMutation.mutate();
                 }}

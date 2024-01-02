@@ -1,6 +1,6 @@
-import { OrderDiscount } from "./orderDiscount";
-import { OrderItem } from "./orderItem";
-import { User } from "./user";
+import { OrderDiscount } from './orderDiscount';
+import { OrderItem } from './orderItem';
+import { User } from './user';
 
 export interface Order {
     id: string;

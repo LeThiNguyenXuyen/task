@@ -48,37 +48,39 @@ const Page: React.FC<PageProps> = () => {
 
     return (
         <div
-            className="flex flex-1 flex-col  w-full gap-4 overflow-y-auto"
+            className="flex w-full flex-1  flex-col gap-4 overflow-y-auto"
             style={{
                 height: 'calc(100vh - 4.5rem)',
             }}
         >
-            <div className="flex p-2 flex-col">
-                {notificationQuery.data.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()).map((item, index) => {
-                    return (
-                        <div
-                            className={clsx('flex-1 flex gap-4 items-start  w-full p-2 rounded-lg', {
-                                'border-b': notificationQuery.data.length - 1 !== index,
-                                'bg-gray-100': item.status === 'UNREAD',
-                            })}
-                            key={item.id}
-                        >
-                            <div className="w-12 h-12 flex-shrink-0  relative">
-                                <img className="w-full h-full rounded-full overflow-hidden" src={item.sender.avatar} alt="" />
-                                {isActiveTime(item.sender.lastActive) && (
-                                    <>
-                                        <div className="absolute z-10 bottom-0.5 right-0.5 w-3 h-3 bg-green-500 rounded-full"></div>
-                                    </>
-                                )}
+            <div className="flex flex-col p-2">
+                {notificationQuery.data
+                    .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
+                    .map((item, index) => {
+                        return (
+                            <div
+                                className={clsx('flex w-full flex-1 items-start  gap-4 rounded-lg p-2', {
+                                    'border-b': notificationQuery.data.length - 1 !== index,
+                                    'bg-gray-100': item.status === 'UNREAD',
+                                })}
+                                key={item.id}
+                            >
+                                <div className="relative h-12 w-12  flex-shrink-0">
+                                    <img className="h-full w-full overflow-hidden rounded-full" src={item.sender.avatar} alt="" />
+                                    {isActiveTime(item.sender.lastActive) && (
+                                        <>
+                                            <div className="absolute bottom-0.5 right-0.5 z-10 h-3 w-3 rounded-full bg-green-500"></div>
+                                        </>
+                                    )}
+                                </div>
+                                <div>
+                                    <div className="text-sm font-bold"> {item.title}</div>
+                                    <div className="text-sm">{item.content}</div>
+                                    <p className="text-sm text-gray-600">{HKMoment.moment(item.createdAt).fromNow()}</p>
+                                </div>
                             </div>
-                            <div>
-                                <div className="text-sm font-bold"> {item.title}</div>
-                                <div className="text-sm">{item.content}</div>
-                                <p className="text-sm text-gray-600">{HKMoment.moment(item.createdAt).fromNow()}</p>
-                            </div>
-                        </div>
-                    );
-                })}
+                        );
+                    })}
             </div>
         </div>
     );

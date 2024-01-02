@@ -1,9 +1,13 @@
-"use client";
-import { NKRouter } from "@/core/NKRouter";
-import { useCart } from "@/core/contexts/CartContext";
-import { ShoppingBag } from "akar-icons";
-import Link from "next/link";
-import * as React from "react";
+'use client';
+
+import * as React from 'react';
+
+import Link from 'next/link';
+
+import { ShoppingBag } from 'akar-icons';
+
+import { NKRouter } from '@/core/NKRouter';
+import { useCart } from '@/core/contexts/CartContext';
 
 interface LayoutProps {}
 
@@ -13,9 +17,9 @@ const Layout: React.FunctionComponent<LayoutProps & React.PropsWithChildren> = (
         <>
             {children}
             <Link className="fixed right-4 top-4 z-20" href={NKRouter.app.cart()}>
-                <div className="h-8 w-8 rounded-full bg-indigo-600 flex justify-center items-center relative">
+                <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600">
                     <ShoppingBag className="text-white" size={20} />
-                    <span className="w-4 h-4 bg-red-500 text-white flex items-center justify-center absolute -top-1 -right-1 rounded-full text-xs">
+                    <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs text-white">
                         {cart?.orderItems.length || 0}
                     </span>
                 </div>

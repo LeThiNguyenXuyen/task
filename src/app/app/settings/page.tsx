@@ -1,27 +1,27 @@
-"use client";
+'use client';
 
-import * as React from "react";
+import * as React from 'react';
 
-import Link from "next/link";
+import Link from 'next/link';
 
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { ArrowLeft, ChevronLeft, ChevronRight, Language, LockOn, Person, SignOut } from "akar-icons";
-import { AiFillStar } from "react-icons/ai";
-import { MdConnectWithoutContact } from "react-icons/md";
-import { useSelector } from "react-redux";
-import Cookies from "universal-cookie";
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { ArrowLeft, ChevronLeft, ChevronRight, Language, LockOn, Person, SignOut } from 'akar-icons';
+import { AiFillStar } from 'react-icons/ai';
+import { MdConnectWithoutContact } from 'react-icons/md';
+import { useSelector } from 'react-redux';
+import Cookies from 'universal-cookie';
 
-import { NKConstant } from "@/core/NKConstant";
-import { NKRouter } from "@/core/NKRouter";
-import { userMeApi } from "@/core/api/user-me.api";
-import { RootState, store } from "@/core/store";
-import { UserState, userActions } from "@/core/store/user";
+import { NKConstant } from '@/core/NKConstant';
+import { NKRouter } from '@/core/NKRouter';
+import { userMeApi } from '@/core/api/user-me.api';
+import { RootState, store } from '@/core/store';
+import { UserState, userActions } from '@/core/store/user';
 
 interface PageProps {}
 
 const Page: React.FC<PageProps> = () => {
     const userState = useSelector<RootState, UserState>((state) => state.user);
-    const userMeQuery = useQuery(["user-me", userState.id], () => {
+    const userMeQuery = useQuery(['user-me', userState.id], () => {
         return userMeApi.v1Get();
     });
 
@@ -36,11 +36,11 @@ const Page: React.FC<PageProps> = () => {
                 store.dispatch(userActions.resetState());
                 window.location.reload();
             },
-        }
+        },
     );
 
     return (
-        <div className="flex flex-1 bg-white w-full flex-col fade-in relative">
+        <div className="fade-in relative flex w-full flex-1 flex-col bg-white">
             {/* <div className="relative">
                 <div
                     className="h-40"
@@ -61,28 +61,28 @@ const Page: React.FC<PageProps> = () => {
                     </div>
                 </div>
             </div> */}
-            <div className="mt-3 flex flex-col px-4 gap-2">
+            <div className="mt-3 flex flex-col gap-2 px-4">
                 <Link href={NKRouter.app.home()}>
-                    <button className="h-10 w-10 rounded-full flex justify-center absolute top-4 left-4 items-center text-white flex-shrink-0 bg-gray-400">
+                    <button className="absolute left-4 top-4 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gray-400 text-white">
                         <ArrowLeft strokeWidth={1} size={24} />
                     </button>
                 </Link>
-                <h1 className="text-3xl font-semibold text-black text-center">Setting</h1>
+                <h1 className="text-center text-3xl font-semibold text-black">Setting</h1>
                 <div className=" mt-3">
-                    <Link href={NKRouter.app.settings.update()} className="py-3 flex gap-4 text-sm justify-between">
+                    <Link href={NKRouter.app.settings.update()} className="flex justify-between gap-4 py-3 text-sm">
                         <div className="flex items-center justify-center gap-4">
                             <div>Update Profile</div>
                         </div>
-                        <div className="w-5 h-5">
+                        <div className="h-5 w-5">
                             <Person strokeWidth={1} size={20} />
                         </div>
                     </Link>
 
-                    <Link href={NKRouter.app.settings.changePassword()} className="py-3  flex gap-4 text-sm justify-between">
+                    <Link href={NKRouter.app.settings.changePassword()} className="flex  justify-between gap-4 py-3 text-sm">
                         <div className="flex items-center justify-center gap-4">
                             <div>Change Password</div>
                         </div>
-                        <div className="w-5 h-5">
+                        <div className="h-5 w-5">
                             <LockOn strokeWidth={1} size={20} />
                         </div>
                     </Link>
@@ -101,10 +101,10 @@ const Page: React.FC<PageProps> = () => {
                     </Link>
                 </div> */}
                 <div className="mt-4">
-                    <h3 className="text-xs text-gray-300 font-semibold">Information</h3>
+                    <h3 className="text-xs font-semibold text-gray-300">Information</h3>
                 </div>
                 <div className="">
-                    <Link href={NKRouter.app.contactUs.index()} className=" py-3 flex gap-4 text-sm justify-between">
+                    <Link href={NKRouter.app.contactUs.index()} className=" flex justify-between gap-4 py-3 text-sm">
                         <div className="flex items-center justify-center gap-4">
                             <div>Contacts</div>
                         </div>
@@ -117,7 +117,7 @@ const Page: React.FC<PageProps> = () => {
                     onClick={() => {
                         logoutMutation.mutate();
                     }}
-                    className="bg-indigo-600 text-white flex items-center justify-center rounded-md py-2 gap-2 text-sm mt-4"
+                    className="mt-4 flex items-center justify-center gap-2 rounded-md bg-indigo-600 py-2 text-sm text-white"
                 >
                     <SignOut strokeWidth={2} size={20} />
                     <div>Logout</div>

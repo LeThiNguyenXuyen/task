@@ -1,14 +1,14 @@
-import * as React from "react";
+import * as React from 'react';
 
-import clsx from "clsx";
-import { Controller, useFormContext } from "react-hook-form";
+import clsx from 'clsx';
+import { Controller, useFormContext } from 'react-hook-form';
 
-import NKFieldWrapper from "./NKFieldWrapper";
+import NKFieldWrapper from './NKFieldWrapper';
 
 export enum NKTextareaFieldTheme {
-    DEFAULT = "DEFAULT",
-    AUTH = "AUTH",
-    TAILWIND = "TAILWIND",
+    DEFAULT = 'DEFAULT',
+    AUTH = 'AUTH',
+    TAILWIND = 'TAILWIND',
 }
 
 interface NKTextareaFieldProps extends React.InputHTMLAttributes<HTMLTextAreaElement> {
@@ -40,9 +40,9 @@ const NKTextareaField: React.FC<NKTextareaFieldProps> = ({
                 render={({ field }) => (
                     <div
                         className={clsx([], {
-                            "border border-white rounded-full flex items-center gap-2 overflow-hidden": theme === NKTextareaFieldTheme.AUTH,
-                            "border border-white rounded-lg  flex items-center gap-2 overflow-hidden": theme === NKTextareaFieldTheme.DEFAULT,
-                            "block w-full  border bg-white border-gray-300 shadow-sm sm:text-sm rounded-md": theme === NKTextareaFieldTheme.TAILWIND,
+                            'flex items-center gap-2 overflow-hidden rounded-full border border-white': theme === NKTextareaFieldTheme.AUTH,
+                            'flex items-center gap-2  overflow-hidden rounded-lg border border-white': theme === NKTextareaFieldTheme.DEFAULT,
+                            'block w-full  rounded-md border border-gray-300 bg-white shadow-sm sm:text-sm': theme === NKTextareaFieldTheme.TAILWIND,
                         })}
                     >
                         {icon}
@@ -50,9 +50,9 @@ const NKTextareaField: React.FC<NKTextareaFieldProps> = ({
                             {...field}
                             {...rest}
                             className={clsx([
-                                "w-full placeholder:text-gray-700 py-2 px-4 focus:outline-none bg-transparent outline-none",
+                                'w-full bg-transparent px-4 py-2 outline-none placeholder:text-gray-700 focus:outline-none',
                                 {
-                                    "focus:border-[#B97953] focus:ring-[#B97953] rounded-md": theme === NKTextareaFieldTheme.TAILWIND,
+                                    'rounded-md focus:border-[#B97953] focus:ring-[#B97953]': theme === NKTextareaFieldTheme.TAILWIND,
                                 },
                             ])}
                         ></textarea>

@@ -1,23 +1,24 @@
-import * as React from "react";
+import * as React from 'react';
 
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { useSelector } from "react-redux";
-import { uploadFileApi } from "../api/upload-file.api";
-import { userMeChatApi } from "../api/user-me-chat.api";
-import { User } from "../models/user";
-import { RootState } from "../store";
-import { UserState } from "../store/user";
-import { isActiveTime } from "../utils/data.helper";
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useSelector } from 'react-redux';
+
+import { uploadFileApi } from '../api/upload-file.api';
+import { userMeChatApi } from '../api/user-me-chat.api';
+import { User } from '../models/user';
+import { RootState } from '../store';
+import { UserState } from '../store/user';
+import { isActiveTime } from '../utils/data.helper';
 
 export const useChat = (chatId: string) => {
     const userState = useSelector<RootState, UserState>((state) => state.user);
     const [chatUser, setChatUser] = React.useState<User>();
-    const [lastMessageId, setLastMessageId] = React.useState<string>("");
-    const [lastMessageScrollId, setLastMessageScrollId] = React.useState<string>("");
+    const [lastMessageId, setLastMessageId] = React.useState<string>('');
+    const [lastMessageScrollId, setLastMessageScrollId] = React.useState<string>('');
     const chatContainerRef = React.useRef<HTMLDivElement>(null);
 
     const chat = useQuery(
-        ["chat", chatId],
+        ['chat', chatId],
         async () => {
             const res = await userMeChatApi.v1GetById(chatId);
             const chatUser = res.users.filter((u) => u.id !== userState.id)[0];
@@ -38,7 +39,7 @@ export const useChat = (chatId: string) => {
                 if (!data.chatMessages.length) return;
                 setLastMessageId(data.chatMessages[data.chatMessages.length - 1].id);
             },
-        }
+        },
     );
 
     React.useEffect(() => {
@@ -53,7 +54,7 @@ export const useChat = (chatId: string) => {
     const scrollToBottom = () => {
         chatContainerRef.current?.scrollTo({
             top: chatContainerRef.current?.scrollHeight,
-            behavior: "smooth",
+            behavior: 'smooth',
         });
     };
 
@@ -61,7 +62,7 @@ export const useChat = (chatId: string) => {
         (message: string) => {
             return userMeChatApi.v1CreateMessage(chatId, {
                 content: message,
-                type: "TEXT",
+                type: 'TEXT',
             });
         },
         {
@@ -71,14 +72,14 @@ export const useChat = (chatId: string) => {
                     scrollToBottom();
                 }, 1000);
             },
-        }
+        },
     );
 
     const sendStickerMessageMutation = useMutation(
         async (image: string) => {
             return userMeChatApi.v1CreateMessage(chatId, {
                 content: image,
-                type: "IMAGE",
+                type: 'IMAGE',
             });
         },
         {
@@ -88,7 +89,7 @@ export const useChat = (chatId: string) => {
                     scrollToBottom();
                 }, 1000);
             },
-        }
+        },
     );
 
     const sendImageMessageMutation = useMutation(
@@ -97,7 +98,7 @@ export const useChat = (chatId: string) => {
 
             return userMeChatApi.v1CreateMessage(chatId, {
                 content: res,
-                type: "IMAGE",
+                type: 'IMAGE',
             });
         },
         {
@@ -107,7 +108,7 @@ export const useChat = (chatId: string) => {
                     scrollToBottom();
                 }, 1000);
             },
-        }
+        },
     );
 
     const leaveGroupChatMutation = useMutation(async () => {
@@ -132,7 +133,7 @@ export const useChat = (chatId: string) => {
             onSuccess: (data) => {
                 chat.refetch();
             },
-        }
+        },
     );
 
     return {

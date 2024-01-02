@@ -1,6 +1,8 @@
-"use client";
-import { ChatContextProvider } from "@/core/contexts/useChatContext";
-import * as React from "react";
+'use client';
+
+import * as React from 'react';
+
+import { ChatContextProvider } from '@/core/contexts/useChatContext';
 
 interface LayoutProps {}
 

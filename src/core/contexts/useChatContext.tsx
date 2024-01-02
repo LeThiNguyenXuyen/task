@@ -1,13 +1,15 @@
-import * as React from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
-import { UserState } from "../store/user";
-import { User } from "../models/user";
-import { UseMutationResult, useMutation, useQuery, UseQueryResult } from "@tanstack/react-query";
-import { userMeChatApi } from "../api/user-me-chat.api";
-import { isActiveTime } from "../utils/data.helper";
-import { uploadFileApi } from "../api/upload-file.api";
-import { Chat } from "../models/chat";
+import * as React from 'react';
+
+import { UseMutationResult, UseQueryResult, useMutation, useQuery } from '@tanstack/react-query';
+import { useSelector } from 'react-redux';
+
+import { uploadFileApi } from '../api/upload-file.api';
+import { userMeChatApi } from '../api/user-me-chat.api';
+import { Chat } from '../models/chat';
+import { User } from '../models/user';
+import { RootState } from '../store';
+import { UserState } from '../store/user';
+import { isActiveTime } from '../utils/data.helper';
 
 interface IChatContext {
     chat?: UseQueryResult<Chat, unknown>;
@@ -24,7 +26,7 @@ interface IChatContext {
 }
 
 const ChatContext = React.createContext<IChatContext>({
-    chatId: "",
+    chatId: '',
     chatUser: undefined,
     chatContainerRef: null,
     sendMessageMutation: undefined as unknown as UseMutationResult<any, unknown, string, unknown>,
@@ -39,16 +41,16 @@ const ChatContext = React.createContext<IChatContext>({
 interface ChatContextProviderProps {}
 
 export const ChatContextProvider: React.FunctionComponent<ChatContextProviderProps & React.PropsWithChildren> = ({ children }) => {
-    const [chatId, setChatId] = React.useState<string>("");
+    const [chatId, setChatId] = React.useState<string>('');
     const userState = useSelector<RootState, UserState>((state) => state.user);
     const [chatUser, setChatUser] = React.useState<User>();
-    const [lastMessageId, setLastMessageId] = React.useState<string>("");
-    const [lastMessageScrollId, setLastMessageScrollId] = React.useState<string>("");
+    const [lastMessageId, setLastMessageId] = React.useState<string>('');
+    const [lastMessageScrollId, setLastMessageScrollId] = React.useState<string>('');
     const chatContainerRef = React.useRef<HTMLDivElement>(null);
     const [isActive, setIsActive] = React.useState<boolean>(false);
 
     const chat = useQuery(
-        ["chat", chatId],
+        ['chat', chatId],
         async () => {
             const res = await userMeChatApi.v1GetById(chatId);
             const chatUser = res.users.filter((u) => u.id !== userState.id)[0];
@@ -71,7 +73,7 @@ export const ChatContextProvider: React.FunctionComponent<ChatContextProviderPro
                 if (!data.chatMessages.length) return;
                 setLastMessageId(data.chatMessages[data.chatMessages.length - 1].id);
             },
-        }
+        },
     );
 
     React.useEffect(() => {
@@ -86,7 +88,7 @@ export const ChatContextProvider: React.FunctionComponent<ChatContextProviderPro
     const scrollToBottom = () => {
         chatContainerRef.current?.scrollTo({
             top: chatContainerRef.current?.scrollHeight,
-            behavior: "smooth",
+            behavior: 'smooth',
         });
     };
 
@@ -94,7 +96,7 @@ export const ChatContextProvider: React.FunctionComponent<ChatContextProviderPro
         (message: string) => {
             return userMeChatApi.v1CreateMessage(chatId, {
                 content: message,
-                type: "TEXT",
+                type: 'TEXT',
             });
         },
         {
@@ -104,14 +106,14 @@ export const ChatContextProvider: React.FunctionComponent<ChatContextProviderPro
                     scrollToBottom();
                 }, 1000);
             },
-        }
+        },
     );
 
     const sendStickerMessageMutation = useMutation(
         async (image: string) => {
             return userMeChatApi.v1CreateMessage(chatId, {
                 content: image,
-                type: "IMAGE",
+                type: 'IMAGE',
             });
         },
         {
@@ -121,7 +123,7 @@ export const ChatContextProvider: React.FunctionComponent<ChatContextProviderPro
                     scrollToBottom();
                 }, 1000);
             },
-        }
+        },
     );
 
     const sendImageMessageMutation = useMutation(
@@ -130,7 +132,7 @@ export const ChatContextProvider: React.FunctionComponent<ChatContextProviderPro
 
             return userMeChatApi.v1CreateMessage(chatId, {
                 content: res,
-                type: "IMAGE",
+                type: 'IMAGE',
             });
         },
         {
@@ -140,7 +142,7 @@ export const ChatContextProvider: React.FunctionComponent<ChatContextProviderPro
                     scrollToBottom();
                 }, 1000);
             },
-        }
+        },
     );
 
     const leaveGroupChatMutation = useMutation(async () => {
@@ -165,7 +167,7 @@ export const ChatContextProvider: React.FunctionComponent<ChatContextProviderPro
             onSuccess: (data) => {
                 chat.refetch();
             },
-        }
+        },
     );
 
     return (

@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const withPWA = require("next-pwa");
+const withPWA = require('next-pwa');
 const settings = {
     env: {},
     devIndicators: {
@@ -8,10 +8,10 @@ const settings = {
 };
 
 module.exports =
-    process.env.NODE_ENV === "development"
+    process.env.NODE_ENV === 'development'
         ? settings
         : withPWA({
-              dest: "public",
+              dest: 'public',
               register: true,
               skipWaiting: true,
           });

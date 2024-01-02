@@ -27,14 +27,14 @@ interface ChangePasswordForm extends IV1ChangePasswordDto {
 
 const Page: React.FC<PageProps> = () => {
     return (
-        <div className="flex flex-1 bg-white w-full flex-col fade-in">
+        <div className="fade-in flex w-full flex-1 flex-col bg-white">
             <div className="flex-1 p-4  ">
                 <Link href={NKRouter.app.settings.index()}>
                     <div>
                         <ChevronLeft strokeWidth={2} size={24} />
                     </div>
                 </Link>
-                <div className="text-lg mb-4 font-bold mt-16">Change Password</div>
+                <div className="mb-4 mt-16 text-lg font-bold">Change Password</div>
                 <NKFormWrapper<ChangePasswordForm>
                     apiAction={(data) => {
                         return userMeApi.v1PutChangePassword({
@@ -82,8 +82,8 @@ const Page: React.FC<PageProps> = () => {
                             theme={NKTextFieldTheme.AUTH}
                             className="text-white"
                         />
-                        <div className="flex items-center justify-center w-full">
-                            <button className="rounded-xl w-full text-black bg-[#DEE1E6] px-2.5 py-3 text-sm font-semibold  shadow-sm hover:bg-yellow-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-200">
+                        <div className="flex w-full items-center justify-center">
+                            <button className="w-full rounded-xl bg-[#DEE1E6] px-2.5 py-3 text-sm font-semibold text-black  shadow-sm hover:bg-yellow-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-200">
                                 Update Password
                             </button>
                         </div>

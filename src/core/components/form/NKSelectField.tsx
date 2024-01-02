@@ -41,12 +41,12 @@ const NKSelectField: React.FunctionComponent<NKSelectFieldProps> = ({
                 render={({ field }) => (
                     <div
                         className={clsx([], {
-                            'block w-full rounded-xl  py-3 text-gray-900 shadow-sm focus:outline-none bg-[#F3F4F6] placeholder:text-gray-400  sm:text-sm sm:leading-6 px-4':
+                            'block w-full rounded-xl  bg-[#F3F4F6] px-4 py-3 text-gray-900 shadow-sm placeholder:text-gray-400  focus:outline-none sm:text-sm sm:leading-6':
                                 theme === NKTextFieldTheme.AUTH,
                         })}
                     >
                         {icon}
-                        <select {...field} {...rest} className={clsx(['w-full focus:outline-none bg-inherit'])}>
+                        <select {...field} {...rest} className={clsx(['w-full bg-inherit focus:outline-none'])}>
                             {options.map((option, index) => (
                                 <option key={option.value} value={option.value}>
                                     {option.label}

@@ -51,12 +51,12 @@ const Page: React.FC<PageProps> = () => {
     });
 
     return (
-        <div className="flex justify-center items-center flex-col h-[calc(100vh-4.5rem)]">
+        <div className="flex h-[calc(100vh-4.5rem)] flex-col items-center justify-center">
             <>
-                <div className="text-title font-bold text-black text-lg text-center">FORGOT PASSWORD</div>
+                <div className="text-title text-center text-lg font-bold text-black">FORGOT PASSWORD</div>
                 <div className="w-[300px]">
                     {isShowSubmit ? (
-                        <div className="max-w-2xl flex mx-auto mt-8 gap-4 flex-col fade-in">
+                        <div className="fade-in mx-auto mt-8 flex max-w-2xl flex-col gap-4">
                             <NKFormWrapper<ForgotPasswordUpdateForm>
                                 key="forgot-password-update"
                                 apiAction={(data) => {
@@ -110,13 +110,13 @@ const Page: React.FC<PageProps> = () => {
 
                                     <button
                                         type="submit"
-                                        className="rounded-xl text-black bg-[#DEE1E6] px-2.5 py-3 text-sm font-semibold  shadow-sm hover:bg-yellow-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-200"
+                                        className="rounded-xl bg-[#DEE1E6] px-2.5 py-3 text-sm font-semibold text-black  shadow-sm hover:bg-yellow-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-200"
                                     >
                                         Update Password
                                     </button>
                                     <button
                                         type="submit"
-                                        className="rounded-xl text-black bg-[#DEE1E6] px-2.5 py-3 text-sm font-semibold  shadow-sm hover:bg-yellow-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-200"
+                                        className="rounded-xl bg-[#DEE1E6] px-2.5 py-3 text-sm font-semibold text-black  shadow-sm hover:bg-yellow-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-200"
                                         onClick={() => {
                                             if (countDownMethods.isFinished) {
                                                 resendEmailMutation.mutate();
@@ -128,7 +128,7 @@ const Page: React.FC<PageProps> = () => {
                                     </button>
                                 </div>
                             </NKFormWrapper>
-                            <div className="text-center flex items-center justify-center gap-1">
+                            <div className="flex items-center justify-center gap-1 text-center">
                                 <button
                                     onClick={() => {
                                         setIsShowSubmit(false);
@@ -139,7 +139,7 @@ const Page: React.FC<PageProps> = () => {
                             </div>
                         </div>
                     ) : (
-                        <div className="max-w-2xl flex mx-auto mt-8 gap-4 flex-col">
+                        <div className="mx-auto mt-8 flex max-w-2xl flex-col gap-4">
                             <NKFormWrapper<IV1CreateResetPasswordDto>
                                 key="forgot-password"
                                 apiAction={async (dto) => {
@@ -179,13 +179,13 @@ const Page: React.FC<PageProps> = () => {
 
                                     <button
                                         type="submit"
-                                        className="rounded-xl text-black bg-[#DEE1E6] px-2.5 py-3 text-sm font-semibold  shadow-sm hover:bg-yellow-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-200"
+                                        className="rounded-xl bg-[#DEE1E6] px-2.5 py-3 text-sm font-semibold text-black  shadow-sm hover:bg-yellow-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-200"
                                     >
                                         Send to Email
                                     </button>
                                 </div>
                             </NKFormWrapper>
-                            <div className="text-center flex items-center justify-center gap-1">
+                            <div className="flex items-center justify-center gap-1 text-center">
                                 <div>Go Back? </div>
                                 <Link href={NKRouter.auth.login()}>
                                     <div className="font-semibold text-yellow-500 hover:text-yellow-500">Log In</div>

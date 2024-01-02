@@ -7,7 +7,7 @@ interface RatingStarProps {
 const StartIcon = ({ fill = false }: { fill?: boolean }) => {
     return (
         <svg
-            className={`w-4 h-4 ${fill ? 'text-yellow-300' : 'text-gray-500'}`}
+            className={`h-4 w-4 ${fill ? 'text-yellow-300' : 'text-gray-500'}`}
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"

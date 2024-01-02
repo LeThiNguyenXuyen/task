@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import * as React from "react";
+import * as React from 'react';
 
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter } from 'next/navigation';
 
-import { Transition } from "@headlessui/react";
-import { useQuery } from "@tanstack/react-query";
-import { useSelector } from "react-redux";
-import Cookies from "universal-cookie";
+import { Transition } from '@headlessui/react';
+import { useQuery } from '@tanstack/react-query';
+import { useSelector } from 'react-redux';
+import Cookies from 'universal-cookie';
 
-import { NKConstant } from "@/core/NKConstant";
-import { userMeSubscriptionApi } from "@/core/api/user-me-subscription.api";
-import { RootState, store } from "@/core/store";
-import { UserState, userActions } from "@/core/store/user";
+import { NKConstant } from '@/core/NKConstant';
+import { userMeSubscriptionApi } from '@/core/api/user-me-subscription.api';
+import { RootState, store } from '@/core/store';
+import { UserState, userActions } from '@/core/store/user';
 
 interface AuthWrapperProps {
     children: React.ReactNode;
@@ -23,7 +23,7 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
     const router = useRouter();
     const pathName = usePathname();
     const [isShowVideo, setIsShowVideo] = React.useState(false);
-    const [ads, setAds] = React.useState("https://cdn.shopify.com/videos/c/o/v/87be856eb83142f19ed3dcca8b589401.mp4");
+    const [ads, setAds] = React.useState('https://cdn.shopify.com/videos/c/o/v/87be856eb83142f19ed3dcca8b589401.mp4');
 
     React.useEffect(() => {
         if (isAuth && pathName === NKConstant.AUTH_FAILED_FALLBACK_ROUTE) {
@@ -36,7 +36,7 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
     }, [isAuth, pathName, isLogin]);
 
     const userSubscription = useQuery(
-        ["subscription", "me"],
+        ['subscription', 'me'],
         () => {
             return userMeSubscriptionApi.v1Get();
         },
@@ -44,23 +44,23 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
             refetchOnReconnect: false,
             refetchOnWindowFocus: false,
             onSuccess: (data: any) => {
-                const isAds = localStorage.getItem("isAds") ?? "1";
-                if (isAds === "1" && !data.id) {
+                const isAds = localStorage.getItem('isAds') ?? '1';
+                if (isAds === '1' && !data.id) {
                     //random 1 to 3 ads
                     const random = Math.floor(Math.random() * 3) + 1;
                     if (random === 1) {
-                        setAds("https://cdn.shopify.com/videos/c/o/v/87be856eb83142f19ed3dcca8b589401.mp4");
+                        setAds('https://cdn.shopify.com/videos/c/o/v/87be856eb83142f19ed3dcca8b589401.mp4');
                     } else if (random === 2) {
-                        setAds("/ad1.mp4");
+                        setAds('/ad1.mp4');
                     } else {
-                        setAds("/ad2.mp4");
+                        setAds('/ad2.mp4');
                     }
 
                     setIsShowVideo(true);
                 }
-                localStorage.setItem("isAds", "0");
+                localStorage.setItem('isAds', '0');
             },
-        }
+        },
     );
 
     return (

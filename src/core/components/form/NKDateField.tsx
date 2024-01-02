@@ -1,11 +1,11 @@
-import * as React from "react";
+import * as React from 'react';
 
-import clsx from "clsx";
-import { Controller, useFormContext } from "react-hook-form";
+import clsx from 'clsx';
+import { Controller, useFormContext } from 'react-hook-form';
 
-import NKFieldWrapper from "./NKFieldWrapper";
+import NKFieldWrapper from './NKFieldWrapper';
 
-export type NKDateFieldTheme = "DEFAULT" | "AUTH";
+export type NKDateFieldTheme = 'DEFAULT' | 'AUTH';
 
 interface NKDateFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
     name: string;
@@ -17,7 +17,7 @@ interface NKDateFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
     icon?: React.ReactNode;
 }
 
-const NKDateField: React.FC<NKDateFieldProps> = ({ name, isShow = true, label, labelClassName, theme = "DEFAULT", icon, ...rest }) => {
+const NKDateField: React.FC<NKDateFieldProps> = ({ name, isShow = true, label, labelClassName, theme = 'DEFAULT', icon, ...rest }) => {
     const formMethods = useFormContext();
 
     return (
@@ -28,7 +28,7 @@ const NKDateField: React.FC<NKDateFieldProps> = ({ name, isShow = true, label, l
                 render={({ field }) => (
                     <div
                         className={clsx([], {
-                            "": theme === "AUTH",
+                            '': theme === 'AUTH',
                         })}
                     >
                         {icon}
@@ -36,9 +36,9 @@ const NKDateField: React.FC<NKDateFieldProps> = ({ name, isShow = true, label, l
                             {...field}
                             {...rest}
                             type="date"
-                            className={clsx(["w-full focus:outline-none"], {
-                                "block w-full rounded-xl border border-gray-100  py-3 text-gray-900 shadow-sm focus:outline-none bg-[#F3F4F6] placeholder:text-gray-400  sm:text-sm text-sm sm:leading-6 px-4":
-                                    theme === "AUTH",
+                            className={clsx(['w-full focus:outline-none'], {
+                                'block w-full rounded-xl border border-gray-100  bg-[#F3F4F6] px-4 py-3 text-sm text-gray-900 shadow-sm  placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6':
+                                    theme === 'AUTH',
                             })}
                         />
                     </div>

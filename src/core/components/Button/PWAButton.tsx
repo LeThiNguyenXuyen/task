@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { usePWAInstall } from "react-use-pwa-install";
+import React, { useEffect, useState } from 'react';
+
+import { usePWAInstall } from 'react-use-pwa-install';
 
 function PWAButton() {
     const install = usePWAInstall();

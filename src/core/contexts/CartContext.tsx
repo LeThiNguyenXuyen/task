@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import * as React from "react";
+import * as React from 'react';
 
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
 
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
-import { NKConstant } from "../NKConstant";
-import { AddToCartIV1Post, userMeOrderApi } from "../api/user-me-order.api";
-import { Order } from "../models/order";
-import { RootState } from "../store";
-import { UserState } from "../store/user";
+import { NKConstant } from '../NKConstant';
+import { AddToCartIV1Post, userMeOrderApi } from '../api/user-me-order.api';
+import { Order } from '../models/order';
+import { RootState } from '../store';
+import { UserState } from '../store/user';
 
 export enum CartActionType {
-    ADD_TO_CART = "ADD_TO_CART",
-    REMOVE_FROM_CART = "REMOVE_FROM_CART",
+    ADD_TO_CART = 'ADD_TO_CART',
+    REMOVE_FROM_CART = 'REMOVE_FROM_CART',
 }
 
 export interface AddToCartAction extends AddToCartIV1Post {
@@ -45,19 +45,19 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     const router = useRouter();
 
     const cartQuery = useQuery(
-        ["cart", id],
+        ['cart', id],
         () => {
             return userMeOrderApi.v1GetPrice();
         },
         {
             enabled: !!id,
-        }
+        },
     );
 
     const addToCartMutation = useMutation(
         (dto: AddToCartAction) => {
             if (!isAuth) {
-                toast.error("Bạn cần đăng nhập để thực hiện chức năng này");
+                toast.error('Bạn cần đăng nhập để thực hiện chức năng này');
                 router.push(NKConstant.AUTH_FAILED_FALLBACK_ROUTE);
             }
 
@@ -77,7 +77,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
             onSuccess: () => {
                 cartQuery.refetch();
             },
-        }
+        },
     );
 
     const handleRemoveFromCart = async (productVariantId: string) => {

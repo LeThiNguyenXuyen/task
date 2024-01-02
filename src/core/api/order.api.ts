@@ -1,13 +1,13 @@
-import { EnumListItem, IPagingDto, ResponseList } from "../models/common";
-import { Order } from "../models/order";
-import http from "./http";
+import { EnumListItem, IPagingDto, ResponseList } from '../models/common';
+import { Order } from '../models/order';
+import http from './http';
 
 export interface OrderIV1Get extends IPagingDto {}
-export interface UpdateOrderIV1Put extends Pick<Order, "note" | "name" | "address" | "phone"> {}
+export interface UpdateOrderIV1Put extends Pick<Order, 'note' | 'name' | 'address' | 'phone'> {}
 
 export const orderApi = {
     v1Get: async (dto: OrderIV1Get) => {
-        const url = "/v1/order";
+        const url = '/v1/order';
         const res = await http.get<ResponseList<Order>>(url, { params: { ...dto } });
         return res.data;
     },
@@ -32,7 +32,7 @@ export const orderApi = {
         return res.data;
     },
     v1GetAll: async () => {
-        const url = "/v1/order/all";
+        const url = '/v1/order/all';
         const res = await http.get<Order[]>(url);
         return res.data;
     },
@@ -42,12 +42,12 @@ export const orderApi = {
         return res.data;
     },
     v1GetEnumType: async () => {
-        const url = "/v1/order/enum-options/type";
+        const url = '/v1/order/enum-options/type';
         const res = await http.get<EnumListItem[]>(url);
         return res.data;
     },
     v1GetEnumStatus: async () => {
-        const url = "/v1/order/enum-options/status";
+        const url = '/v1/order/enum-options/status';
         const res = await http.get<EnumListItem[]>(url);
         return res.data;
     },

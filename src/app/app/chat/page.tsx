@@ -80,15 +80,15 @@ const Page: React.FC<PageProps> = () => {
 
     return (
         <div
-            className="flex flex-1 flex-col  w-full gap-4 overflow-y-auto"
+            className="flex w-full flex-1  flex-col gap-4 overflow-y-auto"
             style={{
                 height: 'calc(100vh - 4.5rem)',
             }}
         >
-            <div className="flex h-16 p-3 bg-gray-100 border-b border-gray-500 w-full">
+            <div className="flex h-16 w-full border-b border-gray-500 bg-gray-100 p-3">
                 <input
                     placeholder="Tìm kiếm"
-                    className="w-full h-full border-black border rounded-full px-4 py-1 text-black"
+                    className="h-full w-full rounded-full border border-black px-4 py-1 text-black"
                     {...searchMethods.register('search')}
                 />
             </div>
@@ -106,24 +106,24 @@ const Page: React.FC<PageProps> = () => {
                                 <Link
                                     href={NKRouter.app.chat.detail(chat.id)}
                                     key={`${chat.id}-chat`}
-                                    className={clsx('flex-1 flex gap-4 items-center  w-full py-2', {
+                                    className={clsx('flex w-full flex-1 items-center  gap-4 py-2', {
                                         'border-b': userQuery.data.length - 1 !== index,
                                     })}
                                 >
-                                    <div className="w-16 h-16 flex-shrink-0  relative">
+                                    <div className="relative h-16 w-16  flex-shrink-0">
                                         <img
-                                            className="w-full h-full rounded-full overflow-hidden"
+                                            className="h-full w-full overflow-hidden rounded-full"
                                             src={chat.isGroup ? chat.banner : chat.users.filter((u) => u.id !== userState.id)[0]?.avatar}
                                             alt=""
                                         />
                                         {isActive && (
                                             <>
-                                                <div className="absolute z-10 bottom-0.5 right-0.5 w-3 h-3 bg-green-500 rounded-full"></div>
+                                                <div className="absolute bottom-0.5 right-0.5 z-10 h-3 w-3 rounded-full bg-green-500"></div>
                                             </>
                                         )}
                                     </div>
                                     <div className="flex flex-col justify-center  text-left">
-                                        <div className="font-semibold text-lg line-clamp-1">{chat.isGroup ? chat.name : otherUser.name}</div>
+                                        <div className="line-clamp-1 text-lg font-semibold">{chat.isGroup ? chat.name : otherUser.name}</div>
                                         <div className="text-xs">{HKMoment.moment(chat?.lastActivity).fromNow()}</div>
                                     </div>
                                 </Link>
@@ -142,16 +142,16 @@ const Page: React.FC<PageProps> = () => {
                                             userId: user.id,
                                         });
                                     }}
-                                    className={clsx('flex-1 flex gap-4 items-center  w-full py-2', {
+                                    className={clsx('flex w-full flex-1 items-center  gap-4 py-2', {
                                         'border-b': userQuery.data.length - 1 !== index,
                                     })}
                                     key={`${user.id}-search`}
                                 >
-                                    <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
-                                        <img className="w-full h-full" src={user.avatar} alt="" />
+                                    <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-full">
+                                        <img className="h-full w-full" src={user.avatar} alt="" />
                                     </div>
                                     <div className="flex flex-col justify-center  text-left">
-                                        <div className="font-semibold text-lg"> {user.name}</div>
+                                        <div className="text-lg font-semibold"> {user.name}</div>
                                         <div className="text-xs">{HKMoment.moment(user.createdAt).format('DD/MM/YYYY')}</div>
                                     </div>
                                 </button>

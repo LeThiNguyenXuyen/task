@@ -7,9 +7,9 @@ export function uppercaseFirstLetter(str: string) {
 
 export function capitalizeString(str: string) {
     return str
-        .split(" ")
+        .split(' ')
         .map((item) => item.charAt(0).toUpperCase() + item.slice(1).toLowerCase())
-        .join(" ");
+        .join(' ');
 }
 
 export function splitString(str: string, separator: string) {
@@ -24,7 +24,7 @@ export function concatString(value: any, separator: string) {
     try {
         return value.join(separator);
     } catch (error) {
-        return "";
+        return '';
     }
 }
 
@@ -33,9 +33,9 @@ export const formatMoney = (data: number | string, isRound = false) => {
         data = Math.round(Number(data) / 1) * 1;
     }
 
-    return Number(data).toLocaleString("it-IT", {
-        style: "currency",
-        currency: "USD",
+    return Number(data).toLocaleString('it-IT', {
+        style: 'currency',
+        currency: 'USD',
     });
 };
 
@@ -44,9 +44,9 @@ export const formatMoneyVND = (data: number | string, isRound = false) => {
         data = Math.round(Number(data) / 1) * 1;
     }
 
-    return Number(data).toLocaleString("it-IT", {
-        style: "currency",
-        currency: "VND",
+    return Number(data).toLocaleString('it-IT', {
+        style: 'currency',
+        currency: 'VND',
     });
 };
 
@@ -73,12 +73,12 @@ export const formatTime = (data: number) => {
 
 export const formatAddress = (data: string) => {
     data = data
-        .replace(/Thành phố/g, "TP")
-        .replace(/,\s*Việt\sNam$|,\s*$/g, "")
-        .replace(/\d{5,6}$/g, "")
-        .replace(/^\w,\s*/g, "")
+        .replace(/Thành phố/g, 'TP')
+        .replace(/,\s*Việt\sNam$|,\s*$/g, '')
+        .replace(/\d{5,6}$/g, '')
+        .replace(/^\w,\s*/g, '')
         .trim()
-        .replace(/,$/, "")
+        .replace(/,$/, '')
         .trim();
 
     return data;
@@ -96,9 +96,9 @@ export const convertStringToDate = (date: string | number) => {
 };
 
 export const splitFirstCharacter = (str: string) => {
-    const arr = str.split(" ");
+    const arr = str.split(' ');
     const result = arr.map((item) => item.charAt(0));
-    return result.join("");
+    return result.join('');
 };
 
 export const convertTextToAvatar = (text: string) => {

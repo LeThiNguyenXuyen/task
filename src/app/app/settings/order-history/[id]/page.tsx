@@ -1,60 +1,59 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import Link from 'next/link';
+import { useParams, useRouter } from 'next/navigation';
 
-import { RadioGroup } from "@headlessui/react";
-import { CheckCircleIcon, TrashIcon } from "@heroicons/react/20/solid";
-import { joiResolver } from "@hookform/resolvers/joi";
-import { useQuery } from "@tanstack/react-query";
-import joi from "joi";
-import _get from "lodash/get";
-import { Controller, FormProvider, useForm } from "react-hook-form";
-import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import { toast } from "react-toastify";
+import { RadioGroup } from '@headlessui/react';
+import { CheckCircleIcon, TrashIcon } from '@heroicons/react/20/solid';
+import { joiResolver } from '@hookform/resolvers/joi';
+import { useQuery } from '@tanstack/react-query';
+import joi from 'joi';
+import _get from 'lodash/get';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
+import { toast } from 'react-toastify';
 
-import { NKRouter } from "@/core/NKRouter";
-import { orderApi } from "@/core/api/order.api";
-import { IV1Checkout, IV1MakeOrder, userMeOrderApi } from "@/core/api/user-me-order.api";
-import NKFormWrapper from "@/core/components/form/NKFormWrapper";
-import NKTextField, { NKTextFieldTheme } from "@/core/components/form/NKTextField";
-import NKTextareaField, { NKTextareaFieldTheme } from "@/core/components/form/NKTextareaField";
-import AuthWrapper from "@/core/components/wrapper/AuthWrapper";
-
-import { formatNumber } from "@/core/utils/number.helper";
-import { useCart } from "@/core/contexts/CartContext";
+import { NKRouter } from '@/core/NKRouter';
+import { orderApi } from '@/core/api/order.api';
+import { IV1Checkout, IV1MakeOrder, userMeOrderApi } from '@/core/api/user-me-order.api';
+import NKFormWrapper from '@/core/components/form/NKFormWrapper';
+import NKTextField, { NKTextFieldTheme } from '@/core/components/form/NKTextField';
+import NKTextareaField, { NKTextareaFieldTheme } from '@/core/components/form/NKTextareaField';
+import AuthWrapper from '@/core/components/wrapper/AuthWrapper';
+import { useCart } from '@/core/contexts/CartContext';
+import { formatNumber } from '@/core/utils/number.helper';
 
 const deliveryMethods = [
     {
         id: 1,
-        title: "Giao Hàng Thường",
-        turnaround: "2–5 Ngày làm việc",
+        title: 'Giao Hàng Thường',
+        turnaround: '2–5 Ngày làm việc',
 
         price: 20000,
     },
-    { id: 2, title: "Giao Hàng Nhanh", turnaround: "1–2 Ngày làm việc", price: 40000 },
+    { id: 2, title: 'Giao Hàng Nhanh', turnaround: '1–2 Ngày làm việc', price: 40000 },
 ];
 const paymentMethods = [
-    { id: "MOMO", title: "Momo", src: "https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-MoMo-Square.png" },
+    { id: 'MOMO', title: 'Momo', src: 'https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-MoMo-Square.png' },
     {
-        id: "COD",
-        title: "Thanh toán khi nhận hàng",
-        src: "https://cdn-icons-png.flaticon.com/512/2203/2203124.png",
+        id: 'COD',
+        title: 'Thanh toán khi nhận hàng',
+        src: 'https://cdn-icons-png.flaticon.com/512/2203/2203124.png',
     },
 ];
 
 function classNames(...classes: any) {
-    return classes.filter(Boolean).join(" ");
+    return classes.filter(Boolean).join(' ');
 }
 
 const defaultValues: IV1MakeOrder = {
-    address: "",
+    address: '',
     extraFee: 20000,
-    name: "",
-    paymentMethod: "MOMO",
-    phone: "",
+    name: '',
+    paymentMethod: 'MOMO',
+    phone: '',
 };
 
 export default function Example() {
@@ -69,27 +68,27 @@ export default function Example() {
 
                 paymentMethod: joi.string().required(),
                 extraFee: joi.number().required(),
-            })
+            }),
         ),
     });
 
     const params = useParams();
-    const id = _get(params, "id") as string;
+    const id = _get(params, 'id') as string;
 
     const orderQuery = useQuery(
-        ["order", id],
+        ['order', id],
         () => {
             return orderApi.v1GetById(id);
         },
         {
             onSuccess: (data) => {
-                formMethods.setValue("address", data.address);
-                formMethods.setValue("name", data.name);
-                formMethods.setValue("phone", data.phone);
-                formMethods.setValue("extraFee", data.extraFee);
-                formMethods.setValue("paymentMethod", data.paymentMethod);
+                formMethods.setValue('address', data.address);
+                formMethods.setValue('name', data.name);
+                formMethods.setValue('phone', data.phone);
+                formMethods.setValue('extraFee', data.extraFee);
+                formMethods.setValue('paymentMethod', data.paymentMethod);
             },
-        }
+        },
     );
 
     return (
@@ -98,7 +97,7 @@ export default function Example() {
                 <main className="mx-auto max-w-7xl px-4 pb-24 pt-16 sm:px-6 lg:px-8">
                     <div className="mx-auto max-w-2xl lg:max-w-none">
                         <FormProvider {...formMethods}>
-                            <form className="lg:grid  gap-12 xl:gap-x-16">
+                            <form className="gap-12  lg:grid xl:gap-x-16">
                                 <div className="mt-10 lg:mt-0">
                                     <h2 className="text-lg font-medium text-gray-900">Thông tin đơn hàng</h2>
 
@@ -111,12 +110,12 @@ export default function Example() {
                                                     return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
                                                 })
                                                 .map((orderItem) => (
-                                                    <li key={orderItem.id} className="flex px-4 py-6 sm:px-6 fade-in">
+                                                    <li key={orderItem.id} className="fade-in flex px-4 py-6 sm:px-6">
                                                         <div className="flex-shrink-0">
                                                             <img
-                                                                src={_get(orderItem.productVariant, "imageUrls[0]", "")}
+                                                                src={_get(orderItem.productVariant, 'imageUrls[0]', '')}
                                                                 alt={orderItem.productVariant.name}
-                                                                className="w-20 h-20 rounded-md object-cover"
+                                                                className="h-20 w-20 rounded-md object-cover"
                                                             />
                                                         </div>
 
@@ -139,8 +138,8 @@ export default function Example() {
                                                                 </p>
 
                                                                 <div className="ml-4">
-                                                                    <div className="flex border border-gray-400 rounded-sm">
-                                                                        <div className="h-6 border-l border-r border-gray-400 w-10 flex items-center justify-center">
+                                                                    <div className="flex rounded-sm border border-gray-400">
+                                                                        <div className="flex h-6 w-10 items-center justify-center border-l border-r border-gray-400">
                                                                             {orderItem.quantity}
                                                                         </div>
                                                                     </div>
@@ -215,9 +214,9 @@ export default function Example() {
                                                                 value={deliveryMethod.price}
                                                                 className={({ checked, active }) =>
                                                                     classNames(
-                                                                        checked ? "border-transparent" : "border-gray-300",
-                                                                        active ? "ring-2 ring-[#B97953]" : "",
-                                                                        "relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none"
+                                                                        checked ? 'border-transparent' : 'border-gray-300',
+                                                                        active ? 'ring-2 ring-[#B97953]' : '',
+                                                                        'relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none',
                                                                     )
                                                                 }
                                                             >
@@ -250,9 +249,9 @@ export default function Example() {
                                                                         ) : null}
                                                                         <span
                                                                             className={classNames(
-                                                                                active ? "border" : "border-2",
-                                                                                checked ? "border-[#B97953]" : "border-transparent",
-                                                                                "pointer-events-none absolute -inset-px rounded-lg"
+                                                                                active ? 'border' : 'border-2',
+                                                                                checked ? 'border-[#B97953]' : 'border-transparent',
+                                                                                'pointer-events-none absolute -inset-px rounded-lg',
                                                                             )}
                                                                             aria-hidden="true"
                                                                         />
@@ -285,9 +284,9 @@ export default function Example() {
                                                                 value={String(deliveryMethod.id)}
                                                                 className={({ checked, active }) =>
                                                                     classNames(
-                                                                        checked ? "border-transparent" : "border-gray-300",
-                                                                        active ? "ring-2 ring-[#B97953]" : "",
-                                                                        "relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none"
+                                                                        checked ? 'border-transparent' : 'border-gray-300',
+                                                                        active ? 'ring-2 ring-[#B97953]' : '',
+                                                                        'relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none',
                                                                     )
                                                                 }
                                                             >
@@ -306,7 +305,7 @@ export default function Example() {
                                                                                     as="span"
                                                                                     className="mt-6 text-sm font-medium text-gray-900"
                                                                                 >
-                                                                                    <img src={deliveryMethod.src} className="w-16 h-16" />
+                                                                                    <img src={deliveryMethod.src} className="h-16 w-16" />
                                                                                 </RadioGroup.Description>
                                                                             </span>
                                                                         </span>
@@ -315,9 +314,9 @@ export default function Example() {
                                                                         ) : null}
                                                                         <span
                                                                             className={classNames(
-                                                                                active ? "border" : "border-2",
-                                                                                checked ? "border-[#B97953]" : "border-transparent",
-                                                                                "pointer-events-none absolute -inset-px rounded-lg"
+                                                                                active ? 'border' : 'border-2',
+                                                                                checked ? 'border-[#B97953]' : 'border-transparent',
+                                                                                'pointer-events-none absolute -inset-px rounded-lg',
                                                                             )}
                                                                             aria-hidden="true"
                                                                         />

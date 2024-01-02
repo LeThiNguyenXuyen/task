@@ -7,14 +7,14 @@ interface HeroCommonProps {
 
 const HeroCommon: React.FunctionComponent<HeroCommonProps> = ({ description, title }) => {
     return (
-        <div className="w-full h-[342px] py-[88px] flex justify-center items-center">
-            <div className="w-full px-[72px] max-w-app h-full justify-center items-end relative ">
+        <div className="flex h-[342px] w-full items-center justify-center py-[88px]">
+            <div className="max-w-app relative h-full w-full items-end justify-center px-[72px] ">
                 <div className="absolute left-[72px] top-0  h-[142px] w-[142px] opacity-25">
-                    <img src="/assets/images/vector.png" className="w-full h-full" alt="" />
+                    <img src="/assets/images/vector.png" className="h-full w-full" alt="" />
                 </div>
-                <div className="flex h-full flex-col justify-end relative text-white">
+                <div className="relative flex h-full flex-col justify-end text-white">
                     <h1 className="text-[51px] font-black">{title}</h1>
-                    <p className="text-sm max-w-[542px] w-full">{description}</p>
+                    <p className="w-full max-w-[542px] text-sm">{description}</p>
                 </div>
             </div>
         </div>

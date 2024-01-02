@@ -94,14 +94,14 @@ const contactItems = [
 
 const Footer: React.FunctionComponent<FooterProps> = () => {
     return (
-        <footer className="bg-primary w-full h-[348px] flex flex-col px-[52px] ">
-            <div className="grid-cols-8 gap-x-16 grid w-full py-11 text-white">
-                <div className="col-span-3 flex justify-center items-center">
+        <footer className="bg-primary flex h-[348px] w-full flex-col px-[52px] ">
+            <div className="grid w-full grid-cols-8 gap-x-16 py-11 text-white">
+                <div className="col-span-3 flex items-center justify-center">
                     <Link href={'/'} className="h-[196px] w-[316px]">
-                        <img src="/assets/images/logo.png" className="w-full h-full object-cover" alt="" />
+                        <img src="/assets/images/logo.png" className="h-full w-full object-cover" alt="" />
                     </Link>
                 </div>
-                <div className="col-span-2 pt-8 flex item justify-start flex-col gap-[18px]">
+                <div className="item col-span-2 flex flex-col justify-start gap-[18px] pt-8">
                     <h3 className="text-lg font-black uppercase">Theo dõi chúng tôi</h3>
                     <div className="flex flex-col gap-[18px]">
                         <p className="text-sm">
@@ -117,7 +117,7 @@ const Footer: React.FunctionComponent<FooterProps> = () => {
                         </nav>
                     </div>
                 </div>
-                <div className="col-span-1 pt-8  flex item justify-start flex-col gap-[18px]">
+                <div className="item col-span-1  flex flex-col justify-start gap-[18px] pt-8">
                     <h3 className="text-lg font-black uppercase">Điều Hướng</h3>
                     <ul className="flex flex-col gap-2.5">
                         {navItems.map((item, index) => (
@@ -132,7 +132,7 @@ const Footer: React.FunctionComponent<FooterProps> = () => {
                         ))}
                     </ul>
                 </div>
-                <div className="col-span-2 pt-8  flex item justify-start flex-col gap-[18px]">
+                <div className="item col-span-2  flex flex-col justify-start gap-[18px] pt-8">
                     <h3 className="text-lg font-black uppercase">Điều Hướng</h3>
                     <ul className="flex flex-col gap-2.5">
                         {contactItems.map((item) => (
@@ -147,9 +147,9 @@ const Footer: React.FunctionComponent<FooterProps> = () => {
                 </div>
             </div>
 
-            <div className="h-[58px] flex justify-between items-center w-full border-t  font-semibold text-white text-xs uppercase border-white/25">
+            <div className="flex h-[58px] w-full items-center justify-between border-t  border-white/25 text-xs font-semibold uppercase text-white">
                 <p>Allright Reserved - Moodboost</p>
-                <nav className="flex items-center gap-8 t">
+                <nav className="t flex items-center gap-8">
                     <Link href={'/policy'}>Chính sách người dùng</Link>
                     <Link href={'/term-and-conditions'}>Điều khoản & điều kiện</Link>
                 </nav>
