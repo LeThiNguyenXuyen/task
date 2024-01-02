@@ -6,7 +6,7 @@ export interface IV1AuthLoginEmail extends Pick<User, 'email' | 'password'> {}
 export interface IV1AuthLoginUsername extends Pick<User, 'username' | 'password'> {}
 
 export const authApi = {
-    v1Login: async (dto: IV1AuthLoginEmail) => {
+    v1LoginEmail: async (dto: IV1AuthLoginEmail) => {
         const url = '/v1/auth/login-email';
         const res = await http.post<{ token: string }>(url, dto);
         return res.data;

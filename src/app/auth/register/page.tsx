@@ -6,8 +6,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import joi from 'joi';
+import { FaUser } from 'react-icons/fa';
+import { MdLockOutline, MdOutlineEmail } from 'react-icons/md';
 import { toast } from 'react-toastify';
 
+import { NKConfig } from '@/core/NKConfig';
 import { NKRouter } from '@/core/NKRouter';
 import { IV1AuthRegister, authApi } from '@/core/api/auth.api';
 import NKFormWrapper from '@/core/components/form/NKFormWrapper';
@@ -24,15 +27,15 @@ const RegisterPage: React.FunctionComponent<RegisterPageProps> = () => {
 
     return (
         <>
-            <main className="fade-in flex min-h-screen flex-col items-center justify-center ">
-                <div className="flex flex-1 items-center justify-center">
+            <main className="fade-in flex min-h-screen  ">
+                <div className="flex flex-1 items-center justify-center px-6">
                     <NKFormWrapper<RegisterExtendsForm>
                         apiAction={(data) => {
                             return authApi.v1Register({
                                 email: data.email,
                                 name: data.name,
                                 password: data.password,
-                                username: data.username,
+                                username: data.email,
                             });
                         }}
                         defaultValues={{
@@ -56,7 +59,7 @@ const RegisterPage: React.FunctionComponent<RegisterPageProps> = () => {
                             password: joi.string().required(),
                             confirmPassword: joi.string().required(),
                             name: joi.string().required(),
-                            username: joi.string().trim().lowercase().required(),
+                            username: joi.allow(''),
                         }}
                         onExtraSuccessAction={(data) => {
                             toast.success('Đăng ký thành công');
@@ -68,24 +71,24 @@ const RegisterPage: React.FunctionComponent<RegisterPageProps> = () => {
                         </div>
                         <div className="mt-10 flex w-full flex-col gap-5">
                             <NKTextField
-                                name="username"
-                                label="Username"
-                                placeholder="Username"
-                                isShow={false}
-                                theme={NKTextFieldTheme.AUTH}
-                                className="text-white"
-                            />
-                            <NKTextField
                                 name="name"
-                                isShow={false}
-                                label="Name"
-                                placeholder="Name"
+                                icon={
+                                    <div className="text-xl">
+                                        <FaUser />
+                                    </div>
+                                }
+                                label="Họ và tên"
+                                placeholder="Tên"
                                 theme={NKTextFieldTheme.AUTH}
                                 className="text-white"
                             />
                             <NKTextField
                                 name="email"
-                                isShow={false}
+                                icon={
+                                    <div className="text-xl">
+                                        <MdOutlineEmail />
+                                    </div>
+                                }
                                 label="Email"
                                 placeholder="Email"
                                 theme={NKTextFieldTheme.AUTH}
@@ -94,30 +97,64 @@ const RegisterPage: React.FunctionComponent<RegisterPageProps> = () => {
                             <NKTextField
                                 name="password"
                                 type="password"
-                                isShow={false}
-                                label="Password"
-                                placeholder="Password"
+                                label="Mật khẩu"
+                                placeholder="********"
+                                icon={
+                                    <div className="text-xl">
+                                        <MdLockOutline />
+                                    </div>
+                                }
                                 theme={NKTextFieldTheme.AUTH}
                                 className="text-white"
                             />
                             <NKTextField
                                 name="confirmPassword"
                                 type="password"
-                                label="Confirm Password"
-                                isShow={false}
-                                placeholder="Confirm Password"
+                                label="Xác nhận mật khẩu"
+                                icon={
+                                    <div className="text-xl">
+                                        <MdLockOutline />
+                                    </div>
+                                }
+                                placeholder="********"
                                 theme={NKTextFieldTheme.AUTH}
                                 className="text-white"
                             />
                             <div className="flex flex-col  gap-4">
-                                <button className="rounded-xl bg-[#DEE1E6] px-2.5 py-3 text-sm font-semibold text-black  shadow-sm hover:bg-purple-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-200">
-                                    Sign Up
+                                <button className="rounded-full bg-blue-600 px-2.5 py-3  font-semibold text-white  shadow-sm hover:bg-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-200">
+                                    ĐĂNG KÝ
                                 </button>
-
-                                <div className="flex justify-center gap-1  text-sm leading-6">
-                                    <div>Already have an account?</div>
-                                    <Link href={NKRouter.auth.login()} className="font-semibold text-purple-500 hover:text-purple-500">
-                                        Sign in
+                                <div className="flex flex-col  gap-4">
+                                    <div className="text-center font-semibold text-[#323F4B]">HOẶC</div>
+                                    <div className="flex items-center justify-center gap-4">
+                                        <Link
+                                            href={NKConfig.LOGIN_GOOGLE_URL}
+                                            className="  flex h-[55]  items-center justify-center gap-4 rounded-full  border bg-white p-2 text-sm text-slate-700 transition duration-150   hover:shadow"
+                                        >
+                                            <img
+                                                className="h-8 w-8"
+                                                src="https://cdn-icons-png.flaticon.com/512/281/281764.png"
+                                                loading="lazy"
+                                                alt="google logo"
+                                            />
+                                        </Link>
+                                        <Link
+                                            href={NKConfig.LOGIN_FACEBOOK_URL}
+                                            className="flex items-center  justify-center gap-4 rounded-full border  bg-white  p-2 text-sm text-slate-700 transition duration-150   hover:shadow"
+                                        >
+                                            <img
+                                                className="h-8 w-8"
+                                                src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png "
+                                                loading="lazy"
+                                                alt="google logo"
+                                            />
+                                        </Link>
+                                    </div>
+                                </div>
+                                <div className="flex justify-center gap-1  leading-6">
+                                    <div>Tôi đã có tài khoản?</div>
+                                    <Link href={NKRouter.auth.login()} className="font-semibold text-blue-600 ">
+                                        Đăng nhập
                                     </Link>
                                 </div>
                             </div>

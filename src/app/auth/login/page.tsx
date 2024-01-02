@@ -42,14 +42,22 @@ const AuthLogin: React.FC<AuthLoginProps> = () => {
             <main className="fade-in flex min-h-screen ">
                 <div className="flex flex-1 items-center justify-center px-6">
                     <NKFormWrapper
-                     
-                        apiAction={authApi.V1LoginUsername}
+                        apiAction={authApi.v1LoginEmail}
                         defaultValues={{
-                            username: '',
+                            email: '',
                             password: '',
                         }}
                         schema={{
-                            username: joi.string().trim().lowercase().required(),
+                            email: joi
+                                .string()
+                                .trim()
+                                .lowercase()
+                                .email({
+                                    tlds: {
+                                        allow: false,
+                                    },
+                                })
+                                .required(),
                             password: joi.string().trim().required(),
                         }}
                         onExtraSuccessAction={(data) => {
@@ -74,9 +82,9 @@ const AuthLogin: React.FC<AuthLoginProps> = () => {
                                             <MdOutlineEmail />
                                         </div>
                                     }
-                                    name="username"
-                                    label="Username"
-                                    placeholder="Username"
+                                    name="email"
+                                    label="Email"
+                                    placeholder="name@email.com"
                                     theme={NKTextFieldTheme.AUTH}
                                     className="text-white"
                                 />
@@ -88,48 +96,53 @@ const AuthLogin: React.FC<AuthLoginProps> = () => {
                                     }
                                     name="password"
                                     type="password"
-                                    label="Password"
-                                    placeholder="Password"
+                                    label="Mật Khẩu"
+                                    placeholder="********"
                                     theme={NKTextFieldTheme.AUTH}
                                     className="text-white"
                                 />
                                 <div className="flex w-full justify-end">
-                                    <Link href={NKRouter.auth.forgotPassword()} className="text-xs font-medium text-gray-500">
-                                        Forget the password?
+                                    <Link href={NKRouter.auth.forgotPassword()} className="font-medium text-blue-600">
+                                        Quên mật khẩu?
                                     </Link>
                                 </div>
                                 <div className="flex flex-col  gap-4">
-                                    <button className="rounded-xl bg-[#DEE1E6] px-2.5 py-3 text-sm font-semibold text-black  shadow-sm hover:bg-purple-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-200">
-                                        LOG IN
+                                    <button
+                                        type="submit"
+                                        className="rounded-full bg-blue-600 px-2.5 py-3  font-semibold text-white  shadow-sm hover:bg-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-200"
+                                    >
+                                        ĐĂNG NHẬP
                                     </button>
-                                    <Link
-                                        href={NKConfig.LOGIN_GOOGLE_URL}
-                                        className=" mt-8 flex items-center  justify-center gap-4 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm text-slate-700 transition duration-150 hover:border-slate-400 hover:text-slate-900 hover:shadow"
-                                    >
-                                        <img
-                                            className="h-6 w-6"
-                                            src="https://cdn-icons-png.flaticon.com/512/281/281764.png"
-                                            loading="lazy"
-                                            alt="google logo"
-                                        />
-                                        <span>Continue with Google</span>
-                                    </Link>
-                                    <Link
-                                        href={NKConfig.LOGIN_FACEBOOK_URL}
-                                        className="flex items-center  justify-center gap-4 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm text-slate-700 transition duration-150 hover:border-slate-400 hover:text-slate-900 hover:shadow"
-                                    >
-                                        <img
-                                            className="h-6 w-6"
-                                            src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png "
-                                            loading="lazy"
-                                            alt="google logo"
-                                        />
-                                        <span>Continue with Facebook</span>
-                                    </Link>
-                                    <div className="flex justify-center gap-1  text-sm leading-6">
-                                        <div>Don&apos;t have an account?</div>
-                                        <Link href={NKRouter.auth.register()} className="font-semibold text-purple-500 hover:text-purple-500">
-                                            Sign up
+
+                                    <div className="text-center font-semibold text-[#323F4B]">HOẶC</div>
+                                    <div className="flex items-center justify-center gap-4">
+                                        <Link
+                                            href={NKConfig.LOGIN_GOOGLE_URL}
+                                            className="  flex h-[55]  items-center justify-center gap-4 rounded-full  border bg-white p-2 text-sm text-slate-700 transition duration-150   hover:shadow"
+                                        >
+                                            <img
+                                                className="h-8 w-8"
+                                                src="https://cdn-icons-png.flaticon.com/512/281/281764.png"
+                                                loading="lazy"
+                                                alt="google logo"
+                                            />
+                                        </Link>
+                                        <Link
+                                            href={NKConfig.LOGIN_FACEBOOK_URL}
+                                            className="flex items-center  justify-center gap-4 rounded-full border  bg-white  p-2 text-sm text-slate-700 transition duration-150   hover:shadow"
+                                        >
+                                            <img
+                                                className="h-8 w-8"
+                                                src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png "
+                                                loading="lazy"
+                                                alt="google logo"
+                                            />
+                                        </Link>
+                                    </div>
+                                    <div className="flex justify-center gap-1  leading-6">
+                                        <div>Chưa có tài khoản?</div>
+                                        <Link href={NKRouter.auth.register()} className="font-semibold text-blue-600 ">
+                                            Đăng ký
                                         </Link>
                                     </div>
                                 </div>

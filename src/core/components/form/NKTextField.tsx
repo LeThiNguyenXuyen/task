@@ -31,7 +31,7 @@ const NKTextField: React.FC<NKTextFieldProps> = ({ name, isShow = true, label, l
                 render={({ field }) => (
                     <div
                         className={clsx([], {
-                            'flex items-center justify-center gap-2  rounded-lg border  border-gray-100 bg-[#F3F4F6] p-3 text-gray-900 shadow-sm placeholder:text-gray-400':
+                            'flex items-center justify-center gap-2  rounded-lg border  border-gray-400 p-3 text-gray-400 shadow-sm duration-300 placeholder:text-gray-400 focus-within:text-gray-900':
                                 theme === NKTextFieldTheme.AUTH,
                         })}
                     >
