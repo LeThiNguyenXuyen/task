@@ -15,6 +15,7 @@ export interface IV1UpdateProfileDto {
     facebookUrl: string;
     banner: string;
     avatar: string;
+    dob: string;
 }
 
 export interface IV1UpdateMessageTokenDto {
