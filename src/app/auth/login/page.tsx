@@ -40,8 +40,9 @@ const AuthLogin: React.FC<AuthLoginProps> = () => {
     return (
         <>
             <main className="fade-in flex min-h-screen ">
-                <div className="flex flex-1 items-center justify-center">
+                <div className="flex flex-1 items-center justify-center px-6">
                     <NKFormWrapper
+                     
                         apiAction={authApi.V1LoginUsername}
                         defaultValues={{
                             username: '',
@@ -61,12 +62,12 @@ const AuthLogin: React.FC<AuthLoginProps> = () => {
                             store.dispatch(userActions.setToken(data.token));
                         }}
                     >
-                        <div className="">
+                        <div className="w-full">
                             <div className="flex flex-col items-center justify-center">
                                 <img className="h-32 w-32 " src="/assets/images/logo.png " alt="banner" />
                             </div>
 
-                            <div className="flex w-[300px] flex-col gap-5">
+                            <div className="flex w-full flex-col gap-5">
                                 <NKTextField
                                     icon={
                                         <div className="text-xl">

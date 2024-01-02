@@ -54,7 +54,7 @@ const Page: React.FC<PageProps> = () => {
         <div className="flex h-[calc(100vh-4.5rem)] flex-col items-center justify-center">
             <>
                 <div className="text-title text-center text-lg font-bold text-black">FORGOT PASSWORD</div>
-                <div className="w-[300px]">
+                <div className="w-full">
                     {isShowSubmit ? (
                         <div className="fade-in mx-auto mt-8 flex max-w-2xl flex-col gap-4">
                             <NKFormWrapper<ForgotPasswordUpdateForm>

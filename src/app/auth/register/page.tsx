@@ -66,7 +66,7 @@ const RegisterPage: React.FunctionComponent<RegisterPageProps> = () => {
                         <div className="flex flex-col items-center justify-center">
                             <img className="h-20 w-20 " src="/assets/images/logo.png " alt="banner" />
                         </div>
-                        <div className="mt-10 flex w-[300px] flex-col gap-5">
+                        <div className="mt-10 flex w-full flex-col gap-5">
                             <NKTextField
                                 name="username"
                                 label="Username"
