@@ -51,7 +51,7 @@ const Page: React.FC<PageProps> = () => {
     });
 
     return (
-        <div className="flex h-[calc(100vh-4.5rem)] flex-col items-center justify-center">
+        <div className="flex h-[calc(100vh-4.5rem)] flex-col items-center justify-center px-4">
             <>
                 <div className="text-title text-center text-lg font-bold text-black">FORGOT PASSWORD</div>
                 <div className="w-full">
@@ -110,13 +110,13 @@ const Page: React.FC<PageProps> = () => {
 
                                     <button
                                         type="submit"
-                                        className="rounded-xl bg-[#DEE1E6] px-2.5 py-3 text-sm font-semibold text-black  shadow-sm hover:bg-yellow-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-200"
+                                        className="rounded-xl bg-[#DEE1E6] px-2.5 py-3 text-sm font-semibold text-black  shadow-sm hover:bg-indigo-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-200"
                                     >
                                         Update Password
                                     </button>
                                     <button
                                         type="submit"
-                                        className="rounded-xl bg-[#DEE1E6] px-2.5 py-3 text-sm font-semibold text-black  shadow-sm hover:bg-yellow-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-200"
+                                        className="rounded-xl bg-[#DEE1E6] px-2.5 py-3 text-sm font-semibold text-black  shadow-sm hover:bg-indigo-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-200"
                                         onClick={() => {
                                             if (countDownMethods.isFinished) {
                                                 resendEmailMutation.mutate();
@@ -134,7 +134,7 @@ const Page: React.FC<PageProps> = () => {
                                         setIsShowSubmit(false);
                                     }}
                                 >
-                                    <div className="font-semibold text-yellow-500 hover:text-yellow-500">Change Email</div>
+                                    <div className="font-semibold text-indigo-500 hover:text-indigo-500">Change Email</div>
                                 </button>
                             </div>
                         </div>
@@ -179,7 +179,7 @@ const Page: React.FC<PageProps> = () => {
 
                                     <button
                                         type="submit"
-                                        className="rounded-xl bg-[#DEE1E6] px-2.5 py-3 text-sm font-semibold text-black  shadow-sm hover:bg-yellow-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-200"
+                                        className="rounded-xl bg-[#DEE1E6] px-2.5 py-3 text-sm font-semibold text-black  shadow-sm hover:bg-indigo-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-200"
                                     >
                                         Send to Email
                                     </button>
@@ -188,7 +188,7 @@ const Page: React.FC<PageProps> = () => {
                             <div className="flex items-center justify-center gap-1 text-center">
                                 <div>Go Back? </div>
                                 <Link href={NKRouter.auth.login()}>
-                                    <div className="font-semibold text-yellow-500 hover:text-yellow-500">Log In</div>
+                                    <div className="font-semibold text-indigo-500 hover:text-indigo-500">Log In</div>
                                 </Link>
                             </div>
                         </div>
