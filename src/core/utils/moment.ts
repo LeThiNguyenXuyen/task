@@ -8,7 +8,14 @@ const formatDate = (date?: string, locale: SupportedLanguages = NKConstant.FALLB
     return moment(date).locale(locale).format('LL');
 };
 
+const returnCorrectDate = (date: string) => {
+    const value = moment(date);
+
+    return value.add(7, 'hours');
+};
+
 export const HKMoment = {
     moment,
     formatDate,
+    returnCorrectDate,
 };

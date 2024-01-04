@@ -1,3 +1,4 @@
+import { User } from './user';
 import { UserPostCommentLike } from './userPostCommentLike';
 
 export interface UserPostComment {
@@ -8,5 +9,6 @@ export interface UserPostComment {
     isRequiredUpdate: boolean;
     docStatus: number;
     content: string;
+    user: User;
     userPostCommentLikes: UserPostCommentLike[];
 }

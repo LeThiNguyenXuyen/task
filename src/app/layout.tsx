@@ -17,6 +17,7 @@ import { store } from '@/core/store';
 
 import './globals.css';
 import '@smastrom/react-rating/style.css';
+import 'react-quill/dist/quill.bubble.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'swiper/css';
 

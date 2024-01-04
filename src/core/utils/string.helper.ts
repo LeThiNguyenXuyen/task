@@ -104,3 +104,23 @@ export const splitFirstCharacter = (str: string) => {
 export const convertTextToAvatar = (text: string) => {
     return `https://ui-avatars.com/api/?name=${text}&background=6366f1&color=fff&size=24`;
 };
+
+export const removeImageTag = (html: string) => {
+    return html.replace(/<img.*?>/g, '');
+};
+
+export const removeHtmlTag = (html: string) => {
+    return html.replace(/<[^>]*>?/gm, '');
+};
+
+export const truncate = (str: string, length: number, ending: string = '...') => {
+    if (str.length > length) {
+        return str.substring(0, length - ending.length) + ending;
+    } else {
+        return str;
+    }
+};
+
+export const removeVietnameseTones = (str: string) => {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+};
