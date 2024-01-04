@@ -5,7 +5,7 @@ import * as React from 'react';
 import Link from 'next/link';
 
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { ArrowLeft, ChevronLeft, ChevronRight, Language, LockOn, Person, SignOut } from 'akar-icons';
+import { ArrowLeft, ChevronLeft, ChevronRight, Language, LockOn, Person, SignOut, Wallet } from 'akar-icons';
 import { AiFillStar } from 'react-icons/ai';
 import {
     MdConnectWithoutContact,
@@ -87,6 +87,14 @@ const Page: React.FC<PageProps> = () => {
                             <Person strokeWidth={2} size={24} />
                         </div>
                     </Link>
+                    <Link href={NKRouter.app.settings.wallet.index()} className="flex items-center justify-between gap-2  py-3 font-semibold">
+                        <div className="flex items-center justify-center">
+                            <div>Ví tiêu dùng</div>
+                        </div>
+                        <div className="h-6 w-6">
+                            <Wallet strokeWidth={2} size={24} />
+                        </div>
+                    </Link>
 
                     <Link href={NKRouter.app.settings.changePassword()} className="flex items-center justify-between gap-2  py-3 font-semibold ">
                         <div className="flex items-center justify-center">
@@ -97,19 +105,7 @@ const Page: React.FC<PageProps> = () => {
                         </div>
                     </Link>
                 </div>
-                {/* <div className="border border-gray-300 rounded-xl mt-3">
-                    <Link href={NKRouter.app.premium.index()} className=" py-3 px-4  flex gap-4 text-sm justify-between">
-                        <div className="flex items-center justify-center gap-4">
-                            <div className="text-xl text-[#FF32FF]">
-                                <AiFillStar />
-                            </div>
-                            <div>Well-Trans Premium</div>
-                        </div>
-                        <div>
-                            <ChevronRight strokeWidth={1} size={24} />
-                        </div>
-                    </Link>
-                </div> */}
+
                 <div className="mt-1">
                     <h3 className="text-sm text-gray-300">Hỗ Trợ</h3>
                 </div>

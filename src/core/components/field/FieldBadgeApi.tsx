@@ -29,7 +29,17 @@ const FieldBadgeApi: React.FC<FieldBadgeApiProps> = ({ value, apiAction }) => {
         },
     );
 
-    return <div color={color}>{label}</div>;
+    console.log('Color', color);
+
+    return (
+        <div
+            style={{
+                color,
+            }}
+        >
+            {label}
+        </div>
+    );
 };
 
 export default FieldBadgeApi;

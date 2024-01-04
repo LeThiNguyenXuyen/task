@@ -15,6 +15,10 @@ export const NKRouter = {
             orderHistory: () => '/app/settings/order-history',
             terms: () => '/app/settings/terms',
             policy: () => '/app/settings/policy',
+            wallet: {
+                index: () => '/app/settings/wallet',
+                deposit: () => '/app/settings/wallet/deposit',
+            },
         },
         photographers: {
             index: () => '/app/photographers',
