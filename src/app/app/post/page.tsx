@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
 import { useQueryClient } from '@tanstack/react-query';
@@ -11,11 +12,14 @@ import { useSelector } from 'react-redux';
 
 import { UserPostIV1CreateDto, userPostApi } from '@/core/api/user-post.api';
 import NKFormWrapper from '@/core/components/form/NKFormWrapper';
-import { NKRichText } from '@/core/components/form/NKRichText';
+import { NKRichTextProps } from '@/core/components/form/NKRichText';
+// import { NKRichText } from '@/core/components/form/NKRichText';
 import PostCard from '@/core/components/post/PostCard';
 import ScrollInfinityBuilder from '@/core/components/scroll/ScrollInfinityBuilder';
 import { RootState } from '@/core/store';
 import { UserState } from '@/core/store/user';
+
+const NKRichText = dynamic(() => import('@/core/components/form/NKRichText'), { ssr: false }) as React.FC<NKRichTextProps>;
 
 interface PostPageProps {}
 

@@ -1,27 +1,28 @@
 import React from 'react';
 
-import { Menu } from '@headlessui/react';
+import dynamic from 'next/dynamic';
+
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
 import * as joi from 'joi';
 import moment from 'moment';
 import { AiFillHeart, AiOutlineHeart, AiOutlineSend } from 'react-icons/ai';
 import { FaRegCommentAlt } from 'react-icons/fa';
-import { HiDotsHorizontal } from 'react-icons/hi';
 import { useSelector } from 'react-redux';
 
 import { UserPostCommentLikeIV1CreateDto, userPostCommentLikeApi } from '@/core/api/user-post-comment-like.api';
-import { UserPostCommentIV1CreateDto, userPostCommentApi } from '@/core/api/user-post-comment.api';
+import { userPostCommentApi } from '@/core/api/user-post-comment.api';
 import { UserPostLikeIV1CreateDto, userPostLikeApi } from '@/core/api/user-post-like.api';
 import { UserPostIV1CreateDto, userPostApi } from '@/core/api/user-post.api';
+import { NKRichTextProps } from '@/core/components/form/NKRichText';
 import { UserPost } from '@/core/models/userPost';
 import { UserPostComment } from '@/core/models/userPostComment';
 import { RootState } from '@/core/store';
 import { UserState } from '@/core/store/user';
 
-import { HKMoment } from '../../utils/moment';
 import NKFormWrapper from '../form/NKFormWrapper';
-import { NKRichText } from '../form/NKRichText';
+
+const NKRichText = dynamic(() => import('@/core/components/form/NKRichText'), { ssr: false }) as React.FC<NKRichTextProps>;
 
 interface PostCardProps {
     data: UserPost;

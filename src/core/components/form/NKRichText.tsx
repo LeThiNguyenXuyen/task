@@ -40,7 +40,7 @@ Quill.register('modules/blotFormatter', BlotFormatter);
 export enum NKRichTextTheme {
     DEFAULT = 'DEFAULT',
 }
-interface NKRichTextProps extends QuillOptions {
+export interface NKRichTextProps extends QuillOptions {
     name: string;
     label: string;
     isShow?: boolean;
@@ -51,7 +51,7 @@ interface NKRichTextProps extends QuillOptions {
     className?: string;
 }
 
-export const NKRichText: React.FC<NKRichTextProps> = ({
+const NKRichText: React.FC<NKRichTextProps> = ({
     name,
     label,
     extraProps,
@@ -158,3 +158,5 @@ export const NKRichText: React.FC<NKRichTextProps> = ({
         </NKFieldWrapper>
     );
 };
+
+export default NKRichText;
