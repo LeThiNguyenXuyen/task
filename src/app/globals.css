@@ -30,3 +30,19 @@
 .bottom-bar {
     box-shadow: 0px -2px 2px 0px rgba(0, 0, 0, 0.1);
 }
+
+.ql-snow{
+    border:none !important;
+}
+
+.post-content img {
+    max-height: 200px;
+}
+
+.hide-toolbar .ql-toolbar{
+    display:none !important;
+}
+
+.ql-toolbar {
+    animation: FadeIn 0.3s ease-in-out;
+}

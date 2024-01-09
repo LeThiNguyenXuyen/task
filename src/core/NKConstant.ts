@@ -8,5 +8,5 @@ export const NKConstant = {
     TIMEZONE: 'Asia/Ho_Chi_Minh' as const,
     ZERO_TIMEZONE: '+07:00' as const,
     AUTH_FAILED_FALLBACK_ROUTE: '/auth/login' as const,
-    AUTH_SUCCESS_FALLBACK_ROUTE: '/app' as const,
+    AUTH_SUCCESS_FALLBACK_ROUTE: '/app/post' as const,
 };
