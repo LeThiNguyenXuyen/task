@@ -1,7 +1,6 @@
 // 'use client';
 import { Viewport } from 'next';
 import { Roboto } from 'next/font/google';
-import Head from 'next/head';
 import Script from 'next/script';
 
 import clsx from 'clsx';
@@ -32,7 +31,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en">
-            <Head>
+            <head>
                 <link rel="manifest" href="/manifest.json" />
                 <link rel="apple-touch-icon" href="/apple-touch-icon.png"></link>
                 <meta name="theme-color" content="#fff" />
@@ -50,7 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     });
                 `}
                 </Script>
-            </Head>
+            </head>
             <body className={clsx(roboto.className, 'flex min-h-screen w-full flex-col')}>
                 <RootProvider>{children}</RootProvider>
             </body>
