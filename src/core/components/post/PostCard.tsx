@@ -99,17 +99,17 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ data, className = ''
         <>
             <div
                 className={clsx(
-                    'flex min-h-20 w-full flex-col items-start  justify-between gap-3 rounded-[40px] bg-[#E6EEFA] p-3 duration-300',
+                    'flex min-h-20 w-full flex-col items-start  justify-between gap-3 rounded-xl bg-[#E6EEFA] p-3 duration-300',
                     className,
                 )}
             >
                 <div className="flex w-full gap-3">
-                    <figure className="flex h-12 w-12 flex-shrink-0 overflow-hidden rounded-full">
-                        <img src={`${postQuery.data.user.avatar}`} alt="" className="h-full w-full object-cover" />
-                    </figure>
-                    <div className="flex w-full flex-col gap-1 ">
-                        <div className="flex w-full justify-between">
-                            <div className="flex w-full items-center justify-between gap-1 text-black">
+                    <div className="flex w-full flex-col gap-2 ">
+                        <div className="flex w-full items-center justify-between gap-4">
+                            <figure className="flex h-12 w-12 flex-shrink-0 overflow-hidden rounded-full">
+                                <img src={`${postQuery.data.user.avatar}`} alt="" className="h-full w-full object-cover" />
+                            </figure>
+                            <div className="w-full flex-col items-center justify-between gap-1 text-black">
                                 <p className="text-sm font-bold">{postQuery.data.user.name}</p>
                                 <p className="text-sm font-light">{moment(postQuery.data.createdAt).fromNow()}</p>
                             </div>
@@ -137,11 +137,11 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ data, className = ''
                                 onClick={() => reactMutation.mutateAsync({ react: checkUserReacted(postQuery.data) ? 0 : 1 })}
                             >
                                 {!checkUserReacted(postQuery.data) ? (
-                                    <div className="text-lg">
+                                    <div className="text-xl">
                                         <AiOutlineHeart />
                                     </div>
                                 ) : (
-                                    <div className="text-[#F4245E]">
+                                    <div className="text-xl text-[#F4245E]">
                                         <AiFillHeart />
                                     </div>
                                 )}
@@ -187,15 +187,15 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ data, className = ''
                             </NKFormWrapper>
                         </div>
 
-                        <div className="flex flex-col gap-2  divide-x-0">
+                        <div className="flex flex-col gap-4  divide-x-0">
                             {postQuery.data.userPostComments
                                 .sort((a, b) => {
                                     return moment(b.createdAt).diff(moment(a.createdAt));
                                 })
                                 .slice(0, showMore ? postQuery.data.userPostComments.length : 2)
                                 .map((comment) => (
-                                    <div key={comment.id} className="flex w-full flex-col">
-                                        <div className="flex items-center gap-3">
+                                    <div key={comment.id} className="flex  w-full flex-col gap-2">
+                                        <div className="flex  items-center gap-3">
                                             <figure className="flex h-10 w-10 flex-shrink-0 overflow-hidden rounded-full">
                                                 <img src={`${postQuery.data.user.avatar}`} alt="" className="h-full w-full object-cover" />
                                             </figure>
@@ -204,7 +204,7 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ data, className = ''
                                                 <p className="text-sm font-light">{moment(comment.createdAt).fromNow()}</p>
                                             </div>
                                         </div>
-                                        <div className="flex w-full flex-col gap-1 pl-14">
+                                        <div className="flex w-full flex-col gap-2 pl-3">
                                             <div
                                                 dangerouslySetInnerHTML={{
                                                     __html: comment.content,
@@ -229,11 +229,11 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ data, className = ''
                                                     }
                                                 >
                                                     {!checkUserCommentReacted(comment) ? (
-                                                        <div className="text-lg">
+                                                        <div className="text-xl">
                                                             <AiOutlineHeart />
                                                         </div>
                                                     ) : (
-                                                        <div className="text-[#F4245E]">
+                                                        <div className="text-xl text-[#F4245E]">
                                                             <AiFillHeart />
                                                         </div>
                                                     )}
@@ -246,7 +246,7 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ data, className = ''
                                     </div>
                                 ))}
                             {data.userPostComments.length > 2 && (
-                                <div className="flex w-full items-center justify-end gap-5">
+                                <div className="flex w-full items-center justify-end gap-5 text-sm text-gray-600">
                                     <button onClick={() => setShowMore(!showMore)}>{!showMore ? 'Xem thêm' : 'Thu gọn'}</button>
                                 </div>
                             )}
