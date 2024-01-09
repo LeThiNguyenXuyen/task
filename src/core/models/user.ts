@@ -20,4 +20,5 @@ export interface User {
     role: UserRole;
     lastActive: string;
     dob: string;
+    bio: string;
 }

@@ -89,7 +89,7 @@ const Page: React.FC<PageProps> = () => {
                     </Link>
                     <Link href={NKRouter.app.settings.wallet.index()} className="flex items-center justify-between gap-2  py-3 font-semibold">
                         <div className="flex items-center justify-center">
-                            <div>Ví tiêu dùng</div>
+                            <div>Ví Của Tôi</div>
                         </div>
                         <div className="h-6 w-6">
                             <Wallet strokeWidth={2} size={24} />

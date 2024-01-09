@@ -173,7 +173,12 @@ const Page: NextPage<PageProps> = () => {
                                 </Link>
                                 <div className="absolute bottom-1 left-1/2 flex -translate-x-1/2 items-center gap-1">
                                     {Boolean(chatUser || chat.data.isGroup) && (
-                                        <button onClick={() => {}} className={clsx('flex w-full flex-1 flex-col  items-center gap-1')}>
+                                        <button
+                                            onClick={() => {
+                                                router.push(NKRouter.app.post.user(chatUser?.id ?? ''));
+                                            }}
+                                            className={clsx('flex w-full flex-1 flex-col  items-center gap-1')}
+                                        >
                                             <div className="relative h-14 w-14  flex-shrink-0 overflow-hidden">
                                                 <img
                                                     className="h-full w-full overflow-hidden rounded-full"
@@ -454,7 +459,7 @@ const Page: NextPage<PageProps> = () => {
                                                 <div className="mt-4">
                                                     <button
                                                         type="button"
-                                                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900  focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                                                         onClick={() => handleAddUsers()}
                                                     >
                                                         Add member
@@ -554,7 +559,7 @@ const Page: NextPage<PageProps> = () => {
                                                                 <div className="mt-4">
                                                                     <button
                                                                         type="submit"
-                                                                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                                                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900  focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                                                                     >
                                                                         Update group info
                                                                     </button>

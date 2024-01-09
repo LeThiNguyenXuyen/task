@@ -39,18 +39,19 @@ const NKTextareaField: React.FC<NKTextareaFieldProps> = ({
                 control={formMethods.control}
                 render={({ field }) => (
                     <div
-                        className={clsx([], {
-                            'flex items-center gap-2 overflow-hidden rounded-full border border-white': theme === NKTextareaFieldTheme.AUTH,
-                            'flex items-center gap-2  overflow-hidden rounded-lg border border-white': theme === NKTextareaFieldTheme.DEFAULT,
-                            'block w-full  rounded-md border border-gray-300 bg-white shadow-sm sm:text-sm': theme === NKTextareaFieldTheme.TAILWIND,
-                        })}
+                        className={clsx(
+                            [
+                                'flex items-center justify-center gap-2  rounded-lg border  border-gray-400 p-3 text-gray-400 shadow-sm duration-300 placeholder:text-gray-400 focus-within:text-gray-900',
+                            ],
+                            {},
+                        )}
                     >
                         {icon}
                         <textarea
                             {...field}
                             {...rest}
                             className={clsx([
-                                'w-full bg-transparent px-4 py-2 outline-none placeholder:text-gray-700 focus:outline-none',
+                                'w-full bg-transparent outline-none placeholder:text-gray-700 focus:outline-none',
                                 {
                                     'rounded-md focus:border-[#B97953] focus:ring-[#B97953]': theme === NKTextareaFieldTheme.TAILWIND,
                                 },

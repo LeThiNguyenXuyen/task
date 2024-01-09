@@ -18,6 +18,7 @@ import { IV1UpdateProfileDto, userMeApi } from '@/core/api/user-me.api';
 import NKDateField from '@/core/components/form/NKDateField';
 import NKFormWrapper from '@/core/components/form/NKFormWrapper';
 import NKTextField, { NKTextFieldTheme } from '@/core/components/form/NKTextField';
+import NKTextareaField from '@/core/components/form/NKTextareaField';
 import { RootState } from '@/core/store';
 import { UserState } from '@/core/store/user';
 
@@ -84,6 +85,7 @@ const Page: React.FC<PageProps> = () => {
                                                 facebookUrl: '',
                                                 major: '',
                                                 studentId: '',
+                                                bio: userMeQuery.data?.bio ?? '',
                                             });
                                             userMeQuery.refetch();
                                         }
@@ -109,6 +111,7 @@ const Page: React.FC<PageProps> = () => {
                                 major: '',
                                 studentId: '',
                                 dob: moment(userMeQuery.data?.dob).format('YYYY-MM-DD'),
+                                bio: userMeQuery.data?.bio ?? '',
                             }}
                             schema={{
                                 address: joi.string().required(),
@@ -120,6 +123,7 @@ const Page: React.FC<PageProps> = () => {
                                 major: joi.any().optional(),
                                 studentId: joi.any().optional(),
                                 dob: joi.date().required(),
+                                bio: joi.string().optional(),
                             }}
                             onExtraSuccessAction={(data) => {
                                 toast.success('Cập nhật thông tin thành công');
@@ -145,11 +149,18 @@ const Page: React.FC<PageProps> = () => {
                                 <div className="sm:col-span-2">
                                     <NKDateField label="Ngày sinh" name="dob" theme={'AUTH'} />
                                 </div>
+                                <NKTextareaField
+                                    name="bio"
+                                    label="Bio"
+                                    placeholder="Giới thiệu"
+                                    // theme={NKTextFieldTheme.AUTH}
+                                    className="text-white"
+                                />
 
                                 <div className=" w-full">
                                     <button
                                         type="submit"
-                                        className="w-full rounded-full bg-blue-600 px-2.5 py-3  font-semibold text-white  shadow-sm hover:bg-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-200"
+                                        className="w-full rounded-full bg-blue-600 px-2.5 py-3  font-semibold text-white  shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-200"
                                     >
                                         CẬP NHẬT
                                     </button>

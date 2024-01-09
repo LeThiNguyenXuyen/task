@@ -5,8 +5,10 @@ import * as React from 'react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 
+import { Tab } from '@headlessui/react';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { ArrowLeft } from 'akar-icons';
+import { ArrowLeft, Newspaper, ShoppingBag, Tag } from 'akar-icons';
+import clsx from 'clsx';
 import _get from 'lodash/get';
 import _kebabCase from 'lodash/kebabCase';
 import { MdHomeFilled } from 'react-icons/md';
@@ -106,12 +108,11 @@ const UserProfilePage: React.FunctionComponent<UserProfilePageProps> = () => {
                 <div className="absolute -top-[84px] left-1/2 h-24 w-24 -translate-x-1/2 overflow-hidden rounded-full border-4 border-white bg-blue-400">
                     <img className="h-full w-full object-cover" src={userQuery.data?.avatar} />
                 </div>
-                <div className="flex h-full w-full flex-col items-center px-4 pt-10">
-                    <p className="mb-1 text-center text-base font-bold  text-black">@{_kebabCase(userQuery.data?.name).replaceAll('-', '_')}</p>
-                    <p className="mb-3  text-center text-sm  text-gray-500">
-                        My name is Prathyaksh. I like dancing in the rain and travelling all around the world.
-                    </p>
-                    <div className="flex gap-6">
+                <div className="flex h-full w-full flex-col items-center px-4 pt-6">
+                    <p className=" text-center text-base font-bold  text-black">{userQuery.data?.name}</p>
+                    <p className="mb-1 text-center text-sm font-bold  text-black">@{_kebabCase(userQuery.data?.name).replaceAll('-', '_')}</p>
+                    <p className="mb-3  text-center text-sm  text-gray-500">{userQuery.data?.bio}</p>
+                    <div className="mb-2 flex gap-6">
                         <button
                             className="shadow-2xls rounded-full bg-[#3C91D3] px-6 py-2 text-base text-white"
                             onClick={() => createFollowMutation.mutate()}
@@ -131,13 +132,74 @@ const UserProfilePage: React.FunctionComponent<UserProfilePageProps> = () => {
                         </button>
                     </div>
                     <div className="w-full">
-                        <ScrollInfinityBuilder
-                            className="my-2 mb-8 flex !w-full flex-col gap-2"
-                            queryApi={userPostApi.v1Get}
-                            filters={[`user.id||${FilterComparator.EQUAL}||${id}`]}
-                            sourceKey="userPostApi.v1Get"
-                            render={(item, index) => <PostCard data={item} key={item.id} className="shadow" />}
-                        />
+                        <Tab.Group>
+                            <Tab.List className="flex gap-1  p-1">
+                                <Tab
+                                    key="post"
+                                    className={({ selected }) =>
+                                        clsx(
+                                            'flex w-full flex-1 items-center justify-center  gap-1 rounded-lg text-sm font-medium leading-5 duration-300 focus:outline-none',
+                                            {
+                                                ' text-blue-700 ': selected,
+                                                'text-gray-400 ': !selected,
+                                            },
+                                        )
+                                    }
+                                >
+                                    <Newspaper strokeWidth={2} size={24} />
+                                    <span>Bài viết</span>
+                                </Tab>
+                                <Tab
+                                    key="booking"
+                                    className={({ selected }) =>
+                                        clsx(
+                                            'flex w-full flex-1 items-center justify-center  gap-1 rounded-lg text-sm font-medium leading-5 duration-300 focus:outline-none',
+                                            {
+                                                ' text-blue-700 ': selected,
+                                                'text-gray-400 ': !selected,
+                                            },
+                                        )
+                                    }
+                                >
+                                    <Tag strokeWidth={2} size={24} />
+                                    <span>Booking</span>
+                                </Tab>
+                                <Tab
+                                    key="shop"
+                                    className={({ selected }) =>
+                                        clsx(
+                                            'flex w-full flex-1 items-center justify-center  gap-1 rounded-lg text-sm font-medium leading-5 duration-300 focus:outline-none',
+                                            {
+                                                ' text-blue-700 ': selected,
+                                                'text-gray-400 ': !selected,
+                                            },
+                                        )
+                                    }
+                                >
+                                    <ShoppingBag strokeWidth={2} size={24} />
+                                    <span>Shop</span>
+                                </Tab>
+                            </Tab.List>
+                            <Tab.Panels className="mt-2">
+                                <Tab.Panel key="post" unmount={false}>
+                                    <div className=" w-full">
+                                        <ScrollInfinityBuilder
+                                            className=" fade-in mb-8 flex !w-full flex-col gap-2"
+                                            queryApi={userPostApi.v1Get}
+                                            filters={[`user.id||${FilterComparator.EQUAL}||${id}`]}
+                                            sourceKey="userPostApi.v1Get"
+                                            render={(item, index) => <PostCard data={item} key={item.id} className="shadow" />}
+                                        />
+                                    </div>
+                                </Tab.Panel>
+                                <Tab.Panel key="shop" unmount={false}>
+                                    <div className="fade-in">Shop</div>
+                                </Tab.Panel>
+                                <Tab.Panel unmount={false} key="booking">
+                                    <div className="fade-in">Booking</div>
+                                </Tab.Panel>
+                            </Tab.Panels>
+                        </Tab.Group>
                     </div>
                 </div>
             </div>

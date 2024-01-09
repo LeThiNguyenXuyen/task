@@ -11,12 +11,12 @@ export const userFollowApi = {
     countFollowBy: async (userId: string) => {
         const url = `${baseEndpoint}/count-follow-by/${userId}`;
         const res = await http.get(url);
-        return _get(res, 'data.count', 0);
+        return _get(res, 'data', 0);
     },
 
     countFollowTo: async (userId: string) => {
         const url = `${baseEndpoint}/count-follow/${userId}`;
         const res = await http.get(url);
-        return _get(res, 'data.count', 0);
+        return _get(res, 'data', 0);
     },
 };

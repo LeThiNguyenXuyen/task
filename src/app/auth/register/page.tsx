@@ -121,7 +121,7 @@ const RegisterPage: React.FunctionComponent<RegisterPageProps> = () => {
                                 className="text-white"
                             />
                             <div className="flex flex-col  gap-4">
-                                <button className="rounded-full bg-blue-600 px-2.5 py-3  font-semibold text-white  shadow-sm hover:bg-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-200">
+                                <button className="rounded-full bg-blue-600 px-2.5 py-3  font-semibold text-white  shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-200">
                                     ĐĂNG KÝ
                                 </button>
                                 <div className="flex flex-col  gap-4">
