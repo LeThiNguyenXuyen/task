@@ -63,6 +63,7 @@ const NKRichText: React.FC<NKRichTextProps> = ({
     ...rest
 }) => {
     const editorRef = React.useRef<ReactQuill>(null);
+    const [isShowEditor, setIsShowEditor] = React.useState<boolean>(false);
 
     const selectLocalImage = (editor: any, cb: (editor: typeof Quill, input: File) => void) => {
         const input = document.createElement('input');
@@ -105,17 +106,36 @@ const NKRichText: React.FC<NKRichTextProps> = ({
                 control={formMethods.control}
                 render={({ field }) => (
                     <div
-                        className={clsx('h-full', {
+                        className={clsx(' h-full ', {
                             'rounded-full bg-[#E6EEFA]/50': theme === NKRichTextTheme.DEFAULT,
+                            'hide-toolbar': !isShowEditor,
                         })}
                     >
                         {icon}
                         <ReactQuill
                             {...rest}
                             {...field}
+                            onFocus={() => setIsShowEditor(true)}
+                            onBlur={() => setIsShowEditor(false)}
                             className={clsx('bg-[#E6EEFA]/50', className)}
                             modules={{
-                                toolbar: [],
+                                toolbar: [
+                                    // [{ header: [1, 2, 3, 4, false] }],
+                                    // [{ header: 1 }, { header: 2 }, { font: [] }], // custom button values
+                                    // [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
+                                    // [{ indent: '-1' }, { indent: '+1' }], // outdent/indent
+                                    // [{ size: ['small', 'large', 'huge'] }], // custom dropdown
+                                    // [{ color: ['black'] }], // dropdown with defaults from theme
+                                    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                                    // [{ list: 'ordered' }, { list: 'bullet' }],
+                                    ['image', 'video'],
+                                    // ['clean'],
+                                    // ['blockquote', 'code-block'],
+                                    // [{ font: [] }],
+                                    // ['link'],
+                                    //[{ 'align': [] }],
+                                    // ['clean'], // remove formatting button
+                                ],
                                 blotFormatter: {
                                     // see config options below
                                 },
@@ -126,7 +146,7 @@ const NKRichText: React.FC<NKRichTextProps> = ({
                                     matchVisual: false,
                                 },
                             }}
-                            theme="bubble"
+                            theme="snow"
                             formats={[
                                 'script',
                                 'header',

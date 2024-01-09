@@ -51,7 +51,7 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ data, className = ''
 
     const reactCommentMutation = useMutation(
         async (dto: UserPostCommentLikeIV1CreateDto) => {
-            return await userPostCommentLikeApi.v1Create(data.id, dto);
+            return await userPostCommentLikeApi.v1Create(dto);
         },
         {
             onSuccess: () => {
@@ -218,6 +218,7 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ data, className = ''
                                                         reactCommentMutation.mutateAsync(
                                                             {
                                                                 react: checkUserCommentReacted(comment) ? 0 : 1,
+                                                                id: comment.id,
                                                             },
                                                             {
                                                                 onSuccess: () => {
