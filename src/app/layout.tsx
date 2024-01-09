@@ -1,19 +1,12 @@
-'use client';
-
-import { useEffect } from 'react';
-
-import type { Metadata } from 'next';
+// 'use client';
+import { Viewport } from 'next';
 import { Roboto } from 'next/font/google';
+import Head from 'next/head';
 import Script from 'next/script';
 
 import clsx from 'clsx';
-import { Provider } from 'react-redux';
-import { ToastContainer } from 'react-toastify';
 
-import TanQueryClient from '@/core/components/common/TanQueryClient';
-import TryAuthWrapper from '@/core/components/wrapper/TryAuthWrapper';
-import { CartProvider } from '@/core/contexts/CartContext';
-import { store } from '@/core/store';
+import RootProvider from '@/core/components/common/RootProvider';
 
 import './globals.css';
 import '@smastrom/react-rating/style.css';
@@ -28,14 +21,22 @@ const roboto = Roboto({
     weight: ['100', '300', '400', '500', '700', '900'],
 });
 
+export const viewport: Viewport = {
+    width: 'device-width',
+    initialScale: 1,
+    minimumScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en">
-            <head>
+            <Head>
                 <link rel="manifest" href="/manifest.json" />
                 <link rel="apple-touch-icon" href="/apple-touch-icon.png"></link>
                 <meta name="theme-color" content="#fff" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+                {/* <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> */}
 
                 <Script strategy="lazyOnload" src={`https://www.googletagmanager.com/gtag/js?id=G-RJSXHSX9ZW`} />
 
@@ -49,21 +50,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     });
                 `}
                 </Script>
-            </head>
+            </Head>
             <body className={clsx(roboto.className, 'flex min-h-screen w-full flex-col')}>
-                <Provider store={store}>
-                    <TanQueryClient>
-                        <TryAuthWrapper>
-                            <CartProvider>
-                                <div className="flex flex-1 flex-col">{children}</div>
-                            </CartProvider>
-                            <ToastContainer closeButton={false} position="bottom-center" autoClose={4000} limit={2} />
-                            {/* <div className="fixed bottom-10 right-10 bg-gray-200 py-2 px-4 z-50 rounded font-semibold">
-                                <PWAButton />
-                            </div> */}
-                        </TryAuthWrapper>
-                    </TanQueryClient>
-                </Provider>
+                <RootProvider>{children}</RootProvider>
             </body>
         </html>
     );
