@@ -5,7 +5,7 @@ import * as React from 'react';
 import Link from 'next/link';
 
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { ArrowLeft, ChevronLeft } from 'akar-icons';
+import { ArrowLeft, ChevronLeft, Image } from 'akar-icons';
 import joi from 'joi';
 import moment from 'moment';
 import { BsImage } from 'react-icons/bs';
@@ -45,7 +45,7 @@ const Page: React.FC<PageProps> = () => {
             {Boolean(userMeQuery.data?.id) && (
                 <div
                     style={{
-                        backgroundImage: `url('/assets/images/bg-1.png')`,
+                        backgroundImage: `url('${userMeQuery.data?.banner}')`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                     }}
@@ -56,7 +56,47 @@ const Page: React.FC<PageProps> = () => {
                                 <ArrowLeft strokeWidth={2} size={24} />
                             </div>
                         </Link>
-                        <div className="h-40"></div>
+                        <button
+                            onClick={() => {
+                                // create a new input element
+                                const input = document.createElement('input');
+                                // set its type to file
+                                input.type = 'file';
+                                // set how many files it can accept
+                                input.accept = 'image/*';
+                                // set onchange event to call callback when user has selected file
+
+                                input.onchange = async (e: any) => {
+                                    const file = e.target.files[0];
+                                    if (file) {
+                                        const fileLocation = await uploadImageMutation.mutateAsync(file);
+
+                                        await userMeApi.v1Put({
+                                            address: userMeQuery.data?.address ?? '',
+                                            name: userMeQuery.data?.name ?? '',
+                                            phone: userMeQuery.data?.phone ?? '',
+                                            avatar: userMeQuery.data?.avatar ?? '',
+                                            banner: fileLocation,
+                                            dob: moment(userMeQuery.data?.dob).format('YYYY-MM-DD'),
+                                            facebookUrl: '',
+                                            major: '',
+                                            studentId: '',
+                                            bio: userMeQuery.data?.bio ?? '',
+                                            nickname: userMeQuery.data?.nickname ?? '',
+                                        });
+                                        userMeQuery.refetch();
+                                    }
+                                };
+                                // click the input element to show file browser dialog
+                                input.click();
+                            }}
+                            className="absolute right-4 top-4 h-10 w-10 rounded-lg  text-white"
+                        >
+                            <div className="flex h-full w-full items-center justify-center rounded-full bg-white text-black">
+                                <Image strokeWidth={2} size={24} />
+                            </div>
+                        </button>
+                        <div className="h-56"></div>
 
                         <div className="absolute -bottom-1/4 left-1/2 -translate-x-1/2 rounded-full border-[5px] border-white">
                             <div
@@ -74,7 +114,7 @@ const Page: React.FC<PageProps> = () => {
                                         const file = e.target.files[0];
                                         if (file) {
                                             const fileLocation = await uploadImageMutation.mutateAsync(file);
-                                            console.log(fileLocation);
+
                                             await userMeApi.v1Put({
                                                 address: userMeQuery.data?.address ?? '',
                                                 name: userMeQuery.data?.name ?? '',
@@ -86,6 +126,7 @@ const Page: React.FC<PageProps> = () => {
                                                 major: '',
                                                 studentId: '',
                                                 bio: userMeQuery.data?.bio ?? '',
+                                                nickname: userMeQuery.data?.nickname ?? '',
                                             });
                                             userMeQuery.refetch();
                                         }
@@ -112,6 +153,7 @@ const Page: React.FC<PageProps> = () => {
                                 studentId: '',
                                 dob: moment(userMeQuery.data?.dob).format('YYYY-MM-DD'),
                                 bio: userMeQuery.data?.bio ?? '',
+                                nickname: userMeQuery.data?.nickname ?? '',
                             }}
                             schema={{
                                 address: joi.string().required(),
@@ -124,6 +166,7 @@ const Page: React.FC<PageProps> = () => {
                                 studentId: joi.any().optional(),
                                 dob: joi.date().required(),
                                 bio: joi.string().optional(),
+                                nickname: joi.string().allow('').optional(),
                             }}
                             onExtraSuccessAction={(data) => {
                                 toast.success('Cập nhật thông tin thành công');
@@ -131,6 +174,13 @@ const Page: React.FC<PageProps> = () => {
                         >
                             <div className="flex flex-col gap-5">
                                 <NKTextField name="name" label="Họ và tên" placeholder="Name" theme={NKTextFieldTheme.AUTH} className="text-white" />
+                                <NKTextField
+                                    name="nickname"
+                                    label="Nickname"
+                                    placeholder={userMeQuery.data?.name ?? 'Nickname'}
+                                    theme={NKTextFieldTheme.AUTH}
+                                    className="text-white"
+                                />
                                 <NKTextField
                                     name="phone"
                                     type="text"

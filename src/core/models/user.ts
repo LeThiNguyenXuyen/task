@@ -21,4 +21,5 @@ export interface User {
     lastActive: string;
     dob: string;
     bio: string;
+    nickname: string;
 }

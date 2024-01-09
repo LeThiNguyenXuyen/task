@@ -20,6 +20,22 @@ export const NKRouter = {
                 deposit: () => '/app/settings/wallet/deposit',
             },
         },
+        userSale: {
+            index: () => '/app/user-sale',
+            detail: (id: string) => `/app/user-sale/${id}`,
+        },
+        userMeSale: {
+            index: () => '/app/user-me-sale',
+            detail: (id: string) => `/app/user-me-sale/${id}`,
+        },
+        userBooking: {
+            index: () => '/app/user-booking',
+            detail: (id: string) => `/app/user-booking/${id}`,
+        },
+        userMeBooking: {
+            index: () => '/app/user-me-booking',
+            detail: (id: string) => `/app/user-me-booking/${id}`,
+        },
         post: {
             index: () => '/app/post',
             detail: (id: string) => `/app/post/${id}`,

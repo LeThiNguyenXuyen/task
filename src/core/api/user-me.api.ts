@@ -17,6 +17,7 @@ export interface IV1UpdateProfileDto {
     avatar: string;
     dob: string;
     bio: string;
+    nickname: string;
 }
 
 export interface IV1UpdateMessageTokenDto {

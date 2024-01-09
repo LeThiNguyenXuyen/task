@@ -92,7 +92,7 @@ const UserProfilePage: React.FunctionComponent<UserProfilePageProps> = () => {
                 </button>
             </Link>
             <div className="h-56 w-full flex-shrink-0">
-                <img className="h-full w-full object-cover" src={userQuery.data?.avatar} />
+                <img className="h-full w-full object-cover" src={userQuery.data?.banner} />
             </div>
             <div className="relative h-full w-full bg-[#E6EEFA] shadow">
                 <div className="absolute -top-10 left-0 flex h-10 w-full justify-center gap-11 rounded-t-[64px] bg-inherit px-4 pt-8">
@@ -110,7 +110,7 @@ const UserProfilePage: React.FunctionComponent<UserProfilePageProps> = () => {
                 </div>
                 <div className="flex h-full w-full flex-col items-center px-4 pt-6">
                     <p className=" text-center text-base font-bold  text-black">{userQuery.data?.name}</p>
-                    <p className="mb-1 text-center text-sm font-bold  text-black">@{_kebabCase(userQuery.data?.name).replaceAll('-', '_')}</p>
+                    <p className="mb-1 text-center text-sm font-bold  text-black">@{_kebabCase(userQuery.data?.nickname).replaceAll('-', '_')}</p>
                     <p className="mb-3  text-center text-sm  text-gray-500">{userQuery.data?.bio}</p>
                     <div className="mb-2 flex gap-6">
                         <button

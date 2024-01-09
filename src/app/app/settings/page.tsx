@@ -5,7 +5,7 @@ import * as React from 'react';
 import Link from 'next/link';
 
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { ArrowLeft, ChevronLeft, ChevronRight, Language, LockOn, Person, SignOut, Wallet } from 'akar-icons';
+import { ArrowLeft, ChevronLeft, ChevronRight, Language, LockOn, Person, ShoppingBag, SignOut, Tag, Wallet } from 'akar-icons';
 import { AiFillStar } from 'react-icons/ai';
 import {
     MdConnectWithoutContact,
@@ -79,6 +79,14 @@ const Page: React.FC<PageProps> = () => {
                     <h3 className="text-sm text-gray-300">Thông Tin</h3>
                 </div>
                 <div className="">
+                    <Link href={NKRouter.app.post.user(userState.id)} className="flex items-center justify-between gap-2  py-3 font-semibold">
+                        <div className="flex items-center justify-center">
+                            <div>Tài Khoản Của Tôi</div>
+                        </div>
+                        <div className="h-6 w-6">
+                            <Person strokeWidth={2} size={24} />
+                        </div>
+                    </Link>
                     <Link href={NKRouter.app.settings.update()} className="flex items-center justify-between gap-2  py-3 font-semibold">
                         <div className="flex items-center justify-center">
                             <div>Cập Nhật Thông Tin</div>
@@ -105,7 +113,27 @@ const Page: React.FC<PageProps> = () => {
                         </div>
                     </Link>
                 </div>
-
+                <div className="mt-3">
+                    <h3 className="text-sm text-gray-300">Dich Vụ</h3>
+                </div>
+                <div className="">
+                    <Link href={NKRouter.app.userMeSale.index()} className="flex items-center justify-between gap-2  py-3 font-semibold">
+                        <div className="flex items-center justify-center">
+                            <div>Snapix Shop</div>
+                        </div>
+                        <div className="h-6 w-6">
+                            <ShoppingBag strokeWidth={2} size={24} />
+                        </div>
+                    </Link>
+                    <Link href={NKRouter.app.userMeBooking.index()} className="flex items-center justify-between gap-2  py-3 font-semibold">
+                        <div className="flex items-center justify-center">
+                            <div>Snapix Booking</div>
+                        </div>
+                        <div className="h-6 w-6">
+                            <Tag strokeWidth={2} size={24} />
+                        </div>
+                    </Link>
+                </div>
                 <div className="mt-1">
                     <h3 className="text-sm text-gray-300">Hỗ Trợ</h3>
                 </div>
