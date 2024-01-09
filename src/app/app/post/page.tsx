@@ -29,8 +29,9 @@ const PostPage: React.FunctionComponent<PostPageProps> = () => {
     const userState = useSelector<RootState, UserState>((state) => state.user);
 
     return (
-        <div className="fade-in flex h-full w-full flex-col items-start justify-start bg-white p-2 pb-10">
-            <div className="flex w-full items-start gap-3 rounded-xl bg-[#E6EEFA] p-4 ">
+        <div className="fade-in flex h-full w-full flex-col items-start justify-start bg-white pb-10">
+            <div className="flex w-full items-center justify-center pb-2 pt-8 text-2xl font-bold text-black">Khám Phá</div>
+            <div className="flex w-full items-start gap-3 bg-[#E6EEFA] p-4 ">
                 <div className="flex w-full flex-col">
                     <NKFormWrapper<UserPostIV1CreateDto>
                         apiAction={(data) => {
@@ -59,7 +60,7 @@ const PostPage: React.FunctionComponent<PostPageProps> = () => {
 
             <div className="w-full">
                 <ScrollInfinityBuilder
-                    className="my-2 flex !w-full flex-col gap-4"
+                    className="my-2 mb-8 flex !w-full flex-col gap-2"
                     queryApi={userPostApi.v1Get}
                     sourceKey="userPostApi.v1Get"
                     render={(item, index) => <PostCard data={item} key={item.id} className="shadow" />}
