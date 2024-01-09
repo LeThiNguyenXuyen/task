@@ -99,7 +99,7 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ data, className = ''
         <>
             <div
                 className={clsx(
-                    'flex min-h-20 w-full flex-col items-start  justify-between gap-3 rounded-xl bg-[#E6EEFA] p-3 duration-300',
+                    'flex min-h-20 w-full flex-col items-start  justify-between gap-1 rounded-xl bg-[#E6EEFA] p-3 duration-300',
                     className,
                 )}
             >
@@ -131,7 +131,11 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ data, className = ''
                             }}
                             className="prose post-content prose-img:rounded-xl prose-img:m-0 text-base font-normal"
                         />
-                        <div className="mt-2 flex w-full justify-start gap-[52px]">
+                        <div
+                            className={clsx('mt-2 flex w-full justify-start gap-[52px]', {
+                                'border-b border-gray-300 pb-3': openComment,
+                            })}
+                        >
                             <button
                                 className="flex items-center gap-3 outline-none"
                                 onClick={() => reactMutation.mutateAsync({ react: checkUserReacted(postQuery.data) ? 0 : 1 })}
@@ -159,7 +163,7 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ data, className = ''
                 </div>
 
                 {openComment && (
-                    <div className="flex w-full flex-col gap-3  py-3 pl-2">
+                    <div className="flex w-full flex-col gap-3 pb-3 ">
                         <div className="w-full">
                             <NKFormWrapper<UserPostIV1CreateDto>
                                 apiAction={(dto) => {
@@ -178,23 +182,28 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ data, className = ''
                                     methods.reset();
                                 }}
                             >
-                                <div className="flex w-full items-center gap-4">
+                                <div className="flex w-full flex-col items-center gap-4 border-b border-gray-300 pb-2">
                                     <NKRichText label="" name="content" placeholder="Viết bình luận" className="w-full" />
-                                    <button className="text-2xl font-bold text-black">
-                                        <AiOutlineSend />
-                                    </button>
+                                    <div className="flex w-full justify-end">
+                                        <button className="text-sm font-bold text-black">Đăng</button>
+                                    </div>
                                 </div>
                             </NKFormWrapper>
                         </div>
 
-                        <div className="flex flex-col gap-4  divide-x-0">
+                        <div className="divide-y-1 flex flex-col  gap-4 pl-1">
                             {postQuery.data.userPostComments
                                 .sort((a, b) => {
                                     return moment(b.createdAt).diff(moment(a.createdAt));
                                 })
                                 .slice(0, showMore ? postQuery.data.userPostComments.length : 2)
-                                .map((comment) => (
-                                    <div key={comment.id} className="flex  w-full flex-col gap-2">
+                                .map((comment, index) => (
+                                    <div
+                                        key={comment.id}
+                                        className={clsx('flex w-full flex-col gap-2 ', {
+                                            'border-t border-gray-200 pt-2': index !== postQuery.data.userPostComments.length - 1 && index !== 0,
+                                        })}
+                                    >
                                         <div className="flex  items-center gap-3">
                                             <figure className="flex h-10 w-10 flex-shrink-0 overflow-hidden rounded-full">
                                                 <img src={`${postQuery.data.user.avatar}`} alt="" className="h-full w-full object-cover" />
@@ -204,7 +213,7 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ data, className = ''
                                                 <p className="text-sm font-light">{moment(comment.createdAt).fromNow()}</p>
                                             </div>
                                         </div>
-                                        <div className="flex w-full flex-col gap-2 pl-3">
+                                        <div className="flex w-full flex-col gap-2 pl-2">
                                             <div
                                                 dangerouslySetInnerHTML={{
                                                     __html: comment.content,
