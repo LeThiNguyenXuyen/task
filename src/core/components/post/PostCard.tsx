@@ -97,12 +97,7 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ data, className = ''
 
     return (
         <>
-            <div
-                className={clsx(
-                    'flex min-h-20 w-full flex-col items-start  justify-between gap-1 rounded-xl bg-[#E6EEFA] p-3 duration-300',
-                    className,
-                )}
-            >
+            <div className={clsx('flex min-h-20 w-full flex-col items-start  justify-between gap-1 bg-[#E6EEFA] p-3 duration-300', className)}>
                 <div className="flex w-full gap-3">
                     <div className="flex w-full flex-col gap-2 ">
                         <div className="flex w-full items-center justify-between gap-4">

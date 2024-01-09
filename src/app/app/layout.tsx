@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useParams, usePathname, useSearchParams } from 'next/navigation';
 
 import { useQuery } from '@tanstack/react-query';
-import { Bell, Gear, Home, PaperAirplane, ShoppingBag } from 'akar-icons';
+import { Bell, ChatDots, Gear, Home, Newspaper, PaperAirplane, ShoppingBag } from 'akar-icons';
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 
@@ -76,20 +76,15 @@ const Layout: React.FunctionComponent<LayoutProps> = ({ children }) => {
                             'text-indigo-600': pathName.includes('chat'),
                         })}
                     >
-                        <PaperAirplane strokeWidth={2} size={24} />
+                        <ChatDots strokeWidth={2} size={24} />
                     </Link>
                     <Link
-                        href={NKRouter.app.notification.index()}
+                        href={NKRouter.app.post.index()}
                         className={clsx('relative', {
-                            'text-indigo-600': pathName.includes('notification'),
+                            'text-indigo-600': pathName.includes('post'),
                         })}
                     >
-                        {Boolean(countUnread.data) && (
-                            <div className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
-                                {countUnread.data}
-                            </div>
-                        )}
-                        <Bell strokeWidth={2} size={24} />
+                        <Newspaper strokeWidth={2} size={24} />
                     </Link>
                     <Link
                         href={NKRouter.app.product.index()}
@@ -104,6 +99,20 @@ const Layout: React.FunctionComponent<LayoutProps> = ({ children }) => {
                         )}
                         <ShoppingBag strokeWidth={2} size={24} />
                     </Link>
+                    <Link
+                        href={NKRouter.app.notification.index()}
+                        className={clsx('relative', {
+                            'text-indigo-600': pathName.includes('notification'),
+                        })}
+                    >
+                        {Boolean(countUnread.data) && (
+                            <div className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
+                                {countUnread.data}
+                            </div>
+                        )}
+                        <Bell strokeWidth={2} size={24} />
+                    </Link>
+
                     <Link
                         className={clsx('', {
                             'text-indigo-600': pathName.includes('settings'),
