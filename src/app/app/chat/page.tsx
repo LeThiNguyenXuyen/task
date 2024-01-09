@@ -85,16 +85,18 @@ const Page: React.FC<PageProps> = () => {
                 height: 'calc(100vh - 4.5rem)',
             }}
         >
-            <div className="flex h-16 w-full border-b border-gray-500 bg-gray-100 p-3">
-                <input
-                    placeholder="Tìm kiếm"
-                    className="h-full w-full rounded-full border border-black px-4 py-1 text-black"
-                    {...searchMethods.register('search')}
-                />
+            <div>
+                <div className="flex h-16 w-full border-b border-gray-300  p-3">
+                    <input
+                        placeholder="Tìm kiếm"
+                        className="right-0 h-full  w-full border border-gray-300 bg-white px-4 py-1 text-black shadow-lg duration-300 hover:border-blue-500 focus:border-blue-500 focus:outline-none"
+                        {...searchMethods.register('search')}
+                    />
+                </div>
             </div>
 
             {!Boolean(watchSearch) ? (
-                <div className="p-4">
+                <div className="px-4 py-2">
                     {chatQuery.data
                         .filter((chat) => chat.chatMessages.length)
                         ?.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
@@ -110,7 +112,7 @@ const Page: React.FC<PageProps> = () => {
                                         'border-b': userQuery.data.length - 1 !== index,
                                     })}
                                 >
-                                    <div className="relative h-16 w-16  flex-shrink-0">
+                                    <div className="relative h-12 w-12  flex-shrink-0">
                                         <img
                                             className="h-full w-full overflow-hidden rounded-full"
                                             src={chat.isGroup ? chat.banner : chat.users.filter((u) => u.id !== userState.id)[0]?.avatar}

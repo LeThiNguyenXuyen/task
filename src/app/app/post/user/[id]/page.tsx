@@ -130,7 +130,7 @@ const UserProfilePage: React.FunctionComponent<UserProfilePageProps> = () => {
                             Nhắn tin
                         </button>
                     </div>
-                    <div className="flex w-full items-start justify-start">
+                    <div className="flex w-full flex-1 items-start justify-start">
                         <ScrollInfinityBuilder
                             className="my-2 flex !w-full flex-col gap-4"
                             queryApi={userPostApi.v1Get}

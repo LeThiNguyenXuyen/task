@@ -108,7 +108,7 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ data, className = ''
                                     <img src={`${postQuery.data.user.avatar}`} alt="" className="h-full w-full object-cover" />
                                 </figure>
                             </Link>
-                            <div className="w-full flex-col items-center justify-between gap-1 text-black">
+                            <div className="w-full flex-col items-start  gap-1 text-black">
                                 <Link href={NKRouter.app.post.user(postQuery.data.user.id)}>
                                     <p className="text-sm font-bold">{postQuery.data.user.name}</p>
                                 </Link>

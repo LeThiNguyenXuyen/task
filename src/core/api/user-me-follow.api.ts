@@ -28,6 +28,6 @@ export const userMeFollowApi = {
     isFollow: async (userId: string) => {
         const url = `${baseEndpoint}/is-follow/${userId}`;
         const res = await http.get(url);
-        return _get(res, 'data.isFollow', false);
+        return _get(res, 'data.isFollowed', false);
     },
 };
