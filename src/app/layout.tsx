@@ -35,7 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <link rel="manifest" href="/manifest.json" />
                 <link rel="apple-touch-icon" href="/apple-touch-icon.png"></link>
                 <meta name="theme-color" content="#fff" />
-                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
                 <Script strategy="lazyOnload" src={`https://www.googletagmanager.com/gtag/js?id=G-RJSXHSX9ZW`} />
 
