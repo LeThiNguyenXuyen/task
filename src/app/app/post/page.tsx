@@ -29,7 +29,7 @@ const PostPage: React.FunctionComponent<PostPageProps> = () => {
     const userState = useSelector<RootState, UserState>((state) => state.user);
 
     return (
-        <div className="fade-in flex h-full w-full flex-col items-start justify-start bg-white p-6 pb-10">
+        <div className="fade-in flex h-full w-full flex-col items-start justify-start bg-white p-2 pb-10">
             <div className="flex w-full items-start gap-3 rounded-[40px] bg-[#E6EEFA] px-8 py-4">
                 <div className="flex w-full flex-col">
                     <NKFormWrapper<UserPostIV1CreateDto>

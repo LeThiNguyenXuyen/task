@@ -35,6 +35,10 @@
     border:none !important;
 }
 
+.post-content img {
+    max-height: 200px;
+}
+
 .hide-toolbar .ql-toolbar{
     display:none !important;
 }

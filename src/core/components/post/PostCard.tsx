@@ -109,9 +109,9 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ data, className = ''
                     </figure>
                     <div className="flex w-full flex-col gap-1 ">
                         <div className="flex w-full justify-between">
-                            <div className="flex items-center gap-1 text-black">
-                                <p className="text-base font-bold">{postQuery.data.user.name}</p>
-                                <p className="text-base font-light">{moment(postQuery.data.createdAt).fromNow()}</p>
+                            <div className="flex w-full items-center justify-between gap-1 text-black">
+                                <p className="text-sm font-bold">{postQuery.data.user.name}</p>
+                                <p className="text-sm font-light">{moment(postQuery.data.createdAt).fromNow()}</p>
                             </div>
                             {/* <Menu>
                                 <div className="relative">
@@ -129,7 +129,7 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ data, className = ''
                             dangerouslySetInnerHTML={{
                                 __html: postQuery.data.content,
                             }}
-                            className="prose prose-img:rounded-xl prose-img:m-0 text-base font-normal"
+                            className="prose post-content prose-img:rounded-xl prose-img:m-0 text-base font-normal"
                         />
                         <div className="mt-2 flex w-full justify-start gap-[52px]">
                             <button
@@ -159,7 +159,7 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ data, className = ''
                 </div>
 
                 {openComment && (
-                    <div className="flex w-full flex-col gap-3  px-8 py-3">
+                    <div className="flex w-full flex-col gap-3  py-3 pl-2">
                         <div className="w-full">
                             <NKFormWrapper<UserPostIV1CreateDto>
                                 apiAction={(dto) => {
@@ -199,9 +199,9 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ data, className = ''
                                             <figure className="flex h-10 w-10 flex-shrink-0 overflow-hidden rounded-full">
                                                 <img src={`${postQuery.data.user.avatar}`} alt="" className="h-full w-full object-cover" />
                                             </figure>
-                                            <div className="flex items-center gap-1 text-black">
-                                                <p className="text-base font-bold">{comment.user.name}</p>
-                                                <p className="text-base font-light">{moment(comment.createdAt).fromNow()}</p>
+                                            <div className="flex w-full items-center justify-between gap-1 text-black">
+                                                <p className="text-sm font-bold">{comment.user.name}</p>
+                                                <p className="text-sm font-light">{moment(comment.createdAt).fromNow()}</p>
                                             </div>
                                         </div>
                                         <div className="flex w-full flex-col gap-1 pl-14">
@@ -209,7 +209,7 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ data, className = ''
                                                 dangerouslySetInnerHTML={{
                                                     __html: comment.content,
                                                 }}
-                                                className="text-base font-normal"
+                                                className="prose post-content prose-img:rounded-xl prose-img:m-0 text-base font-normal"
                                             />
                                             <div className="flex w-full justify-start gap-[52px] ">
                                                 <button
