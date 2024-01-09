@@ -23,6 +23,7 @@ export const NKRouter = {
         post: {
             index: () => '/app/post',
             detail: (id: string) => `/app/post/${id}`,
+            user: (id: string) => `/app/post/user/${id}`,
         },
         photographers: {
             index: () => '/app/photographers',

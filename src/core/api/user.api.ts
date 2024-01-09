@@ -25,4 +25,9 @@ export const userApi = {
         const res = await http.get<ReportResponse[]>(url, { params: { ...dto } });
         return res.data;
     },
+    v1GetById: async (id: string) => {
+        const url = `/v1/user/${id}`;
+        const res = await http.get<User>(url);
+        return res.data;
+    }
 };

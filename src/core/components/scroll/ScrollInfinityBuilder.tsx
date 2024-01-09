@@ -11,22 +11,23 @@ interface ScrollInfinityBuilderProps {
     pageSize?: number;
     render: (item: any, index: number) => React.ReactNode;
     className?: string;
+    filters?: string[];
 }
 
-const ScrollInfinityBuilder: React.FC<ScrollInfinityBuilderProps> = ({ sourceKey, queryApi, pageSize = 10, render, className }) => {
+const ScrollInfinityBuilder: React.FC<ScrollInfinityBuilderProps> = ({ sourceKey, queryApi, pageSize = 10, filters = [], render, className }) => {
     const [currentData, setCurrentData] = React.useState<any[]>([]);
 
     const [page, setPage] = React.useState(0);
     const [isHasMore, setIsHasMore] = React.useState(true);
 
     const _ = useQuery(
-        [sourceKey, 'paging', page],
+        [sourceKey, 'paging', page, filters],
         async () => {
             const res = await queryApi({
                 page: page,
                 pageSize: pageSize,
                 orderBy: ['createdAt||DESC'],
-                filters: [],
+                filters,
             });
 
             return res.data;

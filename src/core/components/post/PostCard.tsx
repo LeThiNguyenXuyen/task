@@ -1,6 +1,7 @@
 import React from 'react';
 
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
@@ -10,6 +11,7 @@ import { AiFillHeart, AiOutlineHeart, AiOutlineSend } from 'react-icons/ai';
 import { FaRegCommentAlt } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 
+import { NKRouter } from '@/core/NKRouter';
 import { UserPostCommentLikeIV1CreateDto, userPostCommentLikeApi } from '@/core/api/user-post-comment-like.api';
 import { userPostCommentApi } from '@/core/api/user-post-comment.api';
 import { UserPostLikeIV1CreateDto, userPostLikeApi } from '@/core/api/user-post-like.api';
@@ -104,9 +106,11 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ data, className = ''
                 )}
             >
                 <div className="flex w-full gap-3">
-                    <figure className="flex h-12 w-12 flex-shrink-0 overflow-hidden rounded-full">
-                        <img src={`${postQuery.data.user.avatar}`} alt="" className="h-full w-full object-cover" />
-                    </figure>
+                    <Link href={NKRouter.app.post.user(postQuery.data.user.id)}>
+                        <figure className="flex h-12 w-12 flex-shrink-0 overflow-hidden rounded-full">
+                            <img src={`${postQuery.data.user.avatar}`} alt="" className="h-full w-full object-cover" />
+                        </figure>
+                    </Link>
                     <div className="flex w-full flex-col gap-1 ">
                         <div className="flex w-full justify-between">
                             <div className="flex items-center gap-1 text-black">
