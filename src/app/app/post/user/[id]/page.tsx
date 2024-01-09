@@ -106,9 +106,9 @@ const UserProfilePage: React.FunctionComponent<UserProfilePageProps> = () => {
                 <div className="absolute -top-[84px] left-1/2 h-24 w-24 -translate-x-1/2 overflow-hidden rounded-full border-4 border-white bg-blue-400">
                     <img className="h-full w-full object-cover" src={userQuery.data?.avatar} />
                 </div>
-                <div className="flex h-full w-full flex-col items-center px-4 pt-10 text-center">
-                    <p className="mb-1 text-base font-bold text-black">@{_kebabCase(userQuery.data?.name).replaceAll('-', '_')}</p>
-                    <p className="mb-3  text-sm text-gray-500">
+                <div className="flex h-full w-full flex-col items-center px-4 pt-10">
+                    <p className="mb-1 text-center text-base font-bold  text-black">@{_kebabCase(userQuery.data?.name).replaceAll('-', '_')}</p>
+                    <p className="mb-3  text-center text-sm  text-gray-500">
                         My name is Prathyaksh. I like dancing in the rain and travelling all around the world.
                     </p>
                     <div className="flex gap-6">
@@ -130,9 +130,9 @@ const UserProfilePage: React.FunctionComponent<UserProfilePageProps> = () => {
                             Nhắn tin
                         </button>
                     </div>
-                    <div className="flex w-full items-start justify-start">
+                    <div className="w-full">
                         <ScrollInfinityBuilder
-                            className="my-2 flex !w-full flex-col gap-4"
+                            className="my-2 mb-8 flex !w-full flex-col gap-2"
                             queryApi={userPostApi.v1Get}
                             filters={[`user.id||${FilterComparator.EQUAL}||${id}`]}
                             sourceKey="userPostApi.v1Get"
