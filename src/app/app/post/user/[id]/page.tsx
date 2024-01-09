@@ -3,14 +3,16 @@
 import * as React from 'react';
 
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { ArrowLeft } from 'akar-icons';
 import _get from 'lodash/get';
+import _kebabCase from 'lodash/kebabCase';
 import { MdHomeFilled } from 'react-icons/md';
 
 import { NKRouter } from '@/core/NKRouter';
+import { IV1CreateWithUser, userMeChatApi } from '@/core/api/user-me-chat.api';
 import { userPostApi } from '@/core/api/user-post.api';
 import { userApi } from '@/core/api/user.api';
 import PostCard from '@/core/components/post/PostCard';
@@ -23,11 +25,26 @@ const UserProfilePage: React.FunctionComponent<UserProfilePageProps> = () => {
     const params = useParams();
 
     const id = _get(params, 'id') as string;
+    const router = useRouter();
 
     const userQuery = useQuery(['user', id], async () => {
         const res = await userApi.v1GetById(id);
         return res;
     });
+
+    const createChatMutation = useMutation(
+        async (dto: IV1CreateWithUser) => {
+            const res = await userMeChatApi.v1PostCreateWithUser(dto);
+
+            return res;
+        },
+        {
+            onSuccess: (data) => {
+                if (!data) return;
+                router.push(NKRouter.app.chat.detail(data.id));
+            },
+        },
+    );
 
     return (
         <div className="fade-in relative flex h-full w-full flex-shrink-0 flex-col items-start justify-start bg-white">
@@ -52,29 +69,41 @@ const UserProfilePage: React.FunctionComponent<UserProfilePageProps> = () => {
                     </div>
                     <div className="flex w-full flex-col items-center justify-center text-black">
                         <p className="text-base font-bold">12</p>
-                        <p className="text-sm font-medium">người theo dõi</p>
+                        <p className="text-sm font-medium">theo dõi</p>
                     </div>
                 </div>
-                <div className="absolute -top-[84px] left-1/2 h-24 w-24 -translate-x-1/2 overflow-hidden rounded-full border-4 border-white">
-                    <img className="h-full w-full object-cover" src="" />
+                <div className="absolute -top-[84px] left-1/2 h-24 w-24 -translate-x-1/2 overflow-hidden rounded-full border-4 border-white bg-blue-400">
+                    <img className="h-full w-full object-cover" src={userQuery.data?.avatar} />
                 </div>
                 <div className="flex h-full w-full flex-col items-center px-4 pt-10 text-center">
-                    <p className="mb-1 text-base font-bold text-black">@kaine.sv</p>
+                    <p className="mb-1 text-base font-bold text-black">@{_kebabCase(userQuery.data?.name).replaceAll('-', '_')}</p>
                     <p className="mb-3  text-sm text-gray-500">
                         My name is Prathyaksh. I like dancing in the rain and travelling all around the world.
                     </p>
                     <div className="flex gap-6">
                         <button className="shadow-2xls rounded-full bg-[#3C91D3] px-6 py-2 text-base text-white">Theo dõi</button>
-                        <button className="rounded-full bg-white px-6 py-2 text-base text-black shadow-2xl">Nhắn tin</button>
+                        <button
+                            className="rounded-full bg-white px-6 py-2 text-base text-black shadow-2xl"
+                            onClick={() =>
+                                createChatMutation.mutate({
+                                    name: userQuery.data?.id || '',
+                                    userId: userQuery.data?.id || '',
+                                })
+                            }
+                        >
+                            Nhắn tin
+                        </button>
+                    </div>
+                    <div className="flex w-full items-start justify-start">
+                        <ScrollInfinityBuilder
+                            className="my-2 flex !w-full flex-col gap-4"
+                            queryApi={userPostApi.v1Get}
+                            filters={[`user.id||${FilterComparator.EQUAL}||${id}`]}
+                            sourceKey="userPostApi.v1Get"
+                            render={(item, index) => <PostCard data={item} key={item.id} className="shadow" />}
+                        />
                     </div>
                 </div>
-                <ScrollInfinityBuilder
-                    className="my-2 flex !w-full flex-col gap-4"
-                    queryApi={userPostApi.v1Get}
-                    filters={[`user.id||${FilterComparator.EQUAL}||${id}}`]}
-                    sourceKey="userPostApi.v1Get"
-                    render={(item, index) => <PostCard data={item} key={item.id} className="shadow" />}
-                />
             </div>
         </div>
     );
