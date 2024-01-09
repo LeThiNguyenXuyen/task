@@ -12,7 +12,9 @@ import _kebabCase from 'lodash/kebabCase';
 import { MdHomeFilled } from 'react-icons/md';
 
 import { NKRouter } from '@/core/NKRouter';
+import { userFollowApi } from '@/core/api/user-follow.api';
 import { IV1CreateWithUser, userMeChatApi } from '@/core/api/user-me-chat.api';
+import { userMeFollowApi } from '@/core/api/user-me-follow.api';
 import { userPostApi } from '@/core/api/user-post.api';
 import { userApi } from '@/core/api/user.api';
 import PostCard from '@/core/components/post/PostCard';
@@ -46,6 +48,35 @@ const UserProfilePage: React.FunctionComponent<UserProfilePageProps> = () => {
         },
     );
 
+    const createFollowMutation = useMutation(
+        async () => {
+            const res = await userMeFollowApi.createFollow(id);
+            return res;
+        },
+        {
+            onSuccess: () => {
+                userFollowBy.refetch();
+                userFollowTo.refetch();
+                isFollowQuery.refetch();
+            },
+        },
+    );
+
+    const userFollowBy = useQuery(['userFollowBy', id], async () => {
+        const res = await userFollowApi.countFollowBy(id);
+        return res;
+    });
+
+    const userFollowTo = useQuery(['userFollowTo', id], async () => {
+        const res = await userFollowApi.countFollowTo(id);
+        return res;
+    });
+
+    const isFollowQuery = useQuery(['isFollow', id], async () => {
+        const res = await userMeFollowApi.isFollow(id);
+        return res;
+    });
+
     return (
         <div className="fade-in relative flex h-full w-full flex-shrink-0 flex-col items-start justify-start bg-white">
             <Link className="absolute left-4 top-4 z-10" href={NKRouter.app.post.index()}>
@@ -64,11 +95,11 @@ const UserProfilePage: React.FunctionComponent<UserProfilePageProps> = () => {
             <div className="relative h-full w-full bg-[#E6EEFA] shadow">
                 <div className="absolute -top-10 left-0 flex h-10 w-full justify-center gap-11 rounded-t-[64px] bg-inherit px-4 pt-8">
                     <div className="flex w-full flex-col items-center justify-center text-black">
-                        <p className="text-base font-bold">12</p>
+                        <p className="text-base font-bold">{userFollowBy.data}</p>
                         <p className="text-sm font-medium">người theo dõi</p>
                     </div>
                     <div className="flex w-full flex-col items-center justify-center text-black">
-                        <p className="text-base font-bold">12</p>
+                        <p className="text-base font-bold">{userFollowTo.data}</p>
                         <p className="text-sm font-medium">theo dõi</p>
                     </div>
                 </div>
@@ -81,7 +112,12 @@ const UserProfilePage: React.FunctionComponent<UserProfilePageProps> = () => {
                         My name is Prathyaksh. I like dancing in the rain and travelling all around the world.
                     </p>
                     <div className="flex gap-6">
-                        <button className="shadow-2xls rounded-full bg-[#3C91D3] px-6 py-2 text-base text-white">Theo dõi</button>
+                        <button
+                            className="shadow-2xls rounded-full bg-[#3C91D3] px-6 py-2 text-base text-white"
+                            onClick={() => createFollowMutation.mutate()}
+                        >
+                            {isFollowQuery.data ? 'Đang theo dõi' : 'Theo dõi'}
+                        </button>
                         <button
                             className="rounded-full bg-white px-6 py-2 text-base text-black shadow-2xl"
                             onClick={() =>
