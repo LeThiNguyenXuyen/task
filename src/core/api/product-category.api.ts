@@ -39,4 +39,9 @@ export const productCategoryApi = {
         const res = await http.get<Array<ProductCategory>>(url);
         return res.data;
     },
+    v1GetAll: async () => {
+        const url = `/v1/product-category/all`;
+        const res = await http.get<Array<ProductCategory>>(url);
+        return res.data;
+    },
 };

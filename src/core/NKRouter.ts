@@ -27,6 +27,7 @@ export const NKRouter = {
         userMeSale: {
             index: () => '/app/user-me-sale',
             detail: (id: string) => `/app/user-me-sale/${id}`,
+            create: () => '/app/user-me-sale/create',
         },
         userBooking: {
             index: () => '/app/user-booking',
