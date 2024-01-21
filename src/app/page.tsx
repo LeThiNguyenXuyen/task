@@ -16,15 +16,11 @@ const HomePage: React.FunctionComponent<HomePageProps> = () => {
     const router = useRouter();
 
     return (
-        <AuthWrapper>
-            <div className="flex h-screen flex-col">
-                <div className="flex flex-1 flex-col items-center justify-center">
-                    <div className="flex flex-col items-center justify-center">
-                        init project
-                    </div>
-                </div>
+        <div className="flex h-screen flex-col">
+            <div className="flex flex-1 flex-col items-center justify-center">
+                <div className="flex flex-col items-center justify-center">init project</div>
             </div>
-        </AuthWrapper>
+        </div>
     );
 };
 
