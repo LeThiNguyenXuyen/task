@@ -15,15 +15,12 @@ interface HomePageProps {}
 const HomePage: React.FunctionComponent<HomePageProps> = () => {
     const router = useRouter();
 
-    useEffect(() => {
-        router.push(NKConstant.AUTH_SUCCESS_FALLBACK_ROUTE);
-    }, []);
     return (
         <AuthWrapper>
             <div className="flex h-screen flex-col">
                 <div className="flex flex-1 flex-col items-center justify-center">
                     <div className="flex flex-col items-center justify-center">
-                        <img className="h-20 w-20 " src="/assets/images/logo.png " alt="banner" />
+                        init project
                     </div>
                 </div>
             </div>
