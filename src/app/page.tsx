@@ -257,7 +257,7 @@ const HomePage: React.FunctionComponent<HomePageProps> = () => {
                         <div className="mx-auto mb-4 w-full max-w-2xl text-center">
                             <h2 className="text-3xl font-semibold md:text-4xl">Good news from far away</h2>
                             <span className="mt-2 block text-base font-normal text-neutral-500 sm:text-lg md:mt-3 dark:text-neutral-400">
-                                Let's see what people think of Chisfis
+                                Let&apos;s see what people think of Chisfis
                             </span>
                         </div>
                     </div>
