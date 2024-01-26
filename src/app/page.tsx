@@ -16,8 +16,8 @@ const HomePage: React.FunctionComponent<HomePageProps> = () => {
     const router = useRouter();
 
     return (
-        <div className="mx-auto w-full max-w-7xl">
-            <div className="MainNav2 relative z-10 ">
+        <div className="mx-auto w-full ">
+            <div className="MainNav2 relative z-10  mx-auto max-w-7xl">
                 <div className="flex h-20 justify-between px-4 lg:container">
                     <div className="hidden flex-1 justify-start space-x-3 sm:space-x-8 md:flex lg:space-x-10">
                         <a className="ttnc-logo text-primary-6000 inline-block h-16 w-16 self-center focus:outline-none focus:ring-0" href="/">
@@ -119,7 +119,10 @@ const HomePage: React.FunctionComponent<HomePageProps> = () => {
                     </div>
                 </div>
             </div>
-            <div className="nc-SectionOurFeatures relative flex flex-col items-center lg:flex-row lg:py-14" data-nc-id="SectionOurFeatures">
+            <div
+                className="nc-SectionOurFeatures relative mx-auto  flex max-w-7xl flex-col items-center lg:flex-row lg:py-14"
+                data-nc-id="SectionOurFeatures"
+            >
                 <div className="flex-grow">
                     <img
                         alt=""
@@ -166,7 +169,7 @@ const HomePage: React.FunctionComponent<HomePageProps> = () => {
                     </ul>
                 </div>
             </div>
-            <div className="nc-SectionHowItWork  " data-nc-id="SectionHowItWork">
+            <div className="nc-SectionHowItWork  mx-auto mt-16 max-w-7xl" data-nc-id="SectionHowItWork">
                 <div className="nc-Section-Heading relative mb-10 text-neutral-900 dark:text-neutral-50">
                     <div className="mx-auto mb-4 w-full max-w-2xl text-center">
                         <h2 className="text-3xl font-semibold md:text-4xl">How it work</h2>
@@ -247,7 +250,93 @@ const HomePage: React.FunctionComponent<HomePageProps> = () => {
                 </div>
             </div>
 
-            <div className="relative py-16">
+            <div className="relative mx-auto mt-16 max-w-7xl py-16">
+                <div
+                    className="nc-BackgroundSection absolute inset-y-0 left-1/2 z-0 w-screen -translate-x-1/2 transform bg-neutral-100 xl:max-w-[1340px] xl:rounded-[40px] 2xl:max-w-screen-2xl dark:bg-black dark:bg-opacity-20 "
+                    data-nc-id="BackgroundSection"
+                />
+                <div className="nc-SectionBecomeAnAuthor relative flex flex-col items-center lg:flex-row  " data-nc-id="SectionBecomeAnAuthor">
+                    <div className="mb-16 flex-shrink-0 lg:mb-0 lg:mr-10 lg:w-2/5">
+                        <a className="ttnc-logo text-primary-6000 inline-block h-12 w-12 focus:outline-none focus:ring-0" href="/">
+                            <img src="/images/logo.png" />
+                        </a>
+                        <h2 className="mt-6 text-3xl font-semibold sm:mt-11 sm:text-4xl">Why did you choose us?</h2>
+                        <span className="mt-6 block text-neutral-500 dark:text-neutral-400">
+                            Accompanying us, you have a trip full of experiences. With Chisfis, booking accommodation, resort villas, hotels, private
+                            houses, apartments... becomes fast, convenient and easy.
+                        </span>
+                        <button className="nc-Button ttnc-ButtonPrimary bg-primary-6000 hover:bg-primary-700 relative mt-6 inline-flex h-auto items-center justify-center rounded-full px-4 py-3 text-sm  font-medium text-neutral-50 transition-colors disabled:bg-opacity-70 sm:mt-11 sm:px-6 sm:text-base ">
+                            Become an author
+                        </button>
+                    </div>
+                    <div className="flex-grow">
+                        <img
+                            alt=""
+                            loading="lazy"
+                            width={890}
+                            height={694}
+                            decoding="async"
+                            data-nimg={1}
+                            src="/images/BecomeAnAuthorImg.webp"
+                            style={{ color: 'transparent' }}
+                        />
+                    </div>
+                </div>
+            </div>
+            <div
+                className="nc-SectionSubscribe2 relative mx-auto mt-16 flex max-w-7xl flex-col lg:flex-row lg:items-center"
+                data-nc-id="SectionSubscribe2"
+            >
+                <div className="mb-10 flex-shrink-0 lg:mb-0 lg:mr-10 lg:w-2/5">
+                    <h2 className="text-4xl font-semibold">Join our newsletter 🎉</h2>
+                    <span className="mt-5 block text-neutral-500 dark:text-neutral-400">
+                        Read and share new perspectives on just about any topic. Everyone’s welcome.
+                    </span>
+                    <ul className="mt-10 space-y-4">
+                        <li className="flex items-center space-x-4">
+                            <span className="nc-Badge relative  inline-flex rounded-full bg-blue-100 px-2.5 py-1 text-xs font-medium  text-blue-800">
+                                01
+                            </span>
+                            <span className="font-medium text-neutral-700 dark:text-neutral-300">Get more discount</span>
+                        </li>
+                        <li className="flex items-center space-x-4">
+                            <span className="nc-Badge relative  inline-flex rounded-full bg-red-100 px-2.5 py-1 text-xs font-medium  text-red-800">
+                                02
+                            </span>
+                            <span className="font-medium text-neutral-700 dark:text-neutral-300">Get premium magazines</span>
+                        </li>
+                    </ul>
+                    <form className="relative mt-10 max-w-sm">
+                        <input
+                            className="focus:border-primary-300 focus:ring-primary-200 dark:focus:ring-primary-6000 block h-12 w-full rounded-full border-neutral-200 bg-white px-5 py-3 text-sm font-normal focus:ring focus:ring-opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:focus:ring-opacity-25 "
+                            required
+                            aria-required="true"
+                            placeholder="Enter your email"
+                            type="email"
+                        />
+                        <button
+                            className="ttnc-ButtonCircle bg-primary-6000 hover:bg-primary-700 absolute right-1.5 top-1/2 flex h-10 w-10 -translate-y-1/2 transform items-center justify-center rounded-full !leading-none text-neutral-50 disabled:bg-opacity-70 "
+                            type="submit"
+                        >
+                            <i className="las la-arrow-right text-xl" />
+                        </button>
+                    </form>
+                </div>
+                <div className="flex-grow">
+                    <img
+                        alt=""
+                        loading="lazy"
+                        width={1120}
+                        height={803}
+                        decoding="async"
+                        data-nimg={1}
+                        src="/images/SVG-subcribe2.webp"
+                        style={{ color: 'transparent' }}
+                    />
+                </div>
+            </div>
+
+            <div className="relative mx-auto mt-16 max-w-7xl py-16">
                 <div
                     className="nc-BackgroundSection absolute inset-y-0 left-1/2 z-0 w-screen -translate-x-1/2 transform bg-neutral-100 xl:max-w-[1340px] xl:rounded-[40px] 2xl:max-w-screen-2xl dark:bg-black dark:bg-opacity-20 "
                     data-nc-id="BackgroundSection"
@@ -403,90 +492,8 @@ const HomePage: React.FunctionComponent<HomePageProps> = () => {
                     </div>
                 </div>
             </div>
-            <div className="nc-SectionSubscribe2 relative flex flex-col lg:flex-row lg:items-center " data-nc-id="SectionSubscribe2">
-                <div className="mb-10 flex-shrink-0 lg:mb-0 lg:mr-10 lg:w-2/5">
-                    <h2 className="text-4xl font-semibold">Join our newsletter 🎉</h2>
-                    <span className="mt-5 block text-neutral-500 dark:text-neutral-400">
-                        Read and share new perspectives on just about any topic. Everyone’s welcome.
-                    </span>
-                    <ul className="mt-10 space-y-4">
-                        <li className="flex items-center space-x-4">
-                            <span className="nc-Badge relative  inline-flex rounded-full bg-blue-100 px-2.5 py-1 text-xs font-medium  text-blue-800">
-                                01
-                            </span>
-                            <span className="font-medium text-neutral-700 dark:text-neutral-300">Get more discount</span>
-                        </li>
-                        <li className="flex items-center space-x-4">
-                            <span className="nc-Badge relative  inline-flex rounded-full bg-red-100 px-2.5 py-1 text-xs font-medium  text-red-800">
-                                02
-                            </span>
-                            <span className="font-medium text-neutral-700 dark:text-neutral-300">Get premium magazines</span>
-                        </li>
-                    </ul>
-                    <form className="relative mt-10 max-w-sm">
-                        <input
-                            className="focus:border-primary-300 focus:ring-primary-200 dark:focus:ring-primary-6000 block h-12 w-full rounded-full border-neutral-200 bg-white px-5 py-3 text-sm font-normal focus:ring focus:ring-opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:focus:ring-opacity-25 "
-                            required
-                            aria-required="true"
-                            placeholder="Enter your email"
-                            type="email"
-                        />
-                        <button
-                            className="ttnc-ButtonCircle bg-primary-6000 hover:bg-primary-700 absolute right-1.5 top-1/2 flex h-10 w-10 -translate-y-1/2 transform items-center justify-center rounded-full !leading-none text-neutral-50 disabled:bg-opacity-70 "
-                            type="submit"
-                        >
-                            <i className="las la-arrow-right text-xl" />
-                        </button>
-                    </form>
-                </div>
-                <div className="flex-grow">
-                    <img
-                        alt=""
-                        loading="lazy"
-                        width={1120}
-                        height={803}
-                        decoding="async"
-                        data-nimg={1}
-                        src="/images/SVG-subcribe2.webp"
-                        style={{ color: 'transparent' }}
-                    />
-                </div>
-            </div>
-            <div className="relative py-16">
-                <div
-                    className="nc-BackgroundSection absolute inset-y-0 left-1/2 z-0 w-screen -translate-x-1/2 transform bg-neutral-100 xl:max-w-[1340px] xl:rounded-[40px] 2xl:max-w-screen-2xl dark:bg-black dark:bg-opacity-20 "
-                    data-nc-id="BackgroundSection"
-                />
-                <div className="nc-SectionBecomeAnAuthor relative flex flex-col items-center lg:flex-row  " data-nc-id="SectionBecomeAnAuthor">
-                    <div className="mb-16 flex-shrink-0 lg:mb-0 lg:mr-10 lg:w-2/5">
-                        <a className="ttnc-logo text-primary-6000 inline-block h-12 w-12 focus:outline-none focus:ring-0" href="/">
-                            <img src="/images/logo.png" />
-                        </a>
-                        <h2 className="mt-6 text-3xl font-semibold sm:mt-11 sm:text-4xl">Why did you choose us?</h2>
-                        <span className="mt-6 block text-neutral-500 dark:text-neutral-400">
-                            Accompanying us, you have a trip full of experiences. With Chisfis, booking accommodation, resort villas, hotels, private
-                            houses, apartments... becomes fast, convenient and easy.
-                        </span>
-                        <button className="nc-Button ttnc-ButtonPrimary bg-primary-6000 hover:bg-primary-700 relative mt-6 inline-flex h-auto items-center justify-center rounded-full px-4 py-3 text-sm  font-medium text-neutral-50 transition-colors disabled:bg-opacity-70 sm:mt-11 sm:px-6 sm:text-base ">
-                            Become an author
-                        </button>
-                    </div>
-                    <div className="flex-grow">
-                        <img
-                            alt=""
-                            loading="lazy"
-                            width={890}
-                            height={694}
-                            decoding="async"
-                            data-nimg={1}
-                            src="/images/BecomeAnAuthorImg.webp"
-                            style={{ color: 'transparent' }}
-                        />
-                    </div>
-                </div>
-            </div>
-            <div className="nc-Footer relative my-4 border-t border-neutral-200 py-24 lg:py-28 dark:border-neutral-700">
-                <div className="container grid grid-cols-2 gap-x-5 gap-y-10 sm:gap-x-8 md:grid-cols-4 lg:grid-cols-5 lg:gap-x-10 ">
+            <div className="nc-Footer relative mt-16 border-t border-neutral-200 py-24 lg:py-28 dark:border-neutral-700">
+                <div className="container mx-auto grid max-w-7xl grid-cols-2 gap-x-5 gap-y-10 sm:gap-x-8 md:grid-cols-4  lg:grid-cols-5 lg:gap-x-10">
                     <div className="col-span-2 grid grid-cols-4 gap-5 md:col-span-4 lg:md:col-span-1 lg:flex lg:flex-col">
                         <div className="col-span-2 md:col-span-1">
                             <a className="ttnc-logo text-primary-6000 inline-block h-16 w-16 focus:outline-none focus:ring-0" href="/">
