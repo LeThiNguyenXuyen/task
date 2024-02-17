@@ -1,14 +1,9 @@
-'use client';
-
 import * as React from 'react';
 
-import { Transition } from '@headlessui/react';
-import { useQuery } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import Cookies from 'universal-cookie';
 
 import { NKConstant } from '@/core/NKConstant';
-import { userMeSubscriptionApi } from '@/core/api/user-me-subscription.api';
 import { UserRoleIndex } from '@/core/models/userRole';
 import { RootState } from '@/core/store';
 import { ApiState } from '@/core/store/api/api.interface';
@@ -25,15 +20,16 @@ const RoleWrapper: React.FC<RoleWrapperProps> = ({ children, userRoleIndex }) =>
 
     React.useEffect(() => {
         const cookies = new Cookies();
+
         if (userStoreState.isLogin && !userStoreState.isAuth) {
             cookies.remove(NKConstant.TOKEN_COOKIE_KEY);
-            window.location.reload();
+            // window.location.reload();
         }
 
         if (userStoreState.isAuth && apiStoreState.roles.length) {
             if (userRoleIndex > (userStoreState.role?.index || 0)) {
                 cookies.remove(NKConstant.TOKEN_COOKIE_KEY);
-                window.location.reload();
+                // window.location.reload();
             }
         }
     }, [userStoreState.isAuth, userStoreState.isLogin, apiStoreState.roles, userRoleIndex]);

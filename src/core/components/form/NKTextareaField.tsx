@@ -1,64 +1,30 @@
 import * as React from 'react';
 
-import clsx from 'clsx';
+import { Input, InputProps } from 'antd';
+import { TextAreaProps } from 'antd/lib/input';
 import { Controller, useFormContext } from 'react-hook-form';
 
-import NKFieldWrapper from './NKFieldWrapper';
+import { FormTheme } from '@/core/models/common';
 
-export enum NKTextareaFieldTheme {
-    DEFAULT = 'DEFAULT',
-    AUTH = 'AUTH',
-    TAILWIND = 'TAILWIND',
+import NKFieldWrapper, { NKFieldWrapperProps } from './NKFieldWrapper';
+
+const { TextArea } = Input;
+
+export interface NKTextAreaFieldProps extends TextAreaProps {
+    theme?: FormTheme;
 }
 
-interface NKTextareaFieldProps extends React.InputHTMLAttributes<HTMLTextAreaElement> {
-    name: string;
-    label: string;
-    isShow?: boolean;
-    labelClassName?: string;
-    extraProps?: any;
-    theme?: NKTextareaFieldTheme;
-    icon?: React.ReactNode;
-}
+type Props = NKTextAreaFieldProps & NKFieldWrapperProps;
 
-const NKTextareaField: React.FC<NKTextareaFieldProps> = ({
-    name,
-    isShow = true,
-    label,
-    labelClassName,
-    theme = NKTextareaFieldTheme.DEFAULT,
-    icon,
-    ...rest
-}) => {
+const NKTextareaField: React.FC<Props> = ({ name, isShow = true, label, labelClassName, ...rest }) => {
     const formMethods = useFormContext();
 
     return (
-        <NKFieldWrapper className={labelClassName} isShow={isShow} label={label} name={name}>
+        <NKFieldWrapper labelClassName={labelClassName} isShow={isShow} label={label} name={name}>
             <Controller
                 name={name}
                 control={formMethods.control}
-                render={({ field }) => (
-                    <div
-                        className={clsx(
-                            [
-                                'flex items-center justify-center gap-2  rounded-lg border  border-gray-400 p-3 text-gray-400 shadow-sm duration-300 placeholder:text-gray-400 focus-within:text-gray-900',
-                            ],
-                            {},
-                        )}
-                    >
-                        {icon}
-                        <textarea
-                            {...field}
-                            {...rest}
-                            className={clsx([
-                                'w-full bg-transparent outline-none placeholder:text-gray-700 focus:outline-none',
-                                {
-                                    'rounded-md focus:border-[#B97953] focus:ring-[#B97953]': theme === NKTextareaFieldTheme.TAILWIND,
-                                },
-                            ])}
-                        ></textarea>
-                    </div>
-                )}
+                render={({ field }) => <TextArea rows={4} {...field} {...rest} className="w-full" />}
             />
         </NKFieldWrapper>
     );

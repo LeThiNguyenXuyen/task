@@ -46,3 +46,5 @@ export interface EnumListItem {
     name: string;
     value: any;
 }
+
+export type FormTheme = 'DEFAULT' | 'AUTH';

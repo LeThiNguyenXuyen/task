@@ -4,9 +4,9 @@ import http from './http';
 
 export interface UserPostIV1Get extends IPagingDto {}
 
-export interface UserPostIV1CreateDto extends Pick<UserPost, 'tag' | 'content'> {}
+export interface UserPostIV1CreateDto extends Pick<UserPost, 'title' | 'tag' | 'content'> {}
 
-export interface UserPostIV1UpdateDto extends Pick<UserPost, 'tag' | 'content'> {}
+export interface UserPostIV1UpdateDto extends Pick<UserPost, 'title' | 'tag' | 'content'> {}
 
 export const userPostApi = {
     v1Get: async (dto: UserPostIV1Get) => {

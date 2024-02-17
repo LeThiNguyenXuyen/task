@@ -1,5 +1,7 @@
 export const NKConfig = {
-    API_URL: process.env.NEXT_PUBLIC_API_URL || '',
-    LOGIN_GOOGLE_URL: process.env.NEXT_PUBLIC_LOGIN_GOOGLE_URL || '',
-    LOGIN_FACEBOOK_URL: process.env.NEXT_PUBLIC_LOGIN_FACEBOOK_URL || '',
+    API_URL: import.meta.env.VITE_API_URL || '',
+    GOOGLE_ANALYTICS_URL: import.meta.env.VITE_GOOGLE_ANALYTICS_URL || '',
+    NODE_ENV: import.meta.env.VITE_NODE_ENV || '',
 };
+
+console.log('Config', NKConfig);

@@ -17,9 +17,9 @@ export const useChat = (chatId: string) => {
     const [lastMessageScrollId, setLastMessageScrollId] = React.useState<string>('');
     const chatContainerRef = React.useRef<HTMLDivElement>(null);
 
-    const chat = useQuery(
-        ['chat', chatId],
-        async () => {
+    const chat = useQuery({
+        queryKey: ['chat', chatId],
+        queryFn: async () => {
             const res = await userMeChatApi.v1GetById(chatId);
             const chatUser = res.users.filter((u) => u.id !== userState.id)[0];
 
@@ -32,15 +32,15 @@ export const useChat = (chatId: string) => {
             }
             return res;
         },
-        {
-            refetchInterval: 1000,
-            enabled: Boolean(chatId),
-            onSuccess: (data) => {
-                if (!data.chatMessages.length) return;
-                setLastMessageId(data.chatMessages[data.chatMessages.length - 1].id);
-            },
+
+        refetchInterval: 1000,
+        enabled: Boolean(chatId),
+
+        onSuccess: (data) => {
+            if (!data.chatMessages.length) return;
+            setLastMessageId(data.chatMessages[data.chatMessages.length - 1].id);
         },
-    );
+    });
 
     React.useEffect(() => {
         if (lastMessageId !== lastMessageScrollId) {

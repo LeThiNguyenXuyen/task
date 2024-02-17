@@ -6,8 +6,9 @@ import { Controller, useFormContext } from 'react-hook-form';
 import ReactQuill, { Quill, QuillOptions } from 'react-quill';
 
 import { uploadFileApi } from '@/core/api/upload-file.api';
+import { FormTheme } from '@/core/models/common';
 
-import NKFieldWrapper from './NKFieldWrapper';
+import NKFieldWrapper, { NKFieldWrapperProps } from './NKFieldWrapper';
 
 const BaseImageFormat = Quill.import('formats/image');
 const ImageFormatAttributesList = ['alt', 'height', 'width', 'style'];
@@ -34,32 +35,16 @@ class ImageFormat extends BaseImageFormat {
 }
 Quill.register(ImageFormat, true);
 Quill.register('modules/blotFormatter', BlotFormatter);
-
-export enum NKRichTextTheme {
-    DEFAULT = 'DEFAULT',
-}
 export interface NKRichTextProps extends QuillOptions {
-    name: string;
-    label: string;
-    isShow?: boolean;
-    labelClassName?: string;
-    extraProps?: any;
-    theme?: NKRichTextTheme;
-    icon?: React.ReactNode;
     className?: string;
+    theme?: FormTheme;
+    icon?: React.ReactNode;
 }
 
-const NKRichText: React.FC<NKRichTextProps> = ({
-    name,
-    label,
-    extraProps,
-    icon,
-    isShow = true,
-    labelClassName,
-    theme = NKRichTextTheme.DEFAULT,
-    className = '',
-    ...rest
-}) => {
+type Props = NKRichTextProps & NKFieldWrapperProps;
+
+const NKRichText: React.FC<Props> = ({ name, isShow = true, label, labelClassName, icon, theme, className, ...rest }) => {
+    const formMethods = useFormContext();
     const editorRef = React.useRef<ReactQuill>(null);
     const [isShowEditor, setIsShowEditor] = React.useState<boolean>(false);
 
@@ -85,7 +70,6 @@ const NKRichText: React.FC<NKRichTextProps> = ({
         const range = editor.getSelection();
         if (range) editor.insertEmbed(range.index, 'image', `${imageUrl}`);
     };
-    const formMethods = useFormContext();
 
     React.useEffect(() => {
         if (editorRef.current) {
@@ -98,14 +82,14 @@ const NKRichText: React.FC<NKRichTextProps> = ({
     }, []);
 
     return (
-        <NKFieldWrapper className={labelClassName} isShow={isShow} label={label} name={name}>
+        <NKFieldWrapper labelClassName={labelClassName} isShow={isShow} label={label} name={name}>
             <Controller
                 name={name}
                 control={formMethods.control}
                 render={({ field }) => (
                     <div
                         className={clsx(' h-full ', {
-                            'rounded-full bg-[#E6EEFA]/50': theme === NKRichTextTheme.DEFAULT,
+                            'rounded-full bg-[#E6EEFA]/50': theme === 'DEFAULT',
                             'hide-toolbar': !isShowEditor,
                         })}
                     >
@@ -115,7 +99,7 @@ const NKRichText: React.FC<NKRichTextProps> = ({
                             {...field}
                             onFocus={() => setIsShowEditor(true)}
                             onBlur={() => setIsShowEditor(false)}
-                            className={clsx('bg-[#E6EEFA]/50', className)}
+                            className={clsx('rounded-md border border-black bg-white', className)}
                             modules={{
                                 toolbar: [
                                     // [{ header: [1, 2, 3, 4, false] }],

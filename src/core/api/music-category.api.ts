@@ -34,9 +34,14 @@ export const musicCategoryApi = {
         const res = await http.delete<boolean>(url);
         return res.data;
     },
-    v1Select: async (search: string) => {
-        const url = `/v1/music-category/select-options?search=${search}`;
-        const res = await http.get<Array<MusicCategory>>(url);
+    v1Select: async (search: string, isShowDelete = false) => {
+        const url = `/v1/music-category/select-options`;
+        const res = await http.get<Array<MusicCategory>>(url, {
+            params: {
+                search,
+                isShowDelete,
+            },
+        });
         return res.data;
     },
 };

@@ -1,7 +1,7 @@
 import { UserRole } from '@/core/models/userRole';
 
 export interface ApiState {
-    isLoading: boolean;
+    isFetching: boolean;
     errorDetails: Record<string, string>;
     isError: boolean;
     message: string;

@@ -20,4 +20,15 @@ export const userRoleApi = {
         const res = await http.get<UserRole>(url);
         return res.data;
     },
+    v1GetSelect: async (search: string, isShowDelete = false) => {
+        const url = `/v1/user-role/select-options`;
+        const res = await http.get<UserRole[]>(url, {
+            params: {
+                search,
+                isShowDelete,
+            },
+        });
+
+        return res.data;
+    },
 };

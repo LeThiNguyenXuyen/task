@@ -34,11 +34,17 @@ export const productCategoryApi = {
         const res = await http.delete<boolean>(url);
         return res.data;
     },
-    v1Select: async (search: string) => {
-        const url = `/v1/product-category/select-options?search=${search}`;
-        const res = await http.get<Array<ProductCategory>>(url);
+    v1Select: async (search: string, isShowDelete = false) => {
+        const url = `/v1/product-category/select-options`;
+        const res = await http.get<Array<ProductCategory>>(url, {
+            params: {
+                search,
+                isShowDelete,
+            },
+        });
         return res.data;
     },
+
     v1GetAll: async () => {
         const url = `/v1/product-category/all`;
         const res = await http.get<Array<ProductCategory>>(url);

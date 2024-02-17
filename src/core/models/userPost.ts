@@ -4,6 +4,7 @@ import { UserPostLike } from './userPostLike';
 
 export interface UserPost {
     id: string;
+    title: string;
     createdAt: string;
     updatedAt: string;
     isDeleted: false;

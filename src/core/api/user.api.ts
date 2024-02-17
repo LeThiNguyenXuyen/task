@@ -20,14 +20,25 @@ export const userApi = {
         const res = await http.get<EnumListItem[]>(url);
         return res.data;
     },
+
     v1GetReport: async (dto: IReportDto) => {
         const url = '/v1/user/report';
         const res = await http.get<ReportResponse[]>(url, { params: { ...dto } });
+        return res.data;
+    },
+    v1Select: async (search: string, isShowDelete = false) => {
+        const url = `/v1/user/select-options`;
+        const res = await http.get<Array<User>>(url, {
+            params: {
+                search,
+                isShowDelete,
+            },
+        });
         return res.data;
     },
     v1GetById: async (id: string) => {
         const url = `/v1/user/${id}`;
         const res = await http.get<User>(url);
         return res.data;
-    }
+    },
 };

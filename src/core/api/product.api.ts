@@ -42,9 +42,4 @@ export const productApi = {
         const res = await http.delete<boolean>(url);
         return res.data;
     },
-    v1GetAll: async () => {
-        const url = '/v1/product/all';
-        const res = await http.get<ResponseList<Product>>(url);
-        return res.data;
-    },
 };

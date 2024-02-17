@@ -8,6 +8,10 @@ const formatDate = (date?: string, locale: SupportedLanguages = NKConstant.FALLB
     return moment(date).locale(locale).format('LL');
 };
 
+const formatFilter = (date: string | Date) => {
+    return moment(date).format('YYYY-MM-DD HH:mm:ss');
+};
+
 const returnCorrectDate = (date: string) => {
     const value = moment(date);
 
@@ -17,5 +21,6 @@ const returnCorrectDate = (date: string) => {
 export const HKMoment = {
     moment,
     formatDate,
+    formatFilter,
     returnCorrectDate,
 };

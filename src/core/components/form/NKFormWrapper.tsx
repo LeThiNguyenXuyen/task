@@ -46,10 +46,9 @@ const NKFormWrapper = <T extends Object>({
 
     return (
         <FormProvider {...formMethods}>
-            {}
             <form
                 {...formProps}
-                className='w-full'
+                className="w-full"
                 onSubmit={formMethods.handleSubmit((data) => {
                     mutate.mutate(data);
                 })}

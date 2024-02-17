@@ -1,45 +1,36 @@
 import * as React from 'react';
 
 import { useQuery } from '@tanstack/react-query';
+import { Tag } from 'antd/lib';
 import { kebabCase } from 'lodash';
 
 interface FieldBadgeApiProps {
     value: any;
-    apiAction?: () => Promise<any[]>;
+    apiAction?: (...value: any) => any;
 }
 
 const FieldBadgeApi: React.FC<FieldBadgeApiProps> = ({ value, apiAction }) => {
     const [label, setLabel] = React.useState<string>('undefined');
     const [color, setColor] = React.useState<string>('red');
 
-    useQuery(
-        ['options', kebabCase(apiAction?.toString())],
-        async () => {
-            return apiAction ? apiAction() : Promise.resolve([]);
+    const options = useQuery({
+        queryKey: ['options', kebabCase(apiAction?.toString()), value],
+        queryFn: async () => {
+            return apiAction ? apiAction('', true) : Promise.resolve([]);
         },
-        {
-            cacheTime: Infinity,
-            onSuccess: (data) => {
-                const option = data.find((item) => item.value === value);
-                if (option) {
-                    setLabel(option.label);
-                    setColor(option.color);
-                }
-            },
-        },
-    );
+    });
 
-    console.log('Color', color);
+    React.useEffect(() => {
+        if (options.data) {
+            const option = options.data.find((item: any) => item.value === value);
+            if (option) {
+                setLabel(option.label);
+                setColor(option.color);
+            }
+        }
+    }, [options.data, value]);
 
-    return (
-        <div
-            style={{
-                color,
-            }}
-        >
-            {label}
-        </div>
-    );
+    return <Tag color={color}>{label}</Tag>;
 };
 
 export default FieldBadgeApi;

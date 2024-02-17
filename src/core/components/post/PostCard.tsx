@@ -1,8 +1,5 @@
 import React from 'react';
 
-import dynamic from 'next/dynamic';
-import Link from 'next/link';
-
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
 import * as joi from 'joi';
@@ -16,15 +13,14 @@ import { UserPostCommentLikeIV1CreateDto, userPostCommentLikeApi } from '@/core/
 import { userPostCommentApi } from '@/core/api/user-post-comment.api';
 import { UserPostLikeIV1CreateDto, userPostLikeApi } from '@/core/api/user-post-like.api';
 import { UserPostIV1CreateDto, userPostApi } from '@/core/api/user-post.api';
-import { NKRichTextProps } from '@/core/components/form/NKRichText';
+import NKRichText, { NKRichTextProps } from '@/core/components/form/NKRichText';
 import { UserPost } from '@/core/models/userPost';
 import { UserPostComment } from '@/core/models/userPostComment';
+import NKLink from '@/core/routing/components/NKLink';
 import { RootState } from '@/core/store';
 import { UserState } from '@/core/store/user';
 
 import NKFormWrapper from '../form/NKFormWrapper';
-
-const NKRichText = dynamic(() => import('@/core/components/form/NKRichText'), { ssr: false }) as React.FC<NKRichTextProps>;
 
 interface PostCardProps {
     data: UserPost;
@@ -103,15 +99,15 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ data, className = ''
                 <div className="flex w-full gap-3">
                     <div className="flex w-full flex-col gap-2 ">
                         <div className="flex w-full items-center justify-between gap-4">
-                            <Link href={NKRouter.app.post.user(postQuery.data.user.id)}>
+                            <NKLink href={NKRouter.app.post.user(postQuery.data.user.id)}>
                                 <figure className="flex h-12 w-12 flex-shrink-0 overflow-hidden rounded-full">
                                     <img src={`${postQuery.data.user.avatar}`} alt="" className="h-full w-full object-cover" />
                                 </figure>
-                            </Link>
+                            </NKLink>
                             <div className="w-full flex-col items-start  gap-1 text-black">
-                                <Link href={NKRouter.app.post.user(postQuery.data.user.id)}>
+                                <NKLink href={NKRouter.app.post.user(postQuery.data.user.id)}>
                                     <p className="text-sm font-bold">{postQuery.data.user.name}</p>
-                                </Link>
+                                </NKLink>
                                 <p className="text-sm font-light">{moment(postQuery.data.createdAt).fromNow()}</p>
                             </div>
                             {/* <Menu>
@@ -130,7 +126,7 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ data, className = ''
                             dangerouslySetInnerHTML={{
                                 __html: postQuery.data.content,
                             }}
-                            className="prose post-content prose-img:rounded-xl prose-img:m-0 text-base font-normal"
+                            className="post-content prose text-base font-normal prose-img:m-0 prose-img:rounded-xl"
                         />
                         <div
                             className={clsx('mt-2 flex w-full justify-start gap-[52px]', {
@@ -171,10 +167,12 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ data, className = ''
                                     return userPostCommentApi.v1Create(data.id, dto);
                                 }}
                                 schema={{
+                                    title: joi.string().required(),
                                     content: joi.string().required(),
                                     tag: joi.any(),
                                 }}
                                 defaultValues={{
+                                    title: '',
                                     content: '',
                                     tag: '',
                                 }}
@@ -219,7 +217,7 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ data, className = ''
                                                 dangerouslySetInnerHTML={{
                                                     __html: comment.content,
                                                 }}
-                                                className="prose post-content prose-img:rounded-xl prose-img:m-0 text-base font-normal"
+                                                className="post-content prose text-base font-normal prose-img:m-0 prose-img:rounded-xl"
                                             />
                                             <div className="flex w-full justify-start gap-[52px] ">
                                                 <button

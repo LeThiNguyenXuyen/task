@@ -4,6 +4,7 @@ import http from './http';
 export interface CreateUserMeTicket {
     name: string;
     message: string;
+    type: string;
 }
 
 export const userMeTicketApi = {

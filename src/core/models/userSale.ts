@@ -2,12 +2,6 @@ import { ProductCategory } from './productCategory';
 import { User } from './user';
 
 export interface UserSale {
-    name: string;
-    description: string;
-    price: number;
-    imageUrls: string[];
-    createdBy: User;
-    productCategory: ProductCategory;
     id: string;
     createdAt: string;
     updatedAt: string;
@@ -15,6 +9,12 @@ export interface UserSale {
     isRequiredUpdate: boolean;
     docStatus: number;
     sortOrder: number;
+    name: string;
+    description: string;
     note: string;
+    price: number;
+    imageUrls: string[];
     status: string;
+    productCategory: ProductCategory;
+    createdBy: User;
 }

@@ -21,14 +21,14 @@ const NKDateField: React.FC<NKDateFieldProps> = ({ name, isShow = true, label, l
     const formMethods = useFormContext();
 
     return (
-        <NKFieldWrapper className={labelClassName} isShow={isShow} label={label} name={name}>
+        <NKFieldWrapper labelClassName={labelClassName} isShow={isShow} label={label} name={name}>
             <Controller
                 name={name}
                 control={formMethods.control}
                 render={({ field }) => (
                     <div
                         className={clsx([], {
-                            '': theme === 'AUTH',
+                            'relative mt-2 flex items-center gap-3': theme === 'AUTH',
                         })}
                     >
                         {icon}
@@ -36,10 +36,13 @@ const NKDateField: React.FC<NKDateFieldProps> = ({ name, isShow = true, label, l
                             {...field}
                             {...rest}
                             type="date"
-                            className={clsx(['w-full focus:outline-none'], {
-                                'block w-full rounded-xl border border-gray-100  bg-[#F3F4F6] px-4 py-3 text-sm text-gray-900 shadow-sm  placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6':
-                                    theme === 'AUTH',
+                            className={clsx(['peer block w-full border-0 bg-gray-50 py-1.5 text-gray-900 focus:ring-0 sm:text-sm sm:leading-6'], {
+                                ' w-full border-none focus:outline-none ': theme === 'AUTH',
                             })}
+                        />
+                        <div
+                            className="absolute inset-x-0 bottom-0 border-t border-gray-300 peer-focus:border-t-2 peer-focus:border-[#47EA4F]"
+                            aria-hidden="true"
                         />
                     </div>
                 )}

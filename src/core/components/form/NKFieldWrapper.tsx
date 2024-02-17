@@ -3,15 +3,14 @@ import * as React from 'react';
 import _ from 'lodash';
 import { useFormContext } from 'react-hook-form';
 
-interface NKFieldWrapperProps {
+export interface NKFieldWrapperProps {
     label: string;
-    children: React.ReactNode;
     name: string;
-    isShow: boolean;
-    className?: string;
+    isShow?: boolean;
+    labelClassName?: string;
 }
 
-const NKFieldWrapper: React.FC<NKFieldWrapperProps> = ({ children, isShow, label, className, name }) => {
+const NKFieldWrapper: React.FC<NKFieldWrapperProps & React.PropsWithChildren> = ({ children, isShow = true, label, labelClassName, name }) => {
     const formMethods = useFormContext();
     const [errorMessage, setErrorMessage] = React.useState<string>('');
 
@@ -27,7 +26,7 @@ const NKFieldWrapper: React.FC<NKFieldWrapperProps> = ({ children, isShow, label
 
     return (
         <div className="flex w-full flex-col gap-1">
-            {isShow && <label className={className ? className : 'block text-sm font-bold text-gray-900'}>{label}</label>}
+            {isShow && <label className={labelClassName ? labelClassName : 'text-sm text-black'}>{label}</label>}
             {children}
             {Boolean(errorMessage) && (
                 <div className="text-sm text-red-500">

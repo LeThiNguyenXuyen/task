@@ -16,6 +16,11 @@ export interface UserWalletTransactionIV1AdminWithdrawBalance {
 }
 
 export const userWalletTransactionApi = {
+    v1Get: async (dto: UserWalletTransactionIV1Get) => {
+        const url = '/v1/user-wallet-transaction';
+        const res = await http.get<ResponseList<UserWalletTransaction>>(url, { params: { ...dto } });
+        return res.data;
+    },
     v1GetByWallet: async (walletId: string, dto: UserWalletTransactionIV1Get) => {
         const url = `/v1/user-wallet-transaction/wallet/${walletId}`;
         const res = await http.get<ResponseList<UserWalletTransaction>>(url, { params: { ...dto } });

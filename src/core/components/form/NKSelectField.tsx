@@ -4,7 +4,8 @@ import clsx from 'clsx';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import NKFieldWrapper from './NKFieldWrapper';
-import { NKTextFieldTheme } from './NKTextField';
+
+type NKSelectFieldTheme = 'DEFAULT' | 'AUTH';
 
 interface NKSelectFieldProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
     name: string;
@@ -12,7 +13,7 @@ interface NKSelectFieldProps extends React.SelectHTMLAttributes<HTMLSelectElemen
     isShow?: boolean;
     labelClassName?: string;
     extraProps?: any;
-    theme?: NKTextFieldTheme;
+    theme?: NKSelectFieldTheme;
     icon?: React.ReactNode;
     options: NKSelectFieldOption[];
 }
@@ -27,14 +28,14 @@ const NKSelectField: React.FunctionComponent<NKSelectFieldProps> = ({
     isShow = true,
     label,
     labelClassName,
-    theme = NKTextFieldTheme.DEFAULT,
+    theme = 'DEFAULT',
     icon,
     options,
     ...rest
 }) => {
     const formMethods = useFormContext();
     return (
-        <NKFieldWrapper className={labelClassName} isShow={isShow} label={label} name={name}>
+        <NKFieldWrapper labelClassName={labelClassName} isShow={isShow} label={label} name={name}>
             <Controller
                 name={name}
                 control={formMethods.control}
@@ -42,7 +43,7 @@ const NKSelectField: React.FunctionComponent<NKSelectFieldProps> = ({
                     <div
                         className={clsx([], {
                             'block w-full rounded-xl  bg-[#F3F4F6] px-4 py-3 text-gray-900 shadow-sm placeholder:text-gray-400  focus:outline-none sm:text-sm sm:leading-6':
-                                theme === NKTextFieldTheme.AUTH,
+                                theme === 'AUTH',
                         })}
                     >
                         {icon}

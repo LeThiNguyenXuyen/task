@@ -1,3 +1,5 @@
+import { UserWallet } from './userWallet';
+
 export interface UserWalletTransaction {
     id: string;
     createdAt: string;
@@ -14,4 +16,5 @@ export interface UserWalletTransaction {
     qrCode: string;
     expiredAt: string;
     metadata: string;
+    userWallet: UserWallet;
 }

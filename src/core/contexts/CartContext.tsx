@@ -1,8 +1,4 @@
-'use client';
-
 import * as React from 'react';
-
-import { useRouter } from 'next/navigation';
 
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
@@ -11,6 +7,7 @@ import { toast } from 'react-toastify';
 import { NKConstant } from '../NKConstant';
 import { AddToCartIV1Post, userMeOrderApi } from '../api/user-me-order.api';
 import { Order } from '../models/order';
+import { useNKRouter } from '../routing/hooks/NKRouter';
 import { RootState } from '../store';
 import { UserState } from '../store/user';
 
@@ -42,7 +39,7 @@ export interface CartProviderProps {
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     const { isAuth, id } = useSelector<RootState, UserState>((state) => state.user);
-    const router = useRouter();
+    const router = useNKRouter();
 
     const cartQuery = useQuery(
         ['cart', id],

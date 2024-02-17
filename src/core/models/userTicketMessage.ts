@@ -7,4 +7,5 @@ export interface UserTicketMessage {
     docStatus: number;
     content: string;
     isResponse: boolean;
+    type: string;
 }

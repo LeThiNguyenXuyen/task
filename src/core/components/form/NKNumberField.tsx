@@ -21,7 +21,7 @@ const NKNumberField: React.FC<NKTextFieldProps> = ({ name, isShow = true, label,
     const formMethods = useFormContext();
 
     return (
-        <NKFieldWrapper className={labelClassName} isShow={isShow} label={label} name={name}>
+        <NKFieldWrapper labelClassName={labelClassName} isShow={isShow} label={label} name={name}>
             <Controller
                 name={name}
                 control={formMethods.control}

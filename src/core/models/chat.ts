@@ -14,7 +14,6 @@ export interface Chat {
     banner: string;
     status: string;
     lastActivity: string;
-
     users: User[];
     chatMessages: ChatMessage[];
 }

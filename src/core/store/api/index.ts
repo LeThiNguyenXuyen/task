@@ -5,7 +5,7 @@ import { UserRole } from '@/core/models/userRole';
 import { ApiState } from './api.interface';
 
 const initialState: ApiState = {
-    isLoading: false,
+    isFetching: false,
     errorDetails: {},
     isError: false,
     message: '',
@@ -17,10 +17,10 @@ const reducer = createSlice({
     name: 'api',
     initialState,
     reducers: {
-        initReq: (state) => ({ ...state, isLoading: true, isError: false }),
-        setLoading: (state, { payload }: PayloadAction<{ isLoading: boolean }>) => ({
+        initReq: (state) => ({ ...state, isFetching: true, isError: false }),
+        setLoading: (state, { payload }: PayloadAction<{ isFetching: boolean }>) => ({
             ...state,
-            isLoading: payload.isLoading,
+            isFetching: payload.isFetching,
         }),
         resetState: () => ({ ...initialState }),
         updateErrorDetails: (state, { payload }: PayloadAction<Record<string, string>>) => {

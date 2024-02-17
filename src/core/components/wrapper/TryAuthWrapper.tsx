@@ -1,13 +1,10 @@
-'use client';
-
 import * as React from 'react';
 
-import { useSelector } from 'react-redux';
 import Cookies from 'universal-cookie';
 
 import { NKConstant } from '@/core/NKConstant';
-import { RootState, store } from '@/core/store';
-import { UserState, userActions } from '@/core/store/user';
+import { store } from '@/core/store';
+import { userActions } from '@/core/store/user';
 
 interface TryAuthWrapperProps {
     children: React.ReactNode;

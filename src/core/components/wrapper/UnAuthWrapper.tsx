@@ -1,12 +1,10 @@
-'use client';
-
 import * as React from 'react';
-
-import { usePathname, useRouter } from 'next/navigation';
 
 import { useSelector } from 'react-redux';
 
 import { NKConstant } from '@/core/NKConstant';
+import { useNKPathname } from '@/core/routing/hooks/NKPathname';
+import { useNKRouter } from '@/core/routing/hooks/NKRouter';
 import { RootState } from '@/core/store';
 import { UserState } from '@/core/store/user';
 
@@ -16,8 +14,8 @@ interface UnAuthWrapperProps {
 
 const UnAuthWrapper: React.FC<UnAuthWrapperProps> = ({ children }) => {
     const { isAuth, id, isLogin } = useSelector<RootState, UserState>((state) => state.user);
-    const router = useRouter();
-    const pathName = usePathname();
+    const router = useNKRouter();
+    const pathName = useNKPathname();
 
     React.useEffect(() => {
         if (isLogin && isAuth && id && pathName === NKConstant.AUTH_FAILED_FALLBACK_ROUTE) {

@@ -34,9 +34,14 @@ export const musicAuthorApi = {
         const res = await http.delete<boolean>(url);
         return res.data;
     },
-    v1Select: async (search: string) => {
-        const url = `/v1/music-author/select-options?search=${search}`;
-        const res = await http.get<Array<MusicAuthor>>(url);
+    v1Select: async (search: string, isShowDelete = false) => {
+        const url = `/v1/music-author/select-options`;
+        const res = await http.get<Array<MusicAuthor>>(url, {
+            params: {
+                search,
+                isShowDelete,
+            },
+        });
         return res.data;
     },
 };
