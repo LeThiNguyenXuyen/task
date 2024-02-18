@@ -12,29 +12,29 @@ import NKFieldWrapper, { NKFieldWrapperProps } from './NKFieldWrapper';
 
 const BaseImageFormat = Quill.import('formats/image');
 const ImageFormatAttributesList = ['alt', 'height', 'width', 'style'];
-class ImageFormat extends BaseImageFormat {
-    static formats(domNode: any) {
-        return ImageFormatAttributesList.reduce(function (formats, attribute) {
-            if (domNode.hasAttribute(attribute)) {
-                (formats as Record<any, any>)[attribute] = domNode.getAttribute(attribute);
-            }
-            return formats;
-        }, {});
-    }
-    format(name: any, value: any) {
-        if (ImageFormatAttributesList.indexOf(name) > -1) {
-            if (value) {
-                this.domNode.setAttribute(name, value);
-            } else {
-                this.domNode.removeAttribute(name);
-            }
-        } else {
-            super.format(name, value);
-        }
-    }
-}
-Quill.register(ImageFormat, true);
-Quill.register('modules/blotFormatter', BlotFormatter);
+// class ImageFormat extends BaseImageFormat {
+//     static formats(domNode: any) {
+//         return ImageFormatAttributesList.reduce(function (formats, attribute) {
+//             if (domNode.hasAttribute(attribute)) {
+//                 (formats as Record<any, any>)[attribute] = domNode.getAttribute(attribute);
+//             }
+//             return formats;
+//         }, {});
+//     }
+//     format(name: any, value: any) {
+//         if (ImageFormatAttributesList.indexOf(name) > -1) {
+//             if (value) {
+//                 this.domNode.setAttribute(name, value);
+//             } else {
+//                 this.domNode.removeAttribute(name);
+//             }
+//         } else {
+//             super.format(name, value);
+//         }
+//     }
+// }
+// Quill.register(ImageFormat, true);
+// Quill.register('modules/blotFormatter', BlotFormatter);
 export interface NKRichTextProps extends QuillOptions {
     className?: string;
     theme?: FormTheme;
@@ -48,38 +48,38 @@ const NKRichText: React.FC<Props> = ({ name, isShow = true, label, labelClassNam
     const editorRef = React.useRef<ReactQuill>(null);
     const [isShowEditor, setIsShowEditor] = React.useState<boolean>(false);
 
-    const selectLocalImage = (editor: any, cb: (editor: typeof Quill, input: File) => void) => {
-        const input = document.createElement('input');
-        input.setAttribute('type', 'file');
-        input.click();
-        input.onchange = () => {
-            if (input?.files && input.files[0]) {
-                const file = input.files[0];
-                if (/^image\//.test(file.type)) {
-                    cb(editor, file);
-                } else {
-                    alert('You could only upload images');
-                }
-            }
-        };
-    };
+    // const selectLocalImage = (editor: any, cb: (editor: typeof Quill, input: File) => void) => {
+    //     const input = document.createElement('input');
+    //     input.setAttribute('type', 'file');
+    //     input.click();
+    //     input.onchange = () => {
+    //         if (input?.files && input.files[0]) {
+    //             const file = input.files[0];
+    //             if (/^image\//.test(file.type)) {
+    //                 cb(editor, file);
+    //             } else {
+    //                 alert('You could only upload images');
+    //             }
+    //         }
+    //     };
+    // };
 
-    const _handleUploadImage = async (editor: any, file: File) => {
-        const res = await uploadFileApi.v1UploadFile(file);
-        const imageUrl = res;
-        const range = editor.getSelection();
-        if (range) editor.insertEmbed(range.index, 'image', `${imageUrl}`);
-    };
+    // const _handleUploadImage = async (editor: any, file: File) => {
+    //     const res = await uploadFileApi.v1UploadFile(file);
+    //     const imageUrl = res;
+    //     const range = editor.getSelection();
+    //     if (range) editor.insertEmbed(range.index, 'image', `${imageUrl}`);
+    // };
 
-    React.useEffect(() => {
-        if (editorRef.current) {
-            const editor = editorRef.current.getEditor();
+    // React.useEffect(() => {
+    //     if (editorRef.current) {
+    //         const editor = editorRef.current.getEditor();
 
-            editor.getModule('toolbar').addHandler('image', () => {
-                selectLocalImage(editor, _handleUploadImage);
-            });
-        }
-    }, []);
+    //         editor.getModule('toolbar').addHandler('image', () => {
+    //             selectLocalImage(editor, _handleUploadImage);
+    //         });
+    //     }
+    // }, []);
 
     return (
         <NKFieldWrapper labelClassName={labelClassName} isShow={isShow} label={label} name={name}>
