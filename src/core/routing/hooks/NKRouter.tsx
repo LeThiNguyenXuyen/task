@@ -1,4 +1,4 @@
-import { useNavigate, useRouter } from '@tanstack/react-router';
+import { Route, useNavigate, useRouter, useSearch } from '@tanstack/react-router';
 
 export const useNKRouter = () => {
     const navigate = useNavigate();
@@ -28,4 +28,9 @@ export const useNKRouter = () => {
     };
 
     return { push, replace, back, forward };
+};
+
+export const useNKSearch = () => {
+    const search = useSearch({ strict: false });
+    return search as any;
 };

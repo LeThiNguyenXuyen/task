@@ -9,6 +9,7 @@ import NKFieldWrapper, { NKFieldWrapperProps } from './NKFieldWrapper';
 
 export interface NKTextFieldProps extends InputProps {
     theme?: FormTheme;
+    icon?: React.ReactNode;
 }
 
 type Props = NKTextFieldProps & NKFieldWrapperProps;

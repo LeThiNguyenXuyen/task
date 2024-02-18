@@ -27,6 +27,7 @@
     "dayjs": "^1.11.10",
     "firebase": "^10.8.0",
     "flat": "^6.0.1",
+    "framer-motion": "^11.0.5",
     "joi": "^17.12.1",
     "lodash": "^4.17.21",
     "lucide-react": "^0.320.0",

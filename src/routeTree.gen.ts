@@ -3,11 +3,13 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as AuthLayoutImport } from './routes/_auth-layout'
 import { Route as AppLayoutImport } from './routes/_app-layout'
 import { Route as IndexImport } from './routes/index'
 import { Route as AppLayoutAppIndexImport } from './routes/_app-layout.app/index'
-import { Route as AppLayoutAppAnalyticsImport } from './routes/_app-layout.app/analytics'
-import { Route as AppLayoutAppIdImport } from './routes/_app-layout.app/$id'
+import { Route as AuthLayoutAuthLoginImport } from './routes/_auth-layout.auth/login'
+import { Route as AuthLayoutAuthRegisterIndexImport } from './routes/_auth-layout.auth/register/index'
+import { Route as AuthLayoutAuthForgotPasswordIndexImport } from './routes/_auth-layout.auth/forgot-password/index'
 import { Route as AppLayoutAppUserSaleIndexImport } from './routes/_app-layout.app/user-sale/index'
 import { Route as AppLayoutAppUserMeSaleIndexImport } from './routes/_app-layout.app/user-me-sale/index'
 import { Route as AppLayoutAppUserMeSaleBookingIndexImport } from './routes/_app-layout.app/user-me-sale-booking/index'
@@ -51,6 +53,11 @@ import { Route as AppLayoutAppBookingIdFormIndexImport } from './routes/_app-lay
 
 // Create/Update Routes
 
+const AuthLayoutRoute = AuthLayoutImport.update({
+  id: '/_auth-layout',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const AppLayoutRoute = AppLayoutImport.update({
   id: '/_app-layout',
   getParentRoute: () => rootRoute,
@@ -66,15 +73,22 @@ const AppLayoutAppIndexRoute = AppLayoutAppIndexImport.update({
   getParentRoute: () => AppLayoutRoute,
 } as any)
 
-const AppLayoutAppAnalyticsRoute = AppLayoutAppAnalyticsImport.update({
-  path: '/app/analytics',
-  getParentRoute: () => AppLayoutRoute,
+const AuthLayoutAuthLoginRoute = AuthLayoutAuthLoginImport.update({
+  path: '/auth/login',
+  getParentRoute: () => AuthLayoutRoute,
 } as any)
 
-const AppLayoutAppIdRoute = AppLayoutAppIdImport.update({
-  path: '/app/$id',
-  getParentRoute: () => AppLayoutRoute,
-} as any)
+const AuthLayoutAuthRegisterIndexRoute =
+  AuthLayoutAuthRegisterIndexImport.update({
+    path: '/auth/register/',
+    getParentRoute: () => AuthLayoutRoute,
+  } as any)
+
+const AuthLayoutAuthForgotPasswordIndexRoute =
+  AuthLayoutAuthForgotPasswordIndexImport.update({
+    path: '/auth/forgot-password/',
+    getParentRoute: () => AuthLayoutRoute,
+  } as any)
 
 const AppLayoutAppUserSaleIndexRoute = AppLayoutAppUserSaleIndexImport.update({
   path: '/app/user-sale/',
@@ -323,13 +337,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppLayoutImport
       parentRoute: typeof rootRoute
     }
-    '/_app-layout/app/$id': {
-      preLoaderRoute: typeof AppLayoutAppIdImport
-      parentRoute: typeof AppLayoutImport
+    '/_auth-layout': {
+      preLoaderRoute: typeof AuthLayoutImport
+      parentRoute: typeof rootRoute
     }
-    '/_app-layout/app/analytics': {
-      preLoaderRoute: typeof AppLayoutAppAnalyticsImport
-      parentRoute: typeof AppLayoutImport
+    '/_auth-layout/auth/login': {
+      preLoaderRoute: typeof AuthLayoutAuthLoginImport
+      parentRoute: typeof AuthLayoutImport
     }
     '/_app-layout/app/': {
       preLoaderRoute: typeof AppLayoutAppIndexImport
@@ -390,6 +404,14 @@ declare module '@tanstack/react-router' {
     '/_app-layout/app/user-sale/': {
       preLoaderRoute: typeof AppLayoutAppUserSaleIndexImport
       parentRoute: typeof AppLayoutImport
+    }
+    '/_auth-layout/auth/forgot-password/': {
+      preLoaderRoute: typeof AuthLayoutAuthForgotPasswordIndexImport
+      parentRoute: typeof AuthLayoutImport
+    }
+    '/_auth-layout/auth/register/': {
+      preLoaderRoute: typeof AuthLayoutAuthRegisterIndexImport
+      parentRoute: typeof AuthLayoutImport
     }
     '/_app-layout/app/chat/$chatId/_chat-layout': {
       preLoaderRoute: typeof AppLayoutAppChatChatIdChatLayoutImport
@@ -503,8 +525,6 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
   AppLayoutRoute.addChildren([
-    AppLayoutAppIdRoute,
-    AppLayoutAppAnalyticsRoute,
     AppLayoutAppIndexRoute,
     AppLayoutAppProductProductLayoutRoute.addChildren([
       AppLayoutAppProductProductLayoutIndexRoute,
@@ -548,5 +568,10 @@ export const routeTree = rootRoute.addChildren([
     AppLayoutAppUserMeSaleBookingHistoryIdAcceptIndexRoute,
     AppLayoutAppUserMeSaleBookingIdEditIndexRoute,
     AppLayoutAppUserMeSaleIdEditIndexRoute,
+  ]),
+  AuthLayoutRoute.addChildren([
+    AuthLayoutAuthLoginRoute,
+    AuthLayoutAuthForgotPasswordIndexRoute,
+    AuthLayoutAuthRegisterIndexRoute,
   ]),
 ])

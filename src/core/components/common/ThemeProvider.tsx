@@ -1,13 +1,10 @@
 import { PropsWithChildren, useEffect, useState } from 'react';
 
 import { ConfigProvider, theme } from 'antd';
-import { ToastContainer } from 'react-toastify';
 
-export type ProviderProps = PropsWithChildren<{
-    locale: string;
-}>;
+export type ProviderProps = PropsWithChildren<{}>;
 
-export function AntdConfigProvider({ children, locale }: ProviderProps) {
+export function AntdConfigProvider({ children }: ProviderProps) {
     return (
         <ConfigProvider
             theme={{
@@ -37,7 +34,6 @@ export function AntdConfigProvider({ children, locale }: ProviderProps) {
             }}
         >
             {children}
-            <ToastContainer autoClose={2000} />
         </ConfigProvider>
     );
 }

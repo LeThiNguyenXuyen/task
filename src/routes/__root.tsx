@@ -20,14 +20,14 @@ const RootLayout: React.FunctionComponent<RootLayoutProps> = () => {
     return (
         <Providers>
             <TryAuthWrapper>
-                <ThemeProvider locale={''}>
+                <ThemeProvider>
                     <CartProvider>
                         <MainLayout>
                             <Outlet />
                         </MainLayout>
                     </CartProvider>
                     <ToastContainer closeButton={false} position="bottom-center" autoClose={4000} limit={2} />
-                    <TanStackRouterDevtools position="bottom-right" />
+                    {/* <TanStackRouterDevtools position="bottom-right" /> */}
                     {/* </DynamicLayout> */}
                 </ThemeProvider>
             </TryAuthWrapper>
