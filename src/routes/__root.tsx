@@ -26,7 +26,7 @@ const RootLayout: React.FunctionComponent<RootLayoutProps> = () => {
                             <Outlet />
                         </MainLayout>
                     </CartProvider>
-                    <ToastContainer closeButton={false} position="bottom-center" autoClose={4000} limit={2} />
+                    <ToastContainer closeButton={false} theme="colored" autoClose={4000} limit={2} />
                     {/* <TanStackRouterDevtools position="bottom-right" /> */}
                     {/* </DynamicLayout> */}
                 </ThemeProvider>

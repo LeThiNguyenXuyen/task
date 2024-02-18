@@ -28,7 +28,7 @@ const Page: React.FunctionComponent<RegisterPageProps> = () => {
 
     return (
         <div className="fade-in w-full max-w-md rounded-2xl bg-white p-10">
-            <h1 className="mb-2 text-xl font-semibold text-black">Register</h1>
+            <h1 className="mb-2 text-xl font-semibold text-black">Đăng ký</h1>
             <NKFormWrapper<RegisterExtendsForm>
                 apiAction={(data) => {
                     return authApi.v1Register({
@@ -41,10 +41,10 @@ const Page: React.FunctionComponent<RegisterPageProps> = () => {
                 defaultValues={{
                     email: '',
                     password: '',
-                    username: '',
+                    confirmPassword: '',
                     firstName: '',
                     lastName: '',
-                    confirmPassword: '',
+                    username: '',
                 }}
                 schema={{
                     email: joi
@@ -126,7 +126,7 @@ const Page: React.FunctionComponent<RegisterPageProps> = () => {
                         className="text-white"
                     />
                     <div className="flex flex-col  gap-4">
-                        <Button>ĐĂNG KÝ</Button>
+                        <Button htmlType="submit"> ĐĂNG KÝ</Button>
                         <div className="flex flex-col  gap-4">
                             <div className="relative flex h-5">
                                 <div className="inset-0 flex flex-1 items-center" aria-hidden="true">
@@ -155,7 +155,7 @@ const Page: React.FunctionComponent<RegisterPageProps> = () => {
                         </div>
                         <div className="flex justify-center gap-1 leading-6">
                             <div className="text-gray-500">Tôi đã có tài khoản?</div>
-                            <NKLink href={NKRouter.auth.login()} className="text-tango font-semibold">
+                            <NKLink href={NKRouter.auth.login()} className="font-semibold text-tango">
                                 Đăng nhập
                             </NKLink>
                         </div>

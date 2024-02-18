@@ -38,7 +38,7 @@ const Page: React.FC<AuthLoginProps> = () => {
 
     return (
         <div className="fade-in w-full max-w-md rounded-2xl bg-white p-10">
-            <h1 className="mb-2 text-xl font-semibold text-black">Login</h1>
+            <h1 className="mb-2 text-xl font-semibold text-black">Đăng nhập</h1>
             <NKFormWrapper
                 apiAction={authApi.v1LoginEmail}
                 defaultValues={{
@@ -101,7 +101,7 @@ const Page: React.FC<AuthLoginProps> = () => {
                     </Button>
                     <div className="flex flex-col  gap-4">
                         <div className="flex w-full justify-end">
-                            <NKLink href={NKRouter.auth.forgotPassword()} className="text-tango font-medium">
+                            <NKLink href={NKRouter.auth.forgotPassword()} className="font-medium text-tango">
                                 Quên mật khẩu?
                             </NKLink>
                         </div>
@@ -131,7 +131,7 @@ const Page: React.FC<AuthLoginProps> = () => {
                         </div>
                         <div className="flex justify-center gap-1  leading-6">
                             <div className="text-gray-500">Chưa có tài khoản?</div>
-                            <NKLink href={NKRouter.auth.register()} className="text-tango font-semibold ">
+                            <NKLink href={NKRouter.auth.register()} className="font-semibold text-tango ">
                                 Đăng ký
                             </NKLink>
                         </div>
