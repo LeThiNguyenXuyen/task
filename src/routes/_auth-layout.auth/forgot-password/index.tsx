@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { useMutation } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
+import { Button } from 'antd';
 import joi from 'joi';
 import { toast } from 'react-toastify';
 
@@ -43,12 +44,12 @@ const Page: React.FC<PageProps> = () => {
     });
 
     return (
-        <div className="flex h-[calc(100vh-4.5rem)] flex-col items-center justify-center px-4">
+        <div className="fade-in w-full max-w-md rounded-2xl bg-white p-6">
+            <h1 className="mb-2 text-xl font-semibold text-black">Forgot Password</h1>
             <>
-                <div className="text-title text-center text-lg font-bold text-black">FORGOT PASSWORD</div>
                 <div className="w-full">
                     {isShowSubmit ? (
-                        <div className="fade-in mx-auto mt-8 flex max-w-2xl flex-col gap-4">
+                        <div className="fade-in mx-auto flex max-w-2xl flex-col gap-4">
                             <NKFormWrapper<ForgotPasswordUpdateForm>
                                 key="forgot-password-update"
                                 apiAction={(data) => {
@@ -100,15 +101,10 @@ const Page: React.FC<PageProps> = () => {
                                         className="text-black"
                                     />
 
-                                    <button
-                                        type="submit"
-                                        className="rounded-xl bg-[#DEE1E6] px-2.5 py-3 text-sm font-semibold text-black  shadow-sm hover:bg-indigo-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-200"
-                                    >
-                                        Update Password
-                                    </button>
-                                    <button
-                                        type="submit"
-                                        className="rounded-xl bg-[#DEE1E6] px-2.5 py-3 text-sm font-semibold text-black  shadow-sm hover:bg-indigo-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-200"
+                                    <Button htmlType="submit">Update Password</Button>
+                                    <Button
+                                        htmlType="button"
+                                        type="text"
                                         onClick={() => {
                                             if (countDownMethods.isFinished) {
                                                 resendEmailMutation.mutate();
@@ -117,21 +113,21 @@ const Page: React.FC<PageProps> = () => {
                                         }}
                                     >
                                         Resend {countDownMethods.isFinished ? '' : `${countDownMethods.time}s`}
-                                    </button>
+                                    </Button>
                                 </div>
                             </NKFormWrapper>
                             <div className="flex items-center justify-center gap-1 text-center">
-                                <button
+                                <Button
                                     onClick={() => {
                                         setIsShowSubmit(false);
                                     }}
                                 >
-                                    <div className="font-semibold text-indigo-500 hover:text-indigo-500">Change Email</div>
-                                </button>
+                                    Change Email
+                                </Button>
                             </div>
                         </div>
                     ) : (
-                        <div className="mx-auto mt-8 flex max-w-2xl flex-col gap-4">
+                        <div className="mx-auto flex max-w-2xl flex-col gap-4">
                             <NKFormWrapper<IV1CreateResetPasswordDto>
                                 key="forgot-password"
                                 apiAction={async (dto) => {
@@ -169,18 +165,13 @@ const Page: React.FC<PageProps> = () => {
                                         className="text-black"
                                     />
 
-                                    <button
-                                        type="submit"
-                                        className="rounded-xl bg-[#DEE1E6] px-2.5 py-3 text-sm font-semibold text-black  shadow-sm hover:bg-indigo-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-200"
-                                    >
-                                        Send to Email
-                                    </button>
+                                    <Button htmlType="submit">Send to Email</Button>
                                 </div>
                             </NKFormWrapper>
                             <div className="flex items-center justify-center gap-1 text-center">
                                 <div>Go Back? </div>
                                 <NKLink href={NKRouter.auth.login()}>
-                                    <div className="font-semibold text-indigo-500 hover:text-indigo-500">Log In</div>
+                                    <span className="text-tango font-semibold">Log In</span>
                                 </NKLink>
                             </div>
                         </div>

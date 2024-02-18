@@ -13,7 +13,7 @@ interface MainLayoutProps {
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
     const pathName = useNKPathname();
 
-    if (pathName.startsWith('/app'))
+    if (pathName.startsWith('/app') || pathName.startsWith('/auth'))
         return (
             <div className="flex min-h-screen w-full flex-col">
                 <div className="flex h-full w-full flex-1 justify-center">{children}</div>

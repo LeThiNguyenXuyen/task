@@ -73,7 +73,7 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
                 <div className="flex h-20 items-center justify-between px-4 lg:container">
                     <div className="hidden flex-1 justify-start space-x-3 sm:space-x-8 md:flex lg:space-x-10">
                         <a className="ttnc-logo text-primary-6000 inline-block h-16 w-16 self-center focus:outline-none focus:ring-0" href="/">
-                            <img src="/images/logo.png" alt="logo" className="h-full w-full" />
+                            <img src="/assets/images/logo.png" alt="logo" className="h-full w-full" />
                         </a>
                         <div className="hidden h-10 self-center border-l border-neutral-300 dark:border-neutral-500 lg:block" />
                         <div className="hidden lg:flex ">

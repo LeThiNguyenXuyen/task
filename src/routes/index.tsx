@@ -17,7 +17,7 @@ const Page: React.FunctionComponent = () => {
                         height={1032}
                         decoding="async"
                         data-nimg={1}
-                        src="/images/our-features.webp"
+                        src="/assets/images/our-features.webp"
                         style={{ color: 'transparent' }}
                     />
                 </div>
@@ -73,7 +73,7 @@ const Page: React.FunctionComponent = () => {
                         decoding="async"
                         data-nimg={1}
                         className="absolute inset-x-0 top-10 hidden md:block"
-                        src="/images/VectorHIW.2937dfc5.svg"
+                        src="/assets/images/VectorHIW.2937dfc5.svg"
                         style={{ color: 'transparent' }}
                     />
                     <div className="relative mx-auto flex max-w-xs flex-col items-center">
@@ -85,7 +85,7 @@ const Page: React.FunctionComponent = () => {
                             decoding="async"
                             data-nimg={1}
                             className="mx-auto mb-8 max-w-[180px]"
-                            src="/images/HIW1.webp"
+                            src="/assets/images/HIW1.webp"
                             style={{ color: 'transparent' }}
                         />
                         <div className="mt-auto text-center">
@@ -104,7 +104,7 @@ const Page: React.FunctionComponent = () => {
                             decoding="async"
                             data-nimg={1}
                             className="mx-auto mb-8 max-w-[180px]"
-                            src="/images/HIW2.webp"
+                            src="/assets/images/HIW2.webp"
                             style={{ color: 'transparent' }}
                         />
                         <div className="mt-auto text-center">
@@ -123,7 +123,7 @@ const Page: React.FunctionComponent = () => {
                             decoding="async"
                             data-nimg={1}
                             className="mx-auto mb-8 max-w-[180px]"
-                            src="/images/HIW3.webp"
+                            src="/assets/images/HIW3.webp"
                             style={{ color: 'transparent' }}
                         />
                         <div className="mt-auto text-center">
@@ -144,7 +144,7 @@ const Page: React.FunctionComponent = () => {
                 <div className="nc-SectionBecomeAnAuthor relative flex flex-col items-center lg:flex-row  " data-nc-id="SectionBecomeAnAuthor">
                     <div className="mb-16 flex-shrink-0 lg:mb-0 lg:mr-10 lg:w-2/5">
                         <a className="ttnc-logo text-primary-6000 inline-block h-12 w-12 focus:outline-none focus:ring-0" href="/">
-                            <img src="/images/logo.png" />
+                            <img src="/assets/images/logo.png" />
                         </a>
                         <h2 className="mt-6 text-3xl font-semibold sm:mt-11 sm:text-4xl">Why did you choose us?</h2>
                         <span className="mt-6 block text-neutral-500 dark:text-neutral-400">
@@ -163,7 +163,7 @@ const Page: React.FunctionComponent = () => {
                             height={694}
                             decoding="async"
                             data-nimg={1}
-                            src="/images/BecomeAnAuthorImg.webp"
+                            src="/assets/images/BecomeAnAuthorImg.webp"
                             style={{ color: 'transparent' }}
                         />
                     </div>
@@ -216,7 +216,7 @@ const Page: React.FunctionComponent = () => {
                         height={803}
                         decoding="async"
                         data-nimg={1}
-                        src="/images/SVG-subcribe2.webp"
+                        src="/assets/images/SVG-subcribe2.webp"
                         style={{ color: 'transparent' }}
                     />
                 </div>
@@ -246,7 +246,7 @@ const Page: React.FunctionComponent = () => {
                                 decoding="async"
                                 data-nimg={1}
                                 className="absolute -left-20 top-9"
-                                src="/images/clientSay1.webp"
+                                src="/assets/images/clientSay1.webp"
                                 style={{ color: 'transparent' }}
                             />
                             <img
@@ -257,7 +257,7 @@ const Page: React.FunctionComponent = () => {
                                 decoding="async"
                                 data-nimg={1}
                                 className="absolute bottom-[100px] right-full mr-40"
-                                src="/images/clientSay2.webp"
+                                src="/assets/images/clientSay2.webp"
                                 style={{ color: 'transparent' }}
                             />
                             <img
@@ -268,7 +268,7 @@ const Page: React.FunctionComponent = () => {
                                 decoding="async"
                                 data-nimg={1}
                                 className="absolute left-[140px] top-full"
-                                src="/images/clientSay3.webp"
+                                src="/assets/images/clientSay3.webp"
                                 style={{ color: 'transparent' }}
                             />
                             <img
@@ -279,7 +279,7 @@ const Page: React.FunctionComponent = () => {
                                 decoding="async"
                                 data-nimg={1}
                                 className="absolute -bottom-10 right-[140px]"
-                                src="/images/clientSay4.webp"
+                                src="/assets/images/clientSay4.webp"
                                 style={{ color: 'transparent' }}
                             />
                             <img
@@ -290,7 +290,7 @@ const Page: React.FunctionComponent = () => {
                                 decoding="async"
                                 data-nimg={1}
                                 className="absolute bottom-[80px] left-full ml-32"
-                                src="/images/clientSay5.webp"
+                                src="/assets/images/clientSay5.webp"
                                 style={{ color: 'transparent' }}
                             />
                             <img
@@ -301,7 +301,7 @@ const Page: React.FunctionComponent = () => {
                                 decoding="async"
                                 data-nimg={1}
                                 className="absolute -right-10 top-10 "
-                                src="/images/clientSay6.webp"
+                                src="/assets/images/clientSay6.webp"
                                 style={{ color: 'transparent' }}
                             />
                         </div>
@@ -313,7 +313,7 @@ const Page: React.FunctionComponent = () => {
                             decoding="async"
                             data-nimg={1}
                             className="mx-auto"
-                            src="/images/clientSayMain.webp"
+                            src="/assets/images/clientSayMain.webp"
                             style={{ color: 'transparent' }}
                         />
                         <div className="relative mt-12 lg:mt-16 ">
@@ -325,7 +325,7 @@ const Page: React.FunctionComponent = () => {
                                 decoding="async"
                                 data-nimg={1}
                                 className="absolute right-full top-1 -mr-16 opacity-50 md:opacity-100 lg:mr-3"
-                                src="/images/quotation.webp"
+                                src="/assets/images/quotation.webp"
                                 style={{ color: 'transparent' }}
                             />
                             <img
@@ -336,7 +336,7 @@ const Page: React.FunctionComponent = () => {
                                 decoding="async"
                                 data-nimg={1}
                                 className="absolute left-full top-1 -ml-16 opacity-50 md:opacity-100 lg:ml-3"
-                                src="/images/quotation2.webp"
+                                src="/assets/images/quotation2.webp"
                                 style={{ color: 'transparent' }}
                             />
                             <div className="relative overflow-hidden whitespace-nowrap">
@@ -383,7 +383,7 @@ const Page: React.FunctionComponent = () => {
                     <div className="col-span-2 grid grid-cols-4 gap-5 md:col-span-4 lg:md:col-span-1 lg:flex lg:flex-col">
                         <div className="col-span-2 md:col-span-1">
                             <a className="ttnc-logo text-primary-6000 inline-block h-16 w-16 focus:outline-none focus:ring-0" href="/">
-                                <img src="/images/logo.png" className="h-full w-full" />
+                                <img src="/assets/images/logo.png" className="h-full w-full" />
                             </a>
                         </div>
                         <div className="col-span-2 flex items-center md:col-span-3">

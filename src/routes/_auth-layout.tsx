@@ -2,14 +2,24 @@ import * as React from 'react';
 
 import { Outlet, createFileRoute } from '@tanstack/react-router';
 
+import { NKRouter } from '@/core/NKRouter';
 import UnAuthWrapper from '@/core/components/wrapper/UnAuthWrapper';
+import NKLink from '@/core/routing/components/NKLink';
 
 interface LayoutProps extends React.PropsWithChildren {}
 
 const Layout: React.FunctionComponent<LayoutProps> = () => {
     return (
         <UnAuthWrapper>
-            <Outlet />
+            <div className="faded-in flex w-full justify-center px-20 py-10">
+                <div className="bg-tango-200 flex max-w-app flex-1 flex-col items-center justify-start gap-10 rounded-2xl p-16">
+                    <NKLink href={NKRouter.home()} className="flex  items-center justify-center gap-6 ">
+                        <img className="h-32" src="/assets/images/logo.png " alt="banner" />
+                        <span className="text-5xl font-medium text-black">Motel</span>
+                    </NKLink>
+                    <Outlet />
+                </div>
+            </div>
         </UnAuthWrapper>
     );
 };
