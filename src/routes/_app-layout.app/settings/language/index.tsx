@@ -9,12 +9,13 @@ import { toast } from 'react-toastify';
 
 import { NKRouter } from '@/core/NKRouter';
 import { chatMessageApi } from '@/core/api/chat-message.api';
+import { meApi } from '@/core/api/me.api';
 import { userMeSettingApi } from '@/core/api/user-me-setting.api';
 import { userMeApi } from '@/core/api/user-me.api';
 import NKFormWrapper from '@/core/components/form/NKFormWrapper';
 import NKSelectField from '@/core/components/form/NKSelectField';
 import { UserSetting } from '@/core/models/userSetting';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { RootState } from '@/core/store';
 import { UserState } from '@/core/store/user';
 
@@ -27,7 +28,7 @@ const Page: React.FC<PageProps> = () => {
     const userMeQuery = useQuery(
         ['user-me', userState.id],
         () => {
-            return userMeApi.v1Get();
+            return meApi.v1Get();
         },
         {
             enabled: !!userState.id,

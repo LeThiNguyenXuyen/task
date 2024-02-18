@@ -11,7 +11,7 @@ import { IV1CreateResetPasswordDto, IV1UpdateResetPasswordDto, userAnonymousApi 
 import NKFormWrapper from '@/core/components/form/NKFormWrapper';
 import NKTextField from '@/core/components/form/NKTextField';
 import { useCountDown } from '@/core/hooks/useCountDown';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { useNKRouter } from '@/core/routing/hooks/NKRouter';
 
 interface PageProps {}
@@ -171,7 +171,7 @@ const Page: React.FC<PageProps> = () => {
                             <div className="flex items-center justify-center gap-1 text-center">
                                 <div>Go Back? </div>
                                 <NKLink href={NKRouter.auth.login()}>
-                                    <span className="text-tango font-semibold">Log In</span>
+                                    <span className="font-semibold text-tango">Log In</span>
                                 </NKLink>
                             </div>
                         </div>

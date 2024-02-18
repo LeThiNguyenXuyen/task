@@ -12,7 +12,7 @@ import { NKRouter } from '@/core/NKRouter';
 import { IV1AuthRegister, authApi } from '@/core/api/auth.api';
 import NKFormWrapper from '@/core/components/form/NKFormWrapper';
 import NKTextField from '@/core/components/form/NKTextField';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { useNKRouter } from '@/core/routing/hooks/NKRouter';
 
 interface RegisterExtendsForm extends Omit<IV1AuthRegister, 'name'> {

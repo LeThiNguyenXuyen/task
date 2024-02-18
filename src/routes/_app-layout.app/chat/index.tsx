@@ -11,7 +11,7 @@ import { NKRouter } from '@/core/NKRouter';
 import { IV1CreateWithUser, userMeChatApi } from '@/core/api/user-me-chat.api';
 import { userApi } from '@/core/api/user.api';
 import { FilterComparator } from '@/core/models/common';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { useNKRouter } from '@/core/routing/hooks/NKRouter';
 import { RootState } from '@/core/store';
 import { UserState } from '@/core/store/user';

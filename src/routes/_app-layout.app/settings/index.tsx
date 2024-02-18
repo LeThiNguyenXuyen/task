@@ -9,8 +9,9 @@ import Cookies from 'universal-cookie';
 
 import { NKConstant } from '@/core/NKConstant';
 import { NKRouter } from '@/core/NKRouter';
+import { meApi } from '@/core/api/me.api';
 import { userMeApi } from '@/core/api/user-me.api';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { RootState, store } from '@/core/store';
 import { UserState, userActions } from '@/core/store/user';
 
@@ -19,7 +20,7 @@ interface PageProps {}
 const Page: React.FC<PageProps> = () => {
     const userState = useSelector<RootState, UserState>((state) => state.user);
     const userMeQuery = useQuery(['user-me', userState.id], () => {
-        return userMeApi.v1Get();
+        return meApi.v1Get();
     });
 
     const logoutMutation = useMutation(

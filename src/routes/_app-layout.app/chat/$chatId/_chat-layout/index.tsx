@@ -26,7 +26,7 @@ import { useChatContext } from '@/core/contexts/ChatContext';
 import { FilterComparator } from '@/core/models/common';
 import { PhotoGroup } from '@/core/models/photoGroup';
 import { User } from '@/core/models/user';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { useNKRouter } from '@/core/routing/hooks/NKRouter';
 import { RootState } from '@/core/store';
 import { UserState } from '@/core/store/user';

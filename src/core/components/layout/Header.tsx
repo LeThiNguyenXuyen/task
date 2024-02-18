@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Menu, Transition } from '@headlessui/react';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { useParams } from '@tanstack/react-router';
+import { Link, useParams } from '@tanstack/react-router';
 import { Button } from 'antd';
 import clsx from 'clsx';
 import { motion, useScroll } from 'framer-motion';
@@ -11,8 +11,9 @@ import Cookies from 'universal-cookie';
 
 import { NKConstant } from '@/core/NKConstant';
 import { NKRouter } from '@/core/NKRouter';
+import { meApi } from '@/core/api/me.api';
 import { userMeApi } from '@/core/api/user-me.api';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { useNKRouter } from '@/core/routing/hooks/NKRouter';
 import { RootState, store } from '@/core/store';
 import { UserState, userActions } from '@/core/store/user';
@@ -41,7 +42,7 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
     const userMeQuery = useQuery(
         ['user-me', userState.id],
         () => {
-            return userMeApi.v1Get();
+            return meApi.v1Get();
         },
         {
             enabled: !!userState.id,
@@ -150,7 +151,6 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
                                         </Menu.Button>
 
                                         <Transition
-                                            as={React.Fragment}
                                             enter="transition ease-out duration-100"
                                             enterFrom="transform opacity-0 scale-95"
                                             enterTo="transform opacity-100 scale-100"
@@ -162,7 +162,7 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
                                                 <Menu.Item>
                                                     {({ active }) => (
                                                         <NKLink
-                                                            href={NKRouter.me.index()}
+                                                            href={NKRouter.setting.index()}
                                                             className={clsx(
                                                                 active ? 'bg-gray-100' : '',
                                                                 'block cursor-pointer px-4 py-2 text-sm text-gray-700',

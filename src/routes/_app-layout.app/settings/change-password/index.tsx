@@ -10,7 +10,7 @@ import { NKRouter } from '@/core/NKRouter';
 import { IV1ChangePasswordDto, userMeApi } from '@/core/api/user-me.api';
 import NKFormWrapper from '@/core/components/form/NKFormWrapper';
 import NKTextField from '@/core/components/form/NKTextField';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 
 interface PageProps {}
 

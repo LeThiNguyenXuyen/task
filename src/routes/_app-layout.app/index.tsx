@@ -4,7 +4,7 @@ import { BsHeartFill } from 'react-icons/bs';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { NKRouter } from '@/core/NKRouter';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 
 const Page = () => {
     return (

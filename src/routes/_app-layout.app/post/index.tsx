@@ -12,7 +12,7 @@ import NKRichText, { NKRichTextProps } from '@/core/components/form/NKRichText';
 // import { NKRichText } from '@/core/components/form/NKRichText';
 import PostCard from '@/core/components/post/PostCard';
 import ScrollInfinityBuilder from '@/core/components/scroll/ScrollInfinityBuilder';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { RootState } from '@/core/store';
 import { UserState } from '@/core/store/user';
 

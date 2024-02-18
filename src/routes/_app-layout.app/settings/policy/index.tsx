@@ -5,7 +5,7 @@ import { ChevronLeft } from 'akar-icons';
 
 import { NKRouter } from '@/core/NKRouter';
 import { IV1ChangePasswordDto } from '@/core/api/user-me.api';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 
 interface PageProps {}
 

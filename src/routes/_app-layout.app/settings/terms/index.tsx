@@ -4,7 +4,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { ChevronLeft } from 'akar-icons';
 
 import { NKRouter } from '@/core/NKRouter';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 
 interface PageProps {}
 

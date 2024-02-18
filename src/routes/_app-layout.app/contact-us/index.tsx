@@ -14,7 +14,7 @@ import { PhotoProvider, PhotoView } from 'react-photo-view';
 import { NKRouter } from '@/core/NKRouter';
 import { uploadFileApi } from '@/core/api/upload-file.api';
 import { userMeTicketApi } from '@/core/api/user-me-ticket.api';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 
 interface SendMessageForm {
     message: string;

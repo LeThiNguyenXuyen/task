@@ -6,27 +6,15 @@ export interface IV1ChangePasswordDto {
     newPassword: string;
 }
 
-export interface IV1UpdateProfileDto {
-    name: string;
-    phone: string;
-    address: string;
-    studentId: string;
-    major: string;
-    facebookUrl: string;
-    banner: string;
-    avatar: string;
-    dob: string;
-    bio: string;
-    nickname: string;
-}
+export interface IV1UpdateProfileDto extends Pick<User, 'name' | 'phone' | 'bio' | 'nickname' | 'address' | 'avatar' | 'dob'> {}
 
 export interface IV1UpdateMessageTokenDto {
     messageToken: string;
 }
 
-const baseEndpoint = '/user-me';
+const baseEndpoint = '/me';
 
-export const userMeApi = {
+export const meApi = {
     v1Get: async () => {
         const url = `${baseEndpoint}`;
         const res = await http.get<User>(url);

@@ -16,7 +16,7 @@ import { UserPostIV1CreateDto, userPostApi } from '@/core/api/user-post.api';
 import NKRichText, { NKRichTextProps } from '@/core/components/form/NKRichText';
 import { UserPost } from '@/core/models/userPost';
 import { UserPostComment } from '@/core/models/userPostComment';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { RootState } from '@/core/store';
 import { UserState } from '@/core/store/user';
 

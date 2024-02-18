@@ -6,7 +6,7 @@ import { BsHeartFill } from 'react-icons/bs';
 
 import { NKRouter } from '@/core/NKRouter';
 import { productApi } from '@/core/api/product.api';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { formatMoneyVND } from '@/core/utils/string.helper';
 
 interface PageProps {}

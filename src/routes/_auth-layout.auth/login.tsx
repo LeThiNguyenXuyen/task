@@ -13,7 +13,7 @@ import { NKRouter } from '@/core/NKRouter';
 import { authApi } from '@/core/api/auth.api';
 import NKFormWrapper from '@/core/components/form/NKFormWrapper';
 import NKTextField from '@/core/components/form/NKTextField';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { useNKSearch } from '@/core/routing/hooks/NKRouter';
 import { store } from '@/core/store';
 import { userActions } from '@/core/store/user';

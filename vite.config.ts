@@ -9,12 +9,12 @@ export default defineConfig({
     plugins: [
         react(),
         TanStackRouterVite(),
-        VitePWA({
-            registerType: 'autoUpdate',
-            devOptions: {
-                enabled: true,
-            },
-        }),
+        // VitePWA({
+        //     registerType: 'autoUpdate',
+        //     devOptions: {
+        //         enabled: true,
+        //     },
+        // }),
     ],
     server: {
         port: 3000,

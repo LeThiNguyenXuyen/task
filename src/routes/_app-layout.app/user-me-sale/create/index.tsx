@@ -13,7 +13,7 @@ import NKRichText, { NKRichTextProps } from '@/core/components/form/NKRichText';
 import NKSelectField from '@/core/components/form/NKSelectField';
 import NKTextField from '@/core/components/form/NKTextField';
 import NKUploadMultipleImage from '@/core/components/form/NKUploadMultipleImage';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { useNKRouter } from '@/core/routing/hooks/NKRouter';
 
 interface PageProps {}

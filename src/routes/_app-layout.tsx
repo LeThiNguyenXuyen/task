@@ -10,7 +10,7 @@ import { NKRouter } from '@/core/NKRouter';
 import { userMeNotificationApi } from '@/core/api/user-me-notification';
 import { userMeApi } from '@/core/api/user-me.api';
 import AuthWrapper from '@/core/components/wrapper/AuthWrapper';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { useNKPathname } from '@/core/routing/hooks/NKPathname';
 import { askForPermissionToReceiveNotifications } from '@/core/services/push-notification';
 import { RootState } from '@/core/store';

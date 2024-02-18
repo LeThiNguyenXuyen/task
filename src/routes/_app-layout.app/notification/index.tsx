@@ -12,7 +12,7 @@ import { IV1CreateWithUser, userMeChatApi } from '@/core/api/user-me-chat.api';
 import { userMeNotificationApi } from '@/core/api/user-me-notification';
 import { userApi } from '@/core/api/user.api';
 import { FilterComparator } from '@/core/models/common';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { RootState } from '@/core/store';
 import { UserState } from '@/core/store/user';
 import { isActiveTime } from '@/core/utils/data.helper';

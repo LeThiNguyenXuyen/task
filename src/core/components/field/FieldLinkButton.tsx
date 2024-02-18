@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import Tippy from '@tippyjs/react';
 
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 
 interface FieldLinkButtonProps {
     value: string;
@@ -12,7 +12,7 @@ interface FieldLinkButtonProps {
 const FieldLinkButton: React.FC<FieldLinkButtonProps> = ({ value, label }) => {
     return (
         <Tippy content={value} placement="top-start" interactive>
-            <NKLink params target="_blank" href={value}>
+            <NKLink target="_blank" href={value}>
                 {label ? label : value.slice(0, 20)}
             </NKLink>
         </Tippy>

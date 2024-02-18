@@ -11,7 +11,7 @@ import { userSaleApi } from '@/core/api/user-sale.api';
 import ScrollInfinityBuilder from '@/core/components/scroll/ScrollInfinityBuilder';
 import { FilterComparator } from '@/core/models/common';
 import { UserSaleBooking } from '@/core/models/userSaleBooking';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { formatMoneyVND } from '@/core/utils/string.helper';
 
 interface PageProps {}

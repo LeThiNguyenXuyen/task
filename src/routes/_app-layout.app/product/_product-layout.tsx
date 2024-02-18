@@ -5,7 +5,7 @@ import { ShoppingBag } from 'akar-icons';
 
 import { NKRouter } from '@/core/NKRouter';
 import { useCart } from '@/core/contexts/CartContext';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 
 interface LayoutProps {}
 

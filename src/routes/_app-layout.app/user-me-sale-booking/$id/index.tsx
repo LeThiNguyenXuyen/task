@@ -13,7 +13,7 @@ import { NKRouter } from '@/core/NKRouter';
 import { userMeSaleBookingApi } from '@/core/api/user-me-sale-booking.api';
 import { userSaleBookingApi } from '@/core/api/user-sale-booking.api';
 import ModalBuilder from '@/core/components/modal/ModalBuilder';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { useNKRouter } from '@/core/routing/hooks/NKRouter';
 import { formatMoneyVND } from '@/core/utils/string.helper';
 

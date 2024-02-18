@@ -8,7 +8,7 @@ import { NKRouter } from '@/core/NKRouter';
 import { userMeSaleBookingApi } from '@/core/api/user-me-sale-booking.api';
 import ScrollInfinityBuilder from '@/core/components/scroll/ScrollInfinityBuilder';
 import { UserSaleBooking } from '@/core/models/userSaleBooking';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { formatMoneyVND } from '@/core/utils/string.helper';
 
 interface PageProps {}

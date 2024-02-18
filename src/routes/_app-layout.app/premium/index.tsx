@@ -11,7 +11,7 @@ import { NKConstant } from '@/core/NKConstant';
 import { NKRouter } from '@/core/NKRouter';
 import { userMeSubscriptionApi } from '@/core/api/user-me-subscription.api';
 import { userMeApi } from '@/core/api/user-me.api';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { useNKRouter } from '@/core/routing/hooks/NKRouter';
 import { RootState, store } from '@/core/store';
 import { UserState, userActions } from '@/core/store/user';

@@ -14,7 +14,7 @@ import { userSaleBookingOrderApi } from '@/core/api/user-sale-booking-order.api'
 import { userSaleBookingApi } from '@/core/api/user-sale-booking.api';
 import NKDatetimeField from '@/core/components/form/NKDatetimeField';
 import NKTextareaField from '@/core/components/form/NKTextareaField';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { useNKRouter } from '@/core/routing/hooks/NKRouter';
 import { formatMoneyVND } from '@/core/utils/string.helper';
 

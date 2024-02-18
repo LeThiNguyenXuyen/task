@@ -16,7 +16,7 @@ import { userSaleBookingApi } from '@/core/api/user-sale-booking.api';
 import { userSaleApi } from '@/core/api/user-sale.api';
 import ModalBuilder from '@/core/components/modal/ModalBuilder';
 import { useCart } from '@/core/contexts/CartContext';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { useNKRouter } from '@/core/routing/hooks/NKRouter';
 import { formatMoneyVND } from '@/core/utils/string.helper';
 

@@ -13,7 +13,7 @@ import ScrollInfinityBuilder from '@/core/components/scroll/ScrollInfinityBuilde
 import { FilterComparator } from '@/core/models/common';
 import { UserSaleBookingOrder } from '@/core/models/user-sale-booking-order';
 import { UserSaleBooking } from '@/core/models/userSaleBooking';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { RootState } from '@/core/store';
 import { UserState } from '@/core/store/user';
 import { formatMoneyVND } from '@/core/utils/string.helper';

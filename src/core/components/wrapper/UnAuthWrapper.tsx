@@ -18,7 +18,7 @@ const UnAuthWrapper: React.FC<UnAuthWrapperProps> = ({ children }) => {
     const pathName = useNKPathname();
 
     React.useEffect(() => {
-        if (isLogin && isAuth && id && pathName === NKConstant.AUTH_FAILED_FALLBACK_ROUTE) {
+        if (isLogin && isAuth && id && pathName.startsWith(NKConstant.AUTH_FAILED_FALLBACK_ROUTE)) {
             router.push(NKConstant.AUTH_SUCCESS_FALLBACK_ROUTE);
         }
     }, [isAuth, id, isLogin]);

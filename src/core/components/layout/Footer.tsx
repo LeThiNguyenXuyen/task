@@ -4,7 +4,7 @@ import { IconContext } from 'react-icons';
 import { FaAngleRight, FaFacebookSquare, FaInstagramSquare, FaLinkedin, FaMapMarkerAlt, FaTwitterSquare } from 'react-icons/fa';
 import { HiMail } from 'react-icons/hi';
 
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 
 interface FooterProps {}
 
@@ -95,7 +95,7 @@ const Footer: React.FunctionComponent<FooterProps> = () => {
         <footer className="bg-primary flex h-[348px] w-full flex-col px-[52px] ">
             <div className="grid w-full grid-cols-8 gap-x-16 py-11 text-white">
                 <div className="col-span-3 flex items-center justify-center">
-                    <NKLink params={{}} href={'/'} className="h-[196px] w-[316px]">
+                    <NKLink href={'/'} className="h-[196px] w-[316px]">
                         <img src="/assets/images/logo.png" className="h-full w-full object-cover" alt="" />
                     </NKLink>
                 </div>
@@ -148,9 +148,7 @@ const Footer: React.FunctionComponent<FooterProps> = () => {
             <div className="flex h-[58px] w-full items-center justify-between border-t  border-white/25 text-xs font-semibold uppercase text-white">
                 <p>Allright Reserved - Moodboost</p>
                 <nav className="t flex items-center gap-8">
-                    <NKLink params={{}} href={'/policy'}>
-                        Chính sách người dùng
-                    </NKLink>
+                    <NKLink href={'/policy'}>Chính sách người dùng</NKLink>
                     <NKLink href={'/term-and-conditions'}>Điều khoản & điều kiện</NKLink>
                 </nav>
             </div>

@@ -18,7 +18,7 @@ import { userSaleBookingOrderApi } from '@/core/api/user-sale-booking-order.api'
 import { userSaleBookingApi } from '@/core/api/user-sale-booking.api';
 import FieldBadgeApi from '@/core/components/field/FieldBadgeApi';
 import ModalBuilder from '@/core/components/modal/ModalBuilder';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { useNKRouter } from '@/core/routing/hooks/NKRouter';
 import { formatMoneyVND } from '@/core/utils/string.helper';
 

@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { ArrowDown, ArrowLeft, ArrowUp, Plus } from 'akar-icons';
@@ -11,7 +9,7 @@ import { userMeWalletApi } from '@/core/api/user-me-walllet.api';
 import { userWalletTransactionApi } from '@/core/api/user-wallet-transaction.api';
 import FieldBadgeApi from '@/core/components/field/FieldBadgeApi';
 import ScrollInfinityBuilder from '@/core/components/scroll/ScrollInfinityBuilder';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { formatMoneyVND } from '@/core/utils/string.helper';
 
 interface PageProps {}

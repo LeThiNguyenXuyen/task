@@ -9,13 +9,14 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { NKRouter } from '@/core/NKRouter';
+import { meApi } from '@/core/api/me.api';
 import { uploadFileApi } from '@/core/api/upload-file.api';
 import { IV1UpdateProfileDto, userMeApi } from '@/core/api/user-me.api';
 import NKDateField from '@/core/components/form/NKDateField';
 import NKFormWrapper from '@/core/components/form/NKFormWrapper';
 import NKTextField from '@/core/components/form/NKTextField';
 import NKTextareaField from '@/core/components/form/NKTextareaField';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { RootState } from '@/core/store';
 import { UserState } from '@/core/store/user';
 
@@ -26,7 +27,7 @@ const Page: React.FC<PageProps> = () => {
     const userMeQuery = useQuery(
         ['user-me', userState.id],
         () => {
-            return userMeApi.v1Get();
+            return meApi.v1Get();
         },
         {
             enabled: !!userState.id,

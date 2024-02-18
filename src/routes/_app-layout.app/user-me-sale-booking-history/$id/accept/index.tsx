@@ -19,7 +19,7 @@ import { userSaleBookingApi } from '@/core/api/user-sale-booking.api';
 import NKDatetimeField from '@/core/components/form/NKDatetimeField';
 import NKNumberField from '@/core/components/form/NKNumberField';
 import NKTextareaField from '@/core/components/form/NKTextareaField';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { useNKRouter } from '@/core/routing/hooks/NKRouter';
 import { formatMoneyVND } from '@/core/utils/string.helper';
 

@@ -4,7 +4,7 @@ import { Outlet, createFileRoute } from '@tanstack/react-router';
 
 import { NKRouter } from '@/core/NKRouter';
 import UnAuthWrapper from '@/core/components/wrapper/UnAuthWrapper';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 
 interface LayoutProps extends React.PropsWithChildren {}
 

@@ -32,7 +32,7 @@ import { FilterComparator } from '@/core/models/common';
 import { UserReview } from '@/core/models/userReview';
 import { UserSale } from '@/core/models/userSale';
 import { UserSaleBooking } from '@/core/models/userSaleBooking';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { useNKRouter } from '@/core/routing/hooks/NKRouter';
 import { RootState } from '@/core/store';
 import { UserState } from '@/core/store/user';

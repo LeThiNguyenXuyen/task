@@ -7,8 +7,9 @@ import CurrencyInput from 'react-currency-input-field';
 import { useSelector } from 'react-redux';
 
 import { NKRouter } from '@/core/NKRouter';
+import { meApi } from '@/core/api/me.api';
 import { userMeApi } from '@/core/api/user-me.api';
-import NKLink from '@/core/routing/components/NKLink';
+import { NKLink } from '@/core/routing/components/NKLink';
 import { RootState } from '@/core/store';
 import { UserState } from '@/core/store/user';
 import { formatMoneyVND } from '@/core/utils/string.helper';
@@ -19,7 +20,7 @@ const Page: React.FunctionComponent<PageProps> = () => {
     const userState = useSelector<RootState, UserState>((state) => state.user);
 
     const userMeQuery = useQuery(['user-me', userState.id], () => {
-        return userMeApi.v1Get();
+        return meApi.v1Get();
     });
 
     return (

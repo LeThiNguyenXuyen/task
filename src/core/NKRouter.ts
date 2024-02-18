@@ -1,5 +1,18 @@
 export const NKRouter = {
     home: () => '/',
+    setting: {
+        index: () => '/setting',
+        update: () => '/setting/update',
+        changePassword: () => '/setting/change-password',
+        language: () => '/setting/language',
+        orderHistory: () => '/setting/order-history',
+        terms: () => '/setting/terms',
+        policy: () => '/setting/policy',
+        wallet: {
+            index: () => '/setting/wallet',
+            deposit: () => '/setting/wallet/deposit',
+        },
+    },
     auth: {
         login: () => '/auth/login',
         register: () => '/auth/register',

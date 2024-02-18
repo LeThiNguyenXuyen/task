@@ -3,9 +3,11 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as SettingLayoutImport } from './routes/_setting-layout'
 import { Route as AuthLayoutImport } from './routes/_auth-layout'
 import { Route as AppLayoutImport } from './routes/_app-layout'
 import { Route as IndexImport } from './routes/index'
+import { Route as SettingLayoutSettingIndexImport } from './routes/_setting-layout.setting/index'
 import { Route as AppLayoutAppIndexImport } from './routes/_app-layout.app/index'
 import { Route as AuthLayoutAuthLoginImport } from './routes/_auth-layout.auth/login'
 import { Route as AuthLayoutAuthRegisterIndexImport } from './routes/_auth-layout.auth/register/index'
@@ -53,6 +55,11 @@ import { Route as AppLayoutAppBookingIdFormIndexImport } from './routes/_app-lay
 
 // Create/Update Routes
 
+const SettingLayoutRoute = SettingLayoutImport.update({
+  id: '/_setting-layout',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const AuthLayoutRoute = AuthLayoutImport.update({
   id: '/_auth-layout',
   getParentRoute: () => rootRoute,
@@ -66,6 +73,11 @@ const AppLayoutRoute = AppLayoutImport.update({
 const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const SettingLayoutSettingIndexRoute = SettingLayoutSettingIndexImport.update({
+  path: '/setting/',
+  getParentRoute: () => SettingLayoutRoute,
 } as any)
 
 const AppLayoutAppIndexRoute = AppLayoutAppIndexImport.update({
@@ -341,6 +353,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLayoutImport
       parentRoute: typeof rootRoute
     }
+    '/_setting-layout': {
+      preLoaderRoute: typeof SettingLayoutImport
+      parentRoute: typeof rootRoute
+    }
     '/_auth-layout/auth/login': {
       preLoaderRoute: typeof AuthLayoutAuthLoginImport
       parentRoute: typeof AuthLayoutImport
@@ -348,6 +364,10 @@ declare module '@tanstack/react-router' {
     '/_app-layout/app/': {
       preLoaderRoute: typeof AppLayoutAppIndexImport
       parentRoute: typeof AppLayoutImport
+    }
+    '/_setting-layout/setting/': {
+      preLoaderRoute: typeof SettingLayoutSettingIndexImport
+      parentRoute: typeof SettingLayoutImport
     }
     '/_app-layout/app/product/_product-layout': {
       preLoaderRoute: typeof AppLayoutAppProductProductLayoutImport
@@ -574,4 +594,5 @@ export const routeTree = rootRoute.addChildren([
     AuthLayoutAuthForgotPasswordIndexRoute,
     AuthLayoutAuthRegisterIndexRoute,
   ]),
+  SettingLayoutRoute.addChildren([SettingLayoutSettingIndexRoute]),
 ])

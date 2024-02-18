@@ -1,12 +1,12 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
-import { userMeApi } from '@/core/api/user-me.api';
+import { meApi } from '@/core/api/me.api';
 
 import { userActions } from './index';
 
 function* getCurrentUser(): any {
     try {
-        const user = yield call(userMeApi.v1Get);
+        const user = yield call(meApi.v1Get);
 
         yield put(userActions.setUser({ ...user }));
     } catch (error) {
