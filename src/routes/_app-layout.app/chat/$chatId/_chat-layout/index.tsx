@@ -522,7 +522,7 @@ const Page: React.FC<PageProps> = () => {
                                                     >
                                                         {(methods) => (
                                                             <>
-                                                                <div
+                                                                {/* <div
                                                                     className="relative flex w-full justify-center"
                                                                     onClick={() => {
                                                                         // create a new input element
@@ -545,7 +545,7 @@ const Page: React.FC<PageProps> = () => {
                                                                     }}
                                                                 >
                                                                     <img src={methods.watch('banner')} className="h-20 w-20 rounded-full" />
-                                                                </div>
+                                                                </div> */}
                                                                 <NKTextField
                                                                     name="name"
                                                                     label="Name"
