@@ -7,5 +7,5 @@ interface NKLinkProps extends Omit<LinkProps, 'to' | 'params' | 'href'> {
 }
 
 export const NKLink: React.FunctionComponent<NKLinkProps> = ({ href, ...rest }) => {
-    return <Link params to={href} {...rest} />;
+    return <Link params to={href} {...rest} onMouseEnter={() => {}} />;
 };

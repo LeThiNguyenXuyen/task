@@ -9,7 +9,9 @@ import { Route as AppLayoutImport } from './routes/_app-layout'
 import { Route as IndexImport } from './routes/index'
 import { Route as SettingLayoutSettingIndexImport } from './routes/_setting-layout.setting/index'
 import { Route as AppLayoutAppIndexImport } from './routes/_app-layout.app/index'
+import { Route as SettingLayoutSettingPasswordImport } from './routes/_setting-layout.setting/password'
 import { Route as AuthLayoutAuthLoginImport } from './routes/_auth-layout.auth/login'
+import { Route as SettingLayoutSettingWalletIndexImport } from './routes/_setting-layout.setting/wallet/index'
 import { Route as AuthLayoutAuthRegisterIndexImport } from './routes/_auth-layout.auth/register/index'
 import { Route as AuthLayoutAuthForgotPasswordIndexImport } from './routes/_auth-layout.auth/forgot-password/index'
 import { Route as AppLayoutAppUserSaleIndexImport } from './routes/_app-layout.app/user-sale/index'
@@ -25,6 +27,8 @@ import { Route as AppLayoutAppChatIndexImport } from './routes/_app-layout.app/c
 import { Route as AppLayoutAppCartIndexImport } from './routes/_app-layout.app/cart/index'
 import { Route as AppLayoutAppBookingIndexImport } from './routes/_app-layout.app/booking/index'
 import { Route as AppLayoutAppBookingHistoryIndexImport } from './routes/_app-layout.app/booking-history/index'
+import { Route as SettingLayoutSettingWalletWithdrawImport } from './routes/_setting-layout.setting/wallet/withdraw'
+import { Route as SettingLayoutSettingWalletDepositImport } from './routes/_setting-layout.setting/wallet/deposit'
 import { Route as AppLayoutAppProductProductLayoutImport } from './routes/_app-layout.app/product/_product-layout'
 import { Route as AppLayoutAppUserSaleIdIndexImport } from './routes/_app-layout.app/user-sale/$id/index'
 import { Route as AppLayoutAppUserMeSaleCreateIndexImport } from './routes/_app-layout.app/user-me-sale/create/index'
@@ -85,10 +89,22 @@ const AppLayoutAppIndexRoute = AppLayoutAppIndexImport.update({
   getParentRoute: () => AppLayoutRoute,
 } as any)
 
+const SettingLayoutSettingPasswordRoute =
+  SettingLayoutSettingPasswordImport.update({
+    path: '/setting/password',
+    getParentRoute: () => SettingLayoutRoute,
+  } as any)
+
 const AuthLayoutAuthLoginRoute = AuthLayoutAuthLoginImport.update({
   path: '/auth/login',
   getParentRoute: () => AuthLayoutRoute,
 } as any)
+
+const SettingLayoutSettingWalletIndexRoute =
+  SettingLayoutSettingWalletIndexImport.update({
+    path: '/setting/wallet/',
+    getParentRoute: () => SettingLayoutRoute,
+  } as any)
 
 const AuthLayoutAuthRegisterIndexRoute =
   AuthLayoutAuthRegisterIndexImport.update({
@@ -172,6 +188,18 @@ const AppLayoutAppBookingHistoryIndexRoute =
   AppLayoutAppBookingHistoryIndexImport.update({
     path: '/app/booking-history/',
     getParentRoute: () => AppLayoutRoute,
+  } as any)
+
+const SettingLayoutSettingWalletWithdrawRoute =
+  SettingLayoutSettingWalletWithdrawImport.update({
+    path: '/setting/wallet/withdraw',
+    getParentRoute: () => SettingLayoutRoute,
+  } as any)
+
+const SettingLayoutSettingWalletDepositRoute =
+  SettingLayoutSettingWalletDepositImport.update({
+    path: '/setting/wallet/deposit',
+    getParentRoute: () => SettingLayoutRoute,
   } as any)
 
 const AppLayoutAppProductProductLayoutRoute =
@@ -361,6 +389,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLayoutAuthLoginImport
       parentRoute: typeof AuthLayoutImport
     }
+    '/_setting-layout/setting/password': {
+      preLoaderRoute: typeof SettingLayoutSettingPasswordImport
+      parentRoute: typeof SettingLayoutImport
+    }
     '/_app-layout/app/': {
       preLoaderRoute: typeof AppLayoutAppIndexImport
       parentRoute: typeof AppLayoutImport
@@ -372,6 +404,14 @@ declare module '@tanstack/react-router' {
     '/_app-layout/app/product/_product-layout': {
       preLoaderRoute: typeof AppLayoutAppProductProductLayoutImport
       parentRoute: typeof AppLayoutImport
+    }
+    '/_setting-layout/setting/wallet/deposit': {
+      preLoaderRoute: typeof SettingLayoutSettingWalletDepositImport
+      parentRoute: typeof SettingLayoutImport
+    }
+    '/_setting-layout/setting/wallet/withdraw': {
+      preLoaderRoute: typeof SettingLayoutSettingWalletWithdrawImport
+      parentRoute: typeof SettingLayoutImport
     }
     '/_app-layout/app/booking-history/': {
       preLoaderRoute: typeof AppLayoutAppBookingHistoryIndexImport
@@ -432,6 +472,10 @@ declare module '@tanstack/react-router' {
     '/_auth-layout/auth/register/': {
       preLoaderRoute: typeof AuthLayoutAuthRegisterIndexImport
       parentRoute: typeof AuthLayoutImport
+    }
+    '/_setting-layout/setting/wallet/': {
+      preLoaderRoute: typeof SettingLayoutSettingWalletIndexImport
+      parentRoute: typeof SettingLayoutImport
     }
     '/_app-layout/app/chat/$chatId/_chat-layout': {
       preLoaderRoute: typeof AppLayoutAppChatChatIdChatLayoutImport
@@ -594,5 +638,11 @@ export const routeTree = rootRoute.addChildren([
     AuthLayoutAuthForgotPasswordIndexRoute,
     AuthLayoutAuthRegisterIndexRoute,
   ]),
-  SettingLayoutRoute.addChildren([SettingLayoutSettingIndexRoute]),
+  SettingLayoutRoute.addChildren([
+    SettingLayoutSettingPasswordRoute,
+    SettingLayoutSettingIndexRoute,
+    SettingLayoutSettingWalletDepositRoute,
+    SettingLayoutSettingWalletWithdrawRoute,
+    SettingLayoutSettingWalletIndexRoute,
+  ]),
 ])

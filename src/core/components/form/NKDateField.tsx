@@ -1,23 +1,23 @@
 import * as React from 'react';
 
-import clsx from 'clsx';
+import { DatePicker } from 'antd';
+import dayjs from 'dayjs';
+import { isDate } from 'lodash';
+import moment from 'moment';
 import { Controller, useFormContext } from 'react-hook-form';
 
-import NKFieldWrapper from './NKFieldWrapper';
+import NKFieldWrapper, { NKFieldWrapperProps } from './NKFieldWrapper';
 
 export type NKDateFieldTheme = 'DEFAULT' | 'AUTH';
 
-interface NKDateFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
-    name: string;
-    label: string;
-    isShow?: boolean;
-    labelClassName?: string;
-    extraProps?: any;
+interface NKDateFieldProps {
     theme?: NKDateFieldTheme;
     icon?: React.ReactNode;
 }
 
-const NKDateField: React.FC<NKDateFieldProps> = ({ name, isShow = true, label, labelClassName, theme = 'DEFAULT', icon, ...rest }) => {
+type Props = NKDateFieldProps & NKFieldWrapperProps & React.ComponentProps<typeof DatePicker>;
+
+const NKDateField: React.FC<Props> = ({ name, isShow = true, label, labelClassName, theme = 'DEFAULT', icon, ...rest }) => {
     const formMethods = useFormContext();
 
     return (
@@ -26,25 +26,19 @@ const NKDateField: React.FC<NKDateFieldProps> = ({ name, isShow = true, label, l
                 name={name}
                 control={formMethods.control}
                 render={({ field }) => (
-                    <div
-                        className={clsx([], {
-                            'relative mt-2 flex items-center gap-3': theme === 'AUTH',
-                        })}
-                    >
-                        {icon}
-                        <input
-                            {...field}
-                            {...rest}
-                            type="date"
-                            className={clsx(['peer block w-full border-0 bg-gray-50 py-1.5 text-gray-900 focus:ring-0 sm:text-sm sm:leading-6'], {
-                                ' w-full border-none focus:outline-none ': theme === 'AUTH',
-                            })}
-                        />
-                        <div
-                            className="absolute inset-x-0 bottom-0 border-t border-gray-300 peer-focus:border-t-2 peer-focus:border-[#47EA4F]"
-                            aria-hidden="true"
-                        />
-                    </div>
+                    <DatePicker
+                        format="DD/MM/YYYY"
+                        value={dayjs(field.value)}
+                        onChange={(date, dateString) => {
+                            if (dateString === '' || isDate(dateString)) {
+                                field.onChange(new Date().toISOString());
+                            } else {
+                                field.onChange(moment(dateString, 'DD/MM/YYYY').toDate().toISOString());
+                            }
+                        }}
+                        {...rest}
+                        className="w-full"
+                    />
                 )}
             />
         </NKFieldWrapper>

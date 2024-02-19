@@ -21,11 +21,11 @@ const RootLayout: React.FunctionComponent<RootLayoutProps> = () => {
         <Providers>
             <TryAuthWrapper>
                 <ThemeProvider>
-                    <CartProvider>
-                        <MainLayout>
-                            <Outlet />
-                        </MainLayout>
-                    </CartProvider>
+                    {/* <CartProvider> */}
+                    <MainLayout>
+                        <Outlet />
+                    </MainLayout>
+                    {/* </CartProvider> */}
                     <ToastContainer closeButton={false} theme="colored" autoClose={4000} limit={2} />
                     <TanStackRouterDevtools position="bottom-right" />
                     {/* </DynamicLayout> */}

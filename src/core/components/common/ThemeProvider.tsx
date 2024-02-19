@@ -15,6 +15,7 @@ export function AntdConfigProvider({ children }: ProviderProps) {
                     borderRadius: 8,
                     colorPrimary: '#EA6D22',
                     colorInfo: '#EA6D22',
+                    colorPrimaryActive: '#EA6D22',
                     // colorBgBase: '#F4F7FE',
                     // colorBgLayout: '#F4F7FE',
                 },

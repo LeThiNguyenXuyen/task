@@ -27,7 +27,7 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
 
     const { mutate: logout } = useMutation(
         () => {
-            return userMeApi.v1PostLogout();
+            return meApi.v1PostLogout();
         },
         {
             onSuccess: () => {
@@ -168,36 +168,23 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
                                                                 'block cursor-pointer px-4 py-2 text-sm text-gray-700',
                                                             )}
                                                         >
-                                                            Your Profile
+                                                            Tuỳ chỉnh
                                                         </NKLink>
                                                     )}
                                                 </Menu.Item>
-                                                <Menu.Item>
+                                                {/* <Menu.Item>
                                                     {({ active }) => (
                                                         <NKLink
-                                                            href={NKRouter.booking.index()}
+                                                            href={''}
                                                             className={clsx(
                                                                 active ? 'bg-gray-100' : '',
                                                                 'block cursor-pointer px-4 py-2 text-sm text-gray-700',
                                                             )}
                                                         >
-                                                            My Booking
+                                                            Đăng ký trở thành chủ nhà
                                                         </NKLink>
                                                     )}
-                                                </Menu.Item>
-                                                <Menu.Item>
-                                                    {({ active }) => (
-                                                        <NKLink
-                                                            href={NKRouter.myService.service.index()}
-                                                            className={clsx(
-                                                                active ? 'bg-gray-100' : '',
-                                                                'block cursor-pointer px-4 py-2 text-sm text-gray-700',
-                                                            )}
-                                                        >
-                                                            My Service
-                                                        </NKLink>
-                                                    )}
-                                                </Menu.Item>
+                                                </Menu.Item> */}
                                                 <Menu.Item>
                                                     {({ active }) => (
                                                         <div
@@ -207,7 +194,7 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
                                                                 'block cursor-pointer px-4 py-2 text-sm text-gray-700',
                                                             )}
                                                         >
-                                                            Sign out
+                                                            Đăng xuất
                                                         </div>
                                                     )}
                                                 </Menu.Item>
