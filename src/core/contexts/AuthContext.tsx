@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import { Order } from '../models/order';
-
 export interface IAuthContext {}
 
 const AuthContext = React.createContext<IAuthContext>({});

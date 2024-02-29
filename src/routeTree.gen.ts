@@ -6,7 +6,6 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as SettingLayoutImport } from './routes/_setting-layout'
 import { Route as LandlordLayoutImport } from './routes/_landlord-layout'
 import { Route as AuthLayoutImport } from './routes/_auth-layout'
-import { Route as AppLayoutImport } from './routes/_app-layout'
 import { Route as IndexImport } from './routes/index'
 import { Route as SettingLayoutSettingIndexImport } from './routes/_setting-layout.setting/index'
 import { Route as LandlordLayoutLandlordIndexImport } from './routes/_landlord-layout.landlord/index'
@@ -32,11 +31,6 @@ const LandlordLayoutRoute = LandlordLayoutImport.update({
 
 const AuthLayoutRoute = AuthLayoutImport.update({
   id: '/_auth-layout',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AppLayoutRoute = AppLayoutImport.update({
-  id: '/_app-layout',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -105,10 +99,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/_app-layout': {
-      preLoaderRoute: typeof AppLayoutImport
-      parentRoute: typeof rootRoute
-    }
     '/_auth-layout': {
       preLoaderRoute: typeof AuthLayoutImport
       parentRoute: typeof rootRoute
@@ -164,7 +154,6 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
-  AppLayoutRoute,
   AuthLayoutRoute.addChildren([
     AuthLayoutAuthLoginRoute,
     AuthLayoutAuthForgotPasswordIndexRoute,

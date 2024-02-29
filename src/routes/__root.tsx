@@ -7,8 +7,6 @@ import { ToastContainer } from 'react-toastify';
 import ThemeProvider from '@/core/components/common/ThemeProvider';
 import MainLayout from '@/core/components/layout/MainLayout';
 import TryAuthWrapper from '@/core/components/wrapper/TryAuthWrapper';
-import { CartProvider } from '@/core/contexts/CartContext';
-import { NKLink } from '@/core/routing/components/NKLink';
 import { Providers } from '@/core/store/provider';
 
 import '../index.css';
