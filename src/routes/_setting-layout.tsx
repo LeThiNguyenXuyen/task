@@ -31,8 +31,6 @@ const navigation = [
 const Layout: React.FunctionComponent<LayoutProps> = () => {
     const pathname = useNKPathname();
 
-    console.log('pathname', pathname);
-
     return (
         <AuthWrapper>
             <section className="flex w-full max-w-5xl gap-4 rounded-2xl ">

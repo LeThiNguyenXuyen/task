@@ -37,7 +37,7 @@ export const userWalletTransactionApi = {
     },
 
     v1Checkout: async (dto: UserWalletTransactionIV1Checkout) => {
-        const url = `${baseEndpoint}/check-out`;
+        const url = `${baseEndpoint}/check-out-vnpay`;
         const res = await http.post<UserWalletTransaction>(url, dto);
         return res.data;
     },

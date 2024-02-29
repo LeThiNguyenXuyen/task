@@ -1,20 +1,22 @@
-import { ProductCategory } from './productCategory';
 import { User } from './user';
 
-export interface UserSale {
+export interface Company {
     id: string;
     createdAt: string;
     updatedAt: string;
-    isDeleted: boolean;
+    isDeleted: false;
     isRequiredUpdate: boolean;
     docStatus: number;
     sortOrder: number;
     name: string;
-    description: string;
-    note: string;
-    price: number;
-    imageUrls: string[];
+    logo: string;
     status: string;
-    productCategory: ProductCategory;
-    createdBy: User;
+    description: string;
+    imageUrls: string[];
+    note: string;
+    commission: number;
+    licenseImageFront: string;
+    licenseImageBack: string;
+    address: string;
+    owner: User;
 }

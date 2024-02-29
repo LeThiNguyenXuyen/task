@@ -8,7 +8,7 @@ interface FieldTimeProps {
 }
 
 const FieldTime: React.FC<FieldTimeProps> = ({ value, format }) => {
-    return <div>{moment(value).format(format)}</div>;
+    return <div>{moment.utc(value).format(format)}</div>;
 };
 
 export default FieldTime;

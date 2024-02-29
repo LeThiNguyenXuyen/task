@@ -41,7 +41,7 @@ const Page: React.FunctionComponent<PageProps> = () => {
                 onExtraSuccessAction={(data) => {
                     const dto: UserWalletTransactionIV1Checkout = {
                         redirectUrl: `${window.location.origin}${NKRouter.setting.wallet.index()}`,
-                        notifyUrl: NKConfig.API_URL + '/v1/user-wallet-transaction/verify-vnpay',
+                        notifyUrl: 'https://renthub.monoinfinity.net/api/user-wallet-transaction/verify-vnpay',
                         userTransactionId: data.id,
                     };
 
