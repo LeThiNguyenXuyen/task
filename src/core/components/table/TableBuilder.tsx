@@ -1,17 +1,42 @@
 import * as React from 'react';
 
-import { MenuOutlined } from '@ant-design/icons';
+import { FilterOutlined, MenuOutlined, ReloadOutlined } from '@ant-design/icons';
 import { PageHeader } from '@ant-design/pro-layout';
+import { Popover } from '@headlessui/react';
 import { useQuery } from '@tanstack/react-query';
-import { Dropdown, Table } from 'antd';
+import { Button, Dropdown, Table } from 'antd';
 import { AnyObject } from 'antd/lib/_util/type';
+import Sider from 'antd/lib/layout/Sider';
 import Layout, { Content } from 'antd/lib/layout/layout';
 import { ColumnType } from 'antd/lib/table';
 import { ExpandableConfig } from 'antd/lib/table/interface';
 import clsx from 'clsx';
+import { flatten } from 'flat';
 import _get from 'lodash/get';
+import { FormProvider, useForm } from 'react-hook-form';
+import { HiMiniMagnifyingGlass } from 'react-icons/hi2';
 
-import { IPagingDto, ResponseList, SortOrder } from '@/core/models/common';
+import { FilterComparator, IPagingDto, ResponseList, SortOrder } from '@/core/models/common';
+
+import FieldDisplay, { FieldType } from '../field/FieldDisplay';
+import NKForm, { NKFormType } from '../form/NKForm';
+
+export interface TableBuilderColumn extends ColumnType<AnyObject> {
+    type: FieldType;
+    key: string;
+    apiAction?: (value: any) => any;
+    formatter?: (value: any) => any;
+}
+
+export interface IFilterItem {
+    name: string;
+    filterName?: string;
+    type: NKFormType;
+    label: string;
+    comparator: FilterComparator;
+    defaultValue?: any;
+    apiAction?: (value: any) => Promise<any>;
+}
 
 export interface IActionColum {
     label: string;
@@ -24,16 +49,16 @@ interface TableBuilderProps {
     extraFilter?: string[];
     sourceKey: string;
     queryApi: (dto: IPagingDto) => Promise<ResponseList<any>>;
-    columns: ColumnType<AnyObject>[];
+    columns: TableBuilderColumn[];
     onBack?: () => void;
-
+    filters?: IFilterItem[];
     pageSizes?: number[];
     tableSize?: 'small' | 'middle' | 'large';
     extraButtons?: React.ReactNode;
 
     extraBulkActions?: (selectRows: any[], setSelectRows: React.Dispatch<React.SetStateAction<any[]>>) => React.ReactNode;
     expandable?: ExpandableConfig<any>;
-    actionColumns?: Array<IActionColum>;
+    actionColumns?: ((record: any) => React.ReactNode) | React.ReactNode;
 }
 
 const TableBuilder: React.FC<TableBuilderProps> = ({
@@ -45,7 +70,7 @@ const TableBuilder: React.FC<TableBuilderProps> = ({
     onBack,
     pageSizes = [10],
     tableSize = 'middle',
-
+    filters = [],
     extraBulkActions,
     extraButtons,
     actionColumns,
@@ -57,6 +82,17 @@ const TableBuilder: React.FC<TableBuilderProps> = ({
     const [orderBy, setOrderBy] = React.useState<string>('createdAt');
     const [isShowFilter, setIsShowFilter] = React.useState(false);
     const [selectedRowGroup, setSelectedRowGroup] = React.useState<any[]>([]);
+    const defaultValues = React.useMemo(() => {
+        const defaultValues: Record<any, any> = filters.reduce((acc: any, item: any) => {
+            acc[item.name] = item.defaultValue;
+
+            return acc;
+        }, {});
+
+        return defaultValues;
+    }, []);
+
+    const formMethods = useForm({ defaultValues });
 
     React.useEffect(() => {
         if (extraFilter.length !== 0) {
@@ -64,28 +100,48 @@ const TableBuilder: React.FC<TableBuilderProps> = ({
         }
     }, [extraFilter]);
 
-    const pagingQuery = useQuery(
-        [sourceKey, 'paging', page, pageSize, order, orderBy, extraFilter],
-        () => {
+    const pagingQuery = useQuery({
+        queryKey: [sourceKey, 'paging', page, pageSize, order, orderBy, extraFilter, formMethods.getValues()],
+        queryFn: () => {
+            const filterValues = flatten(formMethods.getValues()) as Record<string, any>;
+
             return queryApi({
                 page: page - 1,
                 pageSize,
                 orderBy: orderBy ? [`${orderBy}||${order}`] : [`createdAt||${SortOrder.DESC}`],
-                filters: [...extraFilter],
+                filters: [
+                    ...Object.keys(filterValues)
+                        .map((key) => {
+                            const value = filterValues[key];
+                            const filterKey = filters.find((item) => item.name === key)?.filterName || key;
+
+                            if (value === undefined || value === null || value === '') {
+                                return undefined;
+                            }
+
+                            return {
+                                name: filterKey,
+                                value,
+                                comparator: filters.find((item) => item.name === key)?.comparator || FilterComparator.EQUAL,
+                            };
+                        })
+                        .filter((item) => item !== undefined)
+                        .map((item) => `${item?.name}||${item?.comparator}||${item?.value}`),
+                    ...extraFilter,
+                ],
             });
         },
-        {
-            initialData: {
-                count: 0,
-                data: [],
-                totalPage: 0,
-            },
+
+        initialData: {
+            count: 0,
+            data: [],
+            totalPage: 0,
         },
-    );
+    });
 
     return (
         <div className="fade-in flex gap-4 ">
-            <Layout className="!bg-inherit ">
+            <Layout className="!bg-[#F4F7FE]">
                 <Content
                     className={clsx('', {
                         'ml-4': isShowFilter,
@@ -94,14 +150,79 @@ const TableBuilder: React.FC<TableBuilderProps> = ({
                     <div>
                         <PageHeader
                             title={title}
+                            className="px-0"
                             onBack={onBack}
                             extra={[
                                 selectedRowGroup.length === 0 ? null : (
                                     <React.Fragment key="3">{extraBulkActions?.(selectedRowGroup, setSelectedRowGroup)}</React.Fragment>
                                 ),
-                                extraButtons,
                             ]}
                         />
+                        <div className="flex items-center gap-4 px-0 pb-4">
+                            {filters.length === 0 ? null : (
+                                <Popover className="relative">
+                                    <Popover.Button as="div">
+                                        <Button
+                                            type="primary"
+                                            key="1"
+                                            icon={
+                                                <div className="flex h-5 items-center justify-center">
+                                                    <HiMiniMagnifyingGlass />
+                                                </div>
+                                            }
+                                        >
+                                            Tìm Kiếm
+                                        </Button>
+                                    </Popover.Button>
+
+                                    <Popover.Panel className="absolute left-0 top-[120%]  z-10 w-80">
+                                        <FormProvider {...formMethods}>
+                                            <div className="fade-in flex flex-col gap-4 rounded-md bg-white px-6 py-8 shadow-lg">
+                                                {filters.map((item) => {
+                                                    if (item.type === NKFormType.SELECT_API_OPTION) {
+                                                        return (
+                                                            <NKForm
+                                                                key={item.name}
+                                                                name={item.name}
+                                                                label={item.label}
+                                                                type={item.type}
+                                                                fieldProps={{
+                                                                    apiAction: item.apiAction as any,
+                                                                    isAllOption: true,
+                                                                }}
+                                                            />
+                                                        );
+                                                    }
+
+                                                    return <NKForm key={item.name} name={item.name} label={item.label} type={item.type as any} />;
+                                                })}
+
+                                                <div className="flex gap-4">
+                                                    <Button
+                                                        className="w-full"
+                                                        type="primary"
+                                                        onClick={() => {
+                                                            pagingQuery.refetch();
+                                                        }}
+                                                    >
+                                                        Tìm
+                                                    </Button>
+                                                    <Button
+                                                        className="w-full"
+                                                        onClick={() => {
+                                                            formMethods.reset();
+                                                        }}
+                                                    >
+                                                        Xóa
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        </FormProvider>
+                                    </Popover.Panel>
+                                </Popover>
+                            )}
+                            {extraButtons}
+                        </div>
 
                         <Table
                             bordered
@@ -121,7 +242,41 @@ const TableBuilder: React.FC<TableBuilderProps> = ({
                             rowKey={(record) => _get(record, 'id', '')}
                             size={tableSize}
                             dataSource={pagingQuery.data.data}
-                            columns={[...columns.map((item, index) => ({ sorter: true, ...item, key: item.key, title: item.title }))]}
+                            columns={[
+                                ...columns.map((item, index) => ({
+                                    ...item,
+                                    key: item.key,
+                                    title: item.title,
+
+                                    render: (value: any, record: any) => {
+                                        const formatValue = Boolean(item.key) ? _get(record, item.key, '') : record;
+
+                                        return (
+                                            <FieldDisplay
+                                                key={item.key}
+                                                type={item.type}
+                                                formatter={item.formatter}
+                                                value={formatValue}
+                                                apiAction={item.apiAction}
+                                            />
+                                        );
+                                    },
+
+                                    sorter: true,
+                                })),
+                                {
+                                    key: 'action',
+                                    title: '',
+                                    sorter: false,
+                                    width: 150,
+                                    render: (value: any, record: any) => {
+                                        if (!actionColumns) {
+                                            return null;
+                                        }
+                                        return <>{typeof actionColumns === 'function' ? actionColumns(record) : actionColumns}</>;
+                                    },
+                                },
+                            ]}
                             pagination={{
                                 current: page,
                                 pageSize,

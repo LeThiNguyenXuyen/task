@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Button, ButtonProps, Drawer } from 'antd';
 
 interface DrawerBuilderProps {
-    btnLabel: string;
+    btnLabel: string | React.ReactNode;
     drawerTitle: string;
     btnProps?: ButtonProps;
     children: React.ReactNode;

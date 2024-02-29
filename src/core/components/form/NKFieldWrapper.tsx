@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { useFormContext } from 'react-hook-form';
 
 export interface NKFieldWrapperProps {
-    label: string;
+    label: string | React.ReactNode;
     name: string;
     isShow?: boolean;
     labelClassName?: string;
@@ -26,7 +26,7 @@ const NKFieldWrapper: React.FC<NKFieldWrapperProps & React.PropsWithChildren> = 
 
     return (
         <div className="flex w-full flex-col gap-1">
-            {isShow && <label className={labelClassName ? labelClassName : 'text-sm text-black'}>{label}</label>}
+            {isShow && (typeof label === 'string' ? <label className={labelClassName}>{label}</label> : label)}
             {children}
             {Boolean(errorMessage) && (
                 <div className="text-sm text-red-500">

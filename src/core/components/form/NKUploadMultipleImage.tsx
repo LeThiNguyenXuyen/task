@@ -1,10 +1,12 @@
 import * as React from 'react';
 
+import { LoadingOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
-import { ArrowCycle, ArrowDown, Plus, TrashBin } from 'akar-icons';
+import { ArrowCycle, File, TrashBin } from 'akar-icons';
 import clsx from 'clsx';
 import { useFormContext } from 'react-hook-form';
 import ImageUploading, { ImageListType, ImageType, ImageUploadingPropsType } from 'react-images-uploading';
+import { PhotoProvider, PhotoView } from 'react-photo-view';
 import { toast } from 'react-toastify';
 
 import { uploadFileApi } from '@/core/api/upload-file.api';
@@ -97,41 +99,42 @@ const NKUploadMultipleImage: React.FC<NKUploadMultipleImageProps> = ({ label, na
                     {({ imageList, onImageUpload, onImageUpdate, onImageRemove, isDragging, dragProps }) => (
                         // write your building UI
                         <div className="grid grid-cols-4 gap-2">
-                            <button
-                                className={clsx('col-span-1 flex h-20 w-20 items-center justify-center rounded bg-white text-black', {
-                                    'opacity-80': isDragging,
-                                    'opacity-100': !isDragging,
-                                })}
-                                type="button"
-                                onClick={onImageUpload}
-                                {...dragProps}
-                            >
-                                {isDragging ? <ArrowDown /> : <Plus />}
-                            </button>
-
-                            {imageList.map((image, index) => (
-                                <div key={index} className="faded-in relative col-span-1 h-20 w-20 overflow-hidden rounded bg-white">
-                                    <img src={image['data_url']} alt="" className="h-full w-full object-cover" />
-                                    <div className="absolute left-1/2 top-1 flex w-full -translate-x-1/2 justify-between gap-2 px-1">
-                                        <button
-                                            onClick={() => onImageUpdate(index)}
-                                            type="button"
-                                            className="flex h-5 w-5 items-center justify-center rounded bg-blue-600 p-1 text-white"
-                                        >
-                                            <ArrowCycle />
-                                        </button>
-                                        <button
-                                            onClick={() => {
-                                                onImageRemove(index);
-                                            }}
-                                            type="button"
-                                            className="flex h-5 w-5 items-center justify-center rounded bg-red-600 p-1 text-white"
-                                        >
-                                            <TrashBin />
-                                        </button>
-                                    </div>
+                            <button type="button" onClick={onImageUpload} {...dragProps}>
+                                <div className="flex h-14 w-14 items-center justify-center rounded-md border-2 border-tango-100">
+                                    {uploadImageMutation.isLoading ? (
+                                        <LoadingOutlined rev="" />
+                                    ) : (
+                                        <File className="text-gray-400" strokeWidth={1.5} size={24} />
+                                    )}
                                 </div>
-                            ))}
+                            </button>
+                            <PhotoProvider>
+                                {imageList.map((image, index) => (
+                                    <div key={index} className="faded-in relative col-span-1 h-14 w-14 overflow-hidden rounded bg-white">
+                                        <PhotoView src={image['data_url']}>
+                                            <img src={image['data_url']} alt="" className="h-full w-full object-cover" />
+                                        </PhotoView>
+                                        <div className="absolute left-1/2 top-1 flex w-full -translate-x-1/2 justify-between gap-2 px-1">
+                                            <button
+                                                onClick={() => onImageUpdate(index)}
+                                                type="button"
+                                                className="flex h-5 w-5 items-center justify-center rounded bg-blue-600 p-1 text-white"
+                                            >
+                                                <ArrowCycle />
+                                            </button>
+                                            <button
+                                                onClick={() => {
+                                                    onImageRemove(index);
+                                                }}
+                                                type="button"
+                                                className="flex h-5 w-5 items-center justify-center rounded bg-red-600 p-1 text-white"
+                                            >
+                                                <TrashBin />
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </PhotoProvider>
                         </div>
                     )}
                 </ImageUploading>
