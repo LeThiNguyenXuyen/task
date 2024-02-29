@@ -55,8 +55,9 @@ const Page: React.FC<AuthLoginProps> = () => {
                                 allow: false,
                             },
                         })
-                        .required(),
-                    password: joi.string().trim().required(),
+                        .required()
+                        .messages(NKConstant.MESSAGE_FORMAT),
+                    password: joi.string().trim().required().messages(NKConstant.MESSAGE_FORMAT),
                 }}
                 onExtraSuccessAction={(data) => {
                     toast.success('Đăng nhập thành công');

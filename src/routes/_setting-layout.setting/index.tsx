@@ -6,9 +6,11 @@ import { Button } from 'antd';
 import Joi from 'joi';
 import { toast } from 'react-toastify';
 
+import { NKConstant } from '@/core/NKConstant';
 import { IV1UpdateProfileDto, meApi } from '@/core/api/me.api';
 import NKDateField from '@/core/components/form/NKDateField';
 import NKFormWrapper from '@/core/components/form/NKFormWrapper';
+import NKLocationField from '@/core/components/form/NKLocationField';
 import NKTextField from '@/core/components/form/NKTextField';
 import NKTextareaField from '@/core/components/form/NKTextareaField';
 import NKUploadImage from '@/core/components/form/NKUploadImage';
@@ -28,13 +30,13 @@ const Page: React.FunctionComponent<PageProps> = () => {
                 isLoading={meQuery.isLoading}
                 apiAction={meApi.v1Put}
                 schema={{
-                    address: Joi.string().optional().empty(),
-                    avatar: Joi.string(),
-                    bio: Joi.string().optional(),
-                    dob: Joi.any(),
-                    name: Joi.string(),
-                    nickname: Joi.string().optional().empty(),
-                    phone: Joi.string().optional().empty(),
+                    address: Joi.string().optional().empty().messages(NKConstant.MESSAGE_FORMAT),
+                    avatar: Joi.string().messages(NKConstant.MESSAGE_FORMAT),
+                    bio: Joi.string().optional().messages(NKConstant.MESSAGE_FORMAT),
+                    dob: Joi.any().messages(NKConstant.MESSAGE_FORMAT),
+                    name: Joi.string().messages(NKConstant.MESSAGE_FORMAT),
+                    nickname: Joi.string().optional().empty().messages(NKConstant.MESSAGE_FORMAT),
+                    phone: Joi.string().optional().empty().messages(NKConstant.MESSAGE_FORMAT),
                 }}
                 defaultValues={{
                     address: meQuery.data?.address || '',
@@ -73,7 +75,7 @@ const Page: React.FunctionComponent<PageProps> = () => {
 
                         <>
                             <div className="col-span-4">
-                                <NKTextField name="address" label="Địa chỉ" />
+                                <NKLocationField name="address" label="Địa chỉ" />
                             </div>
                         </>
                         <>

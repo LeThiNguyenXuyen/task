@@ -6,6 +6,7 @@ import { Button } from 'antd';
 import Joi from 'joi';
 
 import { NKConfig } from '@/core/NKConfig';
+import { NKConstant } from '@/core/NKConstant';
 import { NKRouter } from '@/core/NKRouter';
 import { MeWalletIV1Deposit, MeWalletIV1Withdraw, meWalletApi } from '@/core/api/me-wallet.api';
 import { UserWalletTransactionIV1Checkout, userWalletTransactionApi } from '@/core/api/user-wallet-transaction.api';
@@ -36,7 +37,7 @@ const Page: React.FunctionComponent<PageProps> = () => {
             <NKFormWrapper<MeWalletIV1Withdraw>
                 apiAction={meWalletApi.v1Withdraw}
                 schema={{
-                    amount: Joi.number().min(0).required(),
+                    amount: Joi.number().min(0).required().messages(NKConstant.MESSAGE_FORMAT),
                 }}
                 defaultValues={{
                     amount: 0,

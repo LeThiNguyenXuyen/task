@@ -31,7 +31,8 @@ export enum NKFormType {
     BOOLEAN = 'boolean',
     RICH_TEXT = 'rich_text',
     WATCH_DISPLAY = 'watch_display',
-    LOCATION = 'location',
+    LOCATION_NAME = 'location_name',
+    LOCATION_PLACE = 'location_place',
 }
 
 interface NKFormProps {
@@ -56,7 +57,8 @@ export type FieldProps = NKFormProps &
         | NKFieldsProps<NKFormType.BOOLEAN, NKBooleanInputProps>
         | NKFieldsProps<NKFormType.WATCH_DISPLAY, NKWatchDisplayProps>
         | NKFieldsProps<NKFormType.RICH_TEXT, NKRichTextProps>
-        | NKFieldsProps<NKFormType.LOCATION, NKLocationFieldProps>
+        | NKFieldsProps<NKFormType.LOCATION_NAME, NKLocationFieldProps>
+        | NKFieldsProps<NKFormType.LOCATION_PLACE, NKLocationFieldProps>
     );
 
 interface NKFieldsProps<Type, IField> {
@@ -102,8 +104,10 @@ const NKForm: React.FC<FieldProps> = ({ label, name, type, fieldProps }) => {
             return <NKWatchDisplay name={name} label={label} {...fieldProps} />;
         case NKFormType.SELECT_API_OPTION:
             return <NKSelectApiOption name={name} label={label} {...fieldProps} />;
-        case NKFormType.LOCATION:
-            return <NKLocationField name={name} label={label} {...fieldProps} />;
+        case NKFormType.LOCATION_NAME:
+            return <NKLocationField name={name} label={label} {...fieldProps} valueField="name" />;
+        case NKFormType.LOCATION_PLACE:
+            return <NKLocationField name={name} label={label} {...fieldProps} valueField="placeId" />;
 
         default:
             return <NKTextField name={name} label={label} {...(fieldProps as any)} />;

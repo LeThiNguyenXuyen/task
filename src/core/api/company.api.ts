@@ -1,9 +1,9 @@
-import { ResponseList } from '../models/common';
+import { EnumListItem, ResponseList } from '../models/common';
 import { Company } from '../models/company';
 import { UserWallet } from '../models/userWallet';
 import http from './http';
 
-const baseEndpoint = '/me-wallet';
+const baseEndpoint = '/company';
 
 export interface MeWalletIV1Deposit {
     amount: number;
@@ -21,7 +21,7 @@ export interface CreateIV1Company
 }
 
 export interface UpdateIV1Company
-    extends Pick<Company, 'name' | 'logo' | 'description' | 'imageUrls' | 'note' | 'licenseImageBack' | 'licenseImageFront' | 'address'> {}
+    extends Pick<Company, 'name' | 'logo' | 'description' | 'imageUrls' | 'note' | 'licenseImageBack' | 'licenseImageFront' | 'address' | 'status'> {}
 
 export const companyApi = {
     v1Get: async () => {
@@ -61,6 +61,11 @@ export const companyApi = {
     v1Delete: async (id: string) => {
         const url = `${baseEndpoint}/${id}`;
         const res = await http.delete(url);
+        return res.data;
+    },
+    v1GetEnumStatus: async () => {
+        const url = `${baseEndpoint}/enum-options/status`;
+        const res = await http.get<EnumListItem[]>(url);
         return res.data;
     },
 };

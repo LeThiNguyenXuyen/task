@@ -6,7 +6,7 @@ interface DrawerBuilderProps {
     btnLabel: string | React.ReactNode;
     drawerTitle: string;
     btnProps?: ButtonProps;
-    children: React.ReactNode;
+    children: React.ReactNode | ((close: () => void) => React.ReactNode);
     className?: string;
     width?: string;
 }
@@ -20,7 +20,7 @@ const DrawerBuilder: React.FC<DrawerBuilderProps> = ({ btnLabel, drawerTitle, bt
                 {btnLabel}
             </Button>
             <Drawer width={width} className={className} open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} title={drawerTitle}>
-                {children}
+                {typeof children === 'function' ? children(() => setIsDrawerOpen(false)) : children}
             </Drawer>
         </div>
     );

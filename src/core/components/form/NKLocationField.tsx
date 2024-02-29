@@ -3,6 +3,7 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { AutoComplete, AutoCompleteProps } from 'antd';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
+import _get from 'lodash/get';
 import { FieldValues, UseFormSetValue, useFormContext } from 'react-hook-form';
 
 import { ISuggestLocation } from '@/core/models/geoCommon';
@@ -20,13 +21,15 @@ export interface NKLocationFieldProps extends AutoCompleteProps {
 
     label: string;
     extraOnChange?: (setValue: UseFormSetValue<FieldValues>, data: any) => void;
+    valueField?: 'placeId' | 'waypointId' | 'name';
 }
 
 type Props = NKLocationFieldProps & NKFieldWrapperProps;
 
-export const NKLocationField: React.FC<Props> = ({ name, isShow = true, label, extraOnChange, labelClassName, ...rest }) => {
+export const NKLocationField: React.FC<Props> = ({ name, isShow = true, label, extraOnChange, labelClassName, valueField = 'name', ...rest }) => {
     const [searchValue, setSearchValue] = React.useState('');
     const [isDefault, setIsDefault] = React.useState(false);
+    const [placeId, setPlaceId] = React.useState('');
     const { setValue, getValues } = useFormContext();
 
     const optionsQuery = useQuery({
@@ -49,10 +52,21 @@ export const NKLocationField: React.FC<Props> = ({ name, isShow = true, label, e
         initialData: [],
     });
 
+    React.useEffect(() => {
+        if (!isDefault) {
+            const value = _get(getValues(), name, '');
+
+            setSearchValue(value);
+            setIsDefault(true);
+        }
+    }, [isDefault]);
+
     const onSelect = (data: string) => {
         const res = optionsQuery.data.find((item) => item.placeId === data);
+        setPlaceId(data);
         setSearchValue(res?.name || '');
-        setValue(`${name}`, data, { shouldTouch: true });
+        const value = _get(res, valueField, '');
+        setValue(`${name}`, value, { shouldTouch: true });
         extraOnChange && extraOnChange(setValue, res);
     };
 
@@ -66,18 +80,19 @@ export const NKLocationField: React.FC<Props> = ({ name, isShow = true, label, e
                 value={searchValue}
                 options={optionsQuery.data.map((item) => ({
                     label: item.name,
-                    value: item.placeId,
+                    value: _get(item, 'placeId', ''),
                 }))}
                 onSelect={onSelect}
                 onChange={onChange}
                 onBlur={() => {
-                    const res = optionsQuery.data.find((item) => item.name === searchValue);
+                    const res = optionsQuery.data.find((item) => item.placeId === placeId);
 
                     if (res) {
                         setSearchValue(res.name);
                     } else {
                         setSearchValue('');
                         setIsDefault(false);
+                        setPlaceId('');
                     }
                 }}
                 className="w-full"

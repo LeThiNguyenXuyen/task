@@ -22,7 +22,7 @@ import FieldDisplay, { FieldType } from '../field/FieldDisplay';
 import NKForm, { NKFormType } from '../form/NKForm';
 
 export interface TableBuilderColumn extends ColumnType<AnyObject> {
-    type: FieldType;
+    type?: FieldType;
     key: string;
     apiAction?: (value: any) => any;
     formatter?: (value: any) => any;
@@ -58,7 +58,7 @@ interface TableBuilderProps {
 
     extraBulkActions?: (selectRows: any[], setSelectRows: React.Dispatch<React.SetStateAction<any[]>>) => React.ReactNode;
     expandable?: ExpandableConfig<any>;
-    actionColumns?: ((record: any) => React.ReactNode) | React.ReactNode;
+    actionColumns?: ((record: any, refetch?: () => void) => React.ReactNode) | React.ReactNode;
 }
 
 const TableBuilder: React.FC<TableBuilderProps> = ({
@@ -141,7 +141,7 @@ const TableBuilder: React.FC<TableBuilderProps> = ({
 
     return (
         <div className="fade-in flex gap-4 ">
-            <Layout className="!bg-[#F4F7FE]">
+            <Layout className="!bg-white">
                 <Content
                     className={clsx('', {
                         'ml-4': isShowFilter,
@@ -254,7 +254,7 @@ const TableBuilder: React.FC<TableBuilderProps> = ({
                                         return (
                                             <FieldDisplay
                                                 key={item.key}
-                                                type={item.type}
+                                                type={item.type || FieldType.TEXT}
                                                 formatter={item.formatter}
                                                 value={formatValue}
                                                 apiAction={item.apiAction}
@@ -264,18 +264,29 @@ const TableBuilder: React.FC<TableBuilderProps> = ({
 
                                     sorter: true,
                                 })),
-                                {
-                                    key: 'action',
-                                    title: '',
-                                    sorter: false,
-                                    width: 150,
-                                    render: (value: any, record: any) => {
-                                        if (!actionColumns) {
-                                            return null;
-                                        }
-                                        return <>{typeof actionColumns === 'function' ? actionColumns(record) : actionColumns}</>;
-                                    },
-                                },
+
+                                ...(Boolean(actionColumns)
+                                    ? [
+                                          {
+                                              key: 'action',
+                                              title: '',
+                                              sorter: false,
+                                              width: 150,
+                                              render: (value: any, record: any) => {
+                                                  if (!actionColumns) {
+                                                      return null;
+                                                  }
+                                                  return (
+                                                      <>
+                                                          {typeof actionColumns === 'function'
+                                                              ? actionColumns(record, pagingQuery.refetch)
+                                                              : actionColumns}
+                                                      </>
+                                                  );
+                                              },
+                                          },
+                                      ]
+                                    : []),
                             ]}
                             pagination={{
                                 current: page,

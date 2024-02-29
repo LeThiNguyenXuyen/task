@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { useMutation } from '@tanstack/react-query';
-import { Button } from 'antd';
+import { Button, PopconfirmProps } from 'antd';
 import { Popconfirm } from 'antd/lib';
 import _get from 'lodash/get';
 import { toast } from 'react-toastify';
@@ -12,8 +12,9 @@ interface CTAButtonProps {
     locale?: string;
     isConfirm?: boolean;
     confirmMessage?: string;
-    extraOnSuccess?: () => void;
-    extraOnError?: () => void;
+    extraOnSuccess?: (data: any) => void;
+    extraOnError?: (data: any) => void;
+    confirmProps?: PopconfirmProps;
 }
 
 const CTAButton: React.FC<CTAButtonProps> = ({
@@ -21,6 +22,7 @@ const CTAButton: React.FC<CTAButtonProps> = ({
     extraOnSuccess,
     extraOnError,
     ctaApi,
+    confirmProps,
     locale = 'en',
     confirmMessage = 'Are you sure?',
     isConfirm = false,
@@ -28,14 +30,10 @@ const CTAButton: React.FC<CTAButtonProps> = ({
     const ctaMutation = useMutation({
         mutationFn: ctaApi,
         onSuccess: (data) => {
-            const message = _get(data, `translation.${locale}`, 'Call to action successfully');
-            toast.success(message);
-            extraOnSuccess && extraOnSuccess();
+            extraOnSuccess && extraOnSuccess(data);
         },
         onError: (error) => {
-            const message = _get(error, `data.translation.${locale}`, 'Call to action failed');
-            toast.error(message);
-            extraOnError && extraOnError();
+            extraOnError && extraOnError(error);
         },
     });
 
@@ -44,7 +42,7 @@ const CTAButton: React.FC<CTAButtonProps> = ({
     }
 
     return (
-        <Popconfirm title={confirmMessage} onConfirm={() => ctaMutation.mutate()}>
+        <Popconfirm title={confirmMessage} onConfirm={() => ctaMutation.mutate()} {...confirmProps}>
             {children}
         </Popconfirm>
     );

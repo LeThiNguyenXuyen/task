@@ -29,7 +29,7 @@ const NKFieldWrapper: React.FC<NKFieldWrapperProps & React.PropsWithChildren> = 
             {isShow && (typeof label === 'string' ? <label className={labelClassName}>{label}</label> : label)}
             {children}
             {Boolean(errorMessage) && (
-                <div className="text-sm text-red-500">
+                <div className="flex gap-1 text-sm text-red-500">
                     {label} {errorMessage}
                 </div>
             )}

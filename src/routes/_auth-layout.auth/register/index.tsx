@@ -8,6 +8,7 @@ import { MdLockOutline, MdOutlineEmail } from 'react-icons/md';
 import { toast } from 'react-toastify';
 
 import { NKConfig } from '@/core/NKConfig';
+import { NKConstant } from '@/core/NKConstant';
 import { NKRouter } from '@/core/NKRouter';
 import { IV1AuthRegister, authApi } from '@/core/api/auth.api';
 import NKFormWrapper from '@/core/components/form/NKFormWrapper';
@@ -56,12 +57,13 @@ const Page: React.FunctionComponent<RegisterPageProps> = () => {
                                 allow: false,
                             },
                         })
-                        .required(),
-                    password: joi.string().required(),
-                    confirmPassword: joi.string().required(),
-                    firstName: joi.string().required(),
-                    lastName: joi.string().required(),
-                    username: joi.allow(''),
+                        .required()
+                        .messages(NKConstant.MESSAGE_FORMAT),
+                    password: joi.string().required().messages(NKConstant.MESSAGE_FORMAT),
+                    confirmPassword: joi.string().required().messages(NKConstant.MESSAGE_FORMAT),
+                    firstName: joi.string().required().messages(NKConstant.MESSAGE_FORMAT),
+                    lastName: joi.string().required().messages(NKConstant.MESSAGE_FORMAT),
+                    username: joi.allow('').messages(NKConstant.MESSAGE_FORMAT),
                 }}
                 onExtraSuccessAction={(data) => {
                     toast.success('Đăng ký thành công');

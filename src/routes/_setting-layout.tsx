@@ -33,7 +33,7 @@ const Layout: React.FunctionComponent<LayoutProps> = () => {
 
     return (
         <AuthWrapper>
-            <section className="flex w-full max-w-5xl gap-4 rounded-2xl ">
+            <section className="flex w-full max-w-6xl gap-4 rounded-2xl ">
                 <aside className="flex w-72 flex-shrink-0 grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white p-6">
                     <nav className="flex flex-1 flex-col">
                         <ul role="list" className="-mx-2 space-y-1">

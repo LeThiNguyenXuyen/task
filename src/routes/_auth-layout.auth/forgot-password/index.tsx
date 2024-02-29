@@ -6,6 +6,7 @@ import { Button } from 'antd';
 import joi from 'joi';
 import { toast } from 'react-toastify';
 
+import { NKConstant } from '@/core/NKConstant';
 import { NKRouter } from '@/core/NKRouter';
 import { IV1CreateResetPasswordDto, IV1UpdateResetPasswordDto, userAnonymousApi } from '@/core/api/user-anonymous.api';
 import NKFormWrapper from '@/core/components/form/NKFormWrapper';
@@ -64,9 +65,9 @@ const Page: React.FC<PageProps> = () => {
                                     token: '',
                                 }}
                                 schema={{
-                                    confirmPassword: joi.string().required(),
-                                    password: joi.string().required(),
-                                    token: joi.string().required(),
+                                    confirmPassword: joi.string().required().messages(NKConstant.MESSAGE_FORMAT),
+                                    password: joi.string().required().messages(NKConstant.MESSAGE_FORMAT),
+                                    token: joi.string().required().messages(NKConstant.MESSAGE_FORMAT),
                                 }}
                                 onExtraSuccessAction={(data) => {
                                     router.push(NKRouter.auth.login());

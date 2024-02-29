@@ -1,9 +1,5 @@
-import * as React from 'react';
-
-import { Disclosure } from '@headlessui/react';
-import { BuildingLibraryIcon, BuildingOfficeIcon, KeyIcon, UserIcon, WalletIcon } from '@heroicons/react/20/solid';
+import { BuildingOfficeIcon } from '@heroicons/react/20/solid';
 import { Outlet, createFileRoute } from '@tanstack/react-router';
-import { TriangleDownFill } from 'akar-icons';
 import clsx from 'clsx';
 
 import { NKRouter } from '@/core/NKRouter';
@@ -26,7 +22,7 @@ const Layout: React.FunctionComponent<LayoutProps> = () => {
 
     return (
         <AuthWrapper>
-            <section className="flex w-full max-w-5xl gap-4 rounded-2xl ">
+            <section className="flex w-full max-w-6xl gap-4 rounded-2xl ">
                 <aside className="flex w-72 flex-shrink-0 grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white p-6">
                     <nav className="flex flex-1 flex-col">
                         <ul role="list" className="-mx-2 space-y-1">
