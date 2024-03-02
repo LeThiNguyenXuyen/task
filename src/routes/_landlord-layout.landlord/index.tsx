@@ -40,7 +40,7 @@ const Page: React.FunctionComponent<PageProps> = () => {
         <div className="flex flex-col gap-6 text-black">
             <TableBuilder
                 queryApi={companyApi.v1Get}
-                extraFilter={[`status||${FilterComparator.NOT_EQUAL}||CANCELLED`]}
+                extraFilter={[`status||${FilterComparator.NOT_EQUAL}||CANCELLED`, `owner.id||${FilterComparator.EQUAL}||${meQuery.data?.id}`]}
                 title="Danh sách nhà nghỉ"
                 sourceKey="companies"
                 columns={[
