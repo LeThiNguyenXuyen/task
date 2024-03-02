@@ -8,10 +8,9 @@ import _get from 'lodash/get';
 interface FieldBadgeApiProps {
     value: any;
     apiAction?: (...value: any) => any;
-    locale?: string;
 }
 
-const FieldBadgeApi: React.FC<FieldBadgeApiProps> = ({ value, apiAction, locale = 'vi' }) => {
+const FieldBadgeApi: React.FC<FieldBadgeApiProps> = ({ value, apiAction }) => {
     const [label, setLabel] = React.useState<string>('undefined');
     const [color, setColor] = React.useState<string>('red');
 
@@ -25,14 +24,26 @@ const FieldBadgeApi: React.FC<FieldBadgeApiProps> = ({ value, apiAction, locale 
     React.useEffect(() => {
         if (options.data) {
             const option = options.data.find((item: any) => item.value === value);
+
             if (option) {
-                setLabel(_get(option, `label.${locale}`, ''));
+                setLabel(_get(option, 'label.vi', option?.name));
                 setColor(option.color);
             }
         }
     }, [options.data, value]);
 
-    return <Tag color={color}>{label}</Tag>;
+    return (
+        <div
+            className="inline-block rounded-lg border border-solid border-tango-50 px-2 py-1 text-sm font-semibold"
+            style={{
+                color: color,
+                backgroundColor: 'white',
+            }}
+        >
+            {label}
+        </div>
+    );
+    // return <Tag color={color}>{label}</Tag>;
 };
 
 export default FieldBadgeApi;

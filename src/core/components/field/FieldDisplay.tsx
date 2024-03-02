@@ -8,6 +8,7 @@ import FieldBoolean from './FieldBoolean';
 import FieldInputBox from './FieldInputBox';
 import FieldLink from './FieldLink';
 import FieldLinkButton from './FieldLinkButton';
+import FieldLocationCard from './FieldLocationCard';
 import FiledMultipleImage from './FieldMultipleImages';
 import FieldMultipleText from './FieldMultipleText';
 import FieldNumber from './FieldNumber';
@@ -37,6 +38,7 @@ export enum FieldType {
     QR_CODE = 'qr_code',
     BAR_CODE = 'bar_code',
     INPUT_BOX = 'input_box',
+    LOCATION_CARD = 'location_card',
 }
 
 interface FieldDisplayProps {
@@ -86,6 +88,8 @@ const FieldDisplay: React.FC<FieldDisplayProps> = ({ type, value, apiAction, for
             return <FieldBarCode value={value} />;
         case FieldType.INPUT_BOX:
             return <FieldInputBox value={value} />;
+        case FieldType.LOCATION_CARD:
+            return <FieldLocationCard value={value} />;
         case FieldType.LENGTH:
             const length = _get(value, 'length');
             return <FieldText value={length} />;

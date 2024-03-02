@@ -11,7 +11,7 @@ interface FieldBuilderItem {
     key: string;
     title: string;
     type: FieldType;
-    span?: 1 | 2 | 3;
+    span?: 1 | 2 | 3 | 4;
     apiAction?: (value?: any) => any;
     formatter?: (value: any) => any;
 }
@@ -22,13 +22,12 @@ interface FieldBuilderProps<T> {
     record: T | undefined;
     extra?: React.ReactNode;
     isFetching?: boolean;
-    classNameContainer?: string;
-    isBordered?: boolean;
+    containerClassName?: string;
 }
 
-const FieldBuilder = <T,>({ fields, title, record, extra, isFetching, isBordered = false, classNameContainer = '' }: FieldBuilderProps<T>) => {
+const FieldBuilder = <T,>({ fields, title, record, extra, isFetching, containerClassName }: FieldBuilderProps<T>) => {
     return (
-        <div className={clsx(['fade-in flex flex-col gap-4 rounded-lg bg-white p-4', classNameContainer])}>
+        <div className={clsx('fade-in flex flex-col gap-4 rounded-lg border border-solid border-tango-100', containerClassName)}>
             {isFetching ? (
                 <div>Loading...</div>
             ) : (
@@ -36,14 +35,26 @@ const FieldBuilder = <T,>({ fields, title, record, extra, isFetching, isBordered
                     <div className="sr-only col-span-1"></div>
                     <div className="sr-only col-span-2"></div>
                     <div className="sr-only col-span-3"></div>
-                    {(Boolean(title) || Boolean(extra)) && (
-                        <div className="flex items-end justify-between gap-4">
-                            <div className="text-xl font-bold text-black">{title}</div>
-                            {extra}
-                        </div>
-                    )}
+                    <div className="sr-only col-span-4"></div>
+                    <div className="flex items-end  gap-4">
+                        <div className="text-xl font-bold text-black">{title}</div>
+                        {extra}
+                    </div>
+                    <div className="grid grid-cols-4 gap-4">
+                        {fields.map((item) => {
+                            const value = Boolean(item.key) ? _get(record, item.key) : record;
 
-                    <Descriptions bordered={isBordered}>
+                            return (
+                                <div key={item.key} className={`flex flex-col gap-1 col-span-${item.span}`}>
+                                    <div className=" text-base font-semibold">{item.title}</div>
+                                    <div className="">
+                                        <FieldDisplay type={item.type} value={value} apiAction={item.apiAction} formatter={item.formatter} />
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                    {/* <Descriptions bordered className="rounded-lg bg-white" size="middle">
                         {fields.map((item) => {
                             const value = Boolean(item.key) ? _get(record, item.key) : record;
 
@@ -53,7 +64,7 @@ const FieldBuilder = <T,>({ fields, title, record, extra, isFetching, isBordered
                                 </Descriptions.Item>
                             );
                         })}
-                    </Descriptions>
+                    </Descriptions> */}
                 </>
             )}
         </div>

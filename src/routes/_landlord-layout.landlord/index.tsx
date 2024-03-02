@@ -10,6 +10,7 @@ import _get from 'lodash/get';
 import { toast } from 'react-toastify';
 
 import { NKConstant } from '@/core/NKConstant';
+import { NKRouter } from '@/core/NKRouter';
 import { UpdateIV1Company, companyApi } from '@/core/api/company.api';
 import { meApi } from '@/core/api/me.api';
 import CTAButton from '@/core/components/cta/CTABtn';
@@ -93,15 +94,8 @@ const Page: React.FunctionComponent<PageProps> = () => {
                                     </div>
                                 )}
                                 <FieldBuilder
-                                    classNameContainer="p-0"
-                                    isBordered
+                                    containerClassName="p-4"
                                     fields={[
-                                        {
-                                            title: 'Tên nhà nghỉ',
-                                            key: 'name',
-                                            type: FieldType.TEXT,
-                                            span: 1,
-                                        },
                                         {
                                             title: 'Logo',
                                             key: 'logo',
@@ -109,52 +103,61 @@ const Page: React.FunctionComponent<PageProps> = () => {
                                             span: 2,
                                         },
                                         {
-                                            title: 'Địa chỉ',
-                                            key: 'address',
-                                            type: FieldType.MULTILINE_TEXT,
+                                            title: 'Tên',
+                                            key: 'name',
+                                            type: FieldType.TEXT,
+                                            span: 2,
                                         },
                                         {
-                                            title: 'Mô tả',
-                                            key: 'description',
-                                            type: FieldType.MULTILINE_TEXT,
+                                            title: 'Trạng Thái',
+                                            key: 'status',
+                                            type: FieldType.BADGE_API,
+                                            apiAction: companyApi.v1GetEnumStatus,
+                                            span: 4,
                                         },
 
                                         {
-                                            title: 'Ảnh giấy phép kinh doanh trước',
+                                            title: 'Giấy phép kinh doanh mặt trước',
                                             key: 'licenseImageFront',
                                             type: FieldType.THUMBNAIL,
-                                            span: 1,
+                                            span: 2,
                                         },
                                         {
-                                            title: 'Ảnh giấy phép kinh doanh sau',
+                                            title: 'Giấy phép kinh doanh mặt sau',
                                             key: 'licenseImageBack',
                                             type: FieldType.THUMBNAIL,
                                             span: 2,
                                         },
                                         {
-                                            title: 'Ảnh thực tế',
+                                            title: 'Hình Ảnh Thực Tế',
                                             key: 'imageUrls',
                                             type: FieldType.MULTIPLE_IMAGES,
+                                            span: 4,
                                         },
                                         {
-                                            title: 'Trạng thái',
-                                            key: 'status',
-                                            type: FieldType.BADGE_API,
-                                            apiAction: companyApi.v1GetEnumStatus,
-                                            span: 1,
+                                            title: 'Mô Tả',
+                                            key: 'description',
+                                            type: FieldType.MULTILINE_TEXT,
+                                            span: 4,
                                         },
 
                                         {
-                                            title: 'Cập nhật cuối',
-                                            key: 'updatedAt',
-                                            type: FieldType.TIME_FULL,
-                                            span: 1,
+                                            title: 'Địa Chỉ',
+                                            key: 'address',
+                                            type: FieldType.LOCATION_CARD,
+                                            span: 4,
                                         },
                                         {
-                                            title: 'Khởi tạo',
+                                            title: 'Ngày khởi tạo',
                                             key: 'createdAt',
                                             type: FieldType.TIME_FULL,
-                                            span: 1,
+                                            span: 2,
+                                        },
+                                        {
+                                            title: 'Ngày cập nhật',
+                                            key: 'updatedAt',
+                                            type: FieldType.TIME_FULL,
+                                            span: 2,
                                         },
                                     ]}
                                     record={record}
