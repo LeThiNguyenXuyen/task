@@ -1,17 +1,11 @@
-import { EnumListItem, ResponseList } from '../models/common';
+import { EnumListItem, IPagingDto, ResponseList } from '../models/common';
 import { Company } from '../models/company';
 import { UserWallet } from '../models/userWallet';
 import http from './http';
 
 const baseEndpoint = '/company';
 
-export interface MeWalletIV1Deposit {
-    amount: number;
-}
-
-export interface MeWalletIV1Withdraw {
-    amount: number;
-}
+export interface CompanyIV1Get extends IPagingDto {}
 
 export interface CreateIV1Company
     extends Pick<Company, 'name' | 'logo' | 'description' | 'imageUrls' | 'note' | 'licenseImageBack' | 'licenseImageFront' | 'address'> {
@@ -23,11 +17,21 @@ export interface CreateIV1Company
 export interface UpdateIV1Company
     extends Pick<Company, 'name' | 'logo' | 'description' | 'imageUrls' | 'note' | 'licenseImageBack' | 'licenseImageFront' | 'address' | 'status'> {}
 
+export interface RejectedIV1Company {
+    note: string;
+}
+
+export interface ApproveIV1Company {
+    id: string;
+}
+
 export const companyApi = {
-    v1Get: async () => {
+    v1Get: async (dto: CompanyIV1Get) => {
         const url = `${baseEndpoint}`;
 
-        const res = await http.get<ResponseList<Company>>(url);
+        const res = await http.get<ResponseList<Company>>(url, {
+            params: { ...dto },
+        });
 
         return res.data;
     },
@@ -66,6 +70,20 @@ export const companyApi = {
     v1GetEnumStatus: async () => {
         const url = `${baseEndpoint}/enum-options/status`;
         const res = await http.get<EnumListItem[]>(url);
+        return res.data;
+    },
+    v1Approve: async (dto: ApproveIV1Company) => {
+        const url = `${baseEndpoint}/approve`;
+        const res = await http.post<Company>(url, dto);
+        return res.data;
+    },
+
+    v1Reject: async (id: string, dto: RejectedIV1Company) => {
+        const url = `${baseEndpoint}/reject`;
+        const res = await http.post<Company>(url, {
+            id,
+            ...dto,
+        });
         return res.data;
     },
 };
