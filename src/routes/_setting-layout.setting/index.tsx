@@ -8,6 +8,8 @@ import { toast } from 'react-toastify';
 
 import { NKConstant } from '@/core/NKConstant';
 import { IV1UpdateProfileDto, meApi } from '@/core/api/me.api';
+import { userApi } from '@/core/api/user.api';
+import FieldBadgeApi from '@/core/components/field/FieldBadgeApi';
 import NKDateField from '@/core/components/form/NKDateField';
 import NKFormWrapper from '@/core/components/form/NKFormWrapper';
 import NKLocationField from '@/core/components/form/NKLocationField';
@@ -37,6 +39,8 @@ const Page: React.FunctionComponent<PageProps> = () => {
                     name: Joi.string().messages(NKConstant.MESSAGE_FORMAT),
                     nickname: Joi.string().optional().empty().messages(NKConstant.MESSAGE_FORMAT),
                     phone: Joi.string().optional().empty().messages(NKConstant.MESSAGE_FORMAT),
+                    cardIdFront: Joi.string().optional().empty().messages(NKConstant.MESSAGE_FORMAT),
+                    cardIdBack: Joi.string().optional().empty().messages(NKConstant.MESSAGE_FORMAT),
                 }}
                 defaultValues={{
                     address: meQuery.data?.address || '',
@@ -46,46 +50,47 @@ const Page: React.FunctionComponent<PageProps> = () => {
                     name: meQuery.data?.name || '',
                     nickname: meQuery.data?.nickname || '',
                     phone: meQuery.data?.phone || '',
+                    cardIdFront: meQuery.data?.cardIdFront || '',
+                    cardIdBack: meQuery.data?.cardIdBack || '',
                 }}
                 onExtraSuccessAction={(data) => {
                     toast.success('Cập nhật thành công');
                     meQuery.refetch();
                 }}
+                isDebug
             >
                 {({ isChange, isFetching }) => (
                     <div className="grid w-full grid-cols-4 gap-x-4 gap-y-2">
-                        <>
-                            <div className="col-span-full">
-                                <NKUploadImage name="avatar" label="Ảnh đại diện" listType="picture-circle" />
-                            </div>
-                        </>
-                        <>
-                            <div className="col-span-4">
-                                <NKTextareaField name="bio" label="Thông tin về bạn" />
-                            </div>
-                        </>
-                        <>
-                            <div className="col-span-2">
-                                <NKTextField name="name" label="Họ và tên" />
-                            </div>
-                            <div className="col-span-2">
-                                <NKTextField name="nickname" label="Tên hiển thị" />
-                            </div>
-                        </>
-
-                        <>
-                            <div className="col-span-4">
-                                <NKLocationField name="address" label="Địa chỉ" />
-                            </div>
-                        </>
-                        <>
-                            <div className="col-span-2">
-                                <NKTextField name="phone" label="Số điện thoại" />
-                            </div>
-                            <div className="col-span-2">
-                                <NKDateField name="dob" label="Ngày sinh" />
-                            </div>
-                        </>
+                        <div className="col-span-full">
+                            <FieldBadgeApi value={meQuery.data?.verificationStatus} apiAction={userApi.v1GetEnumVerificationStatus} />
+                        </div>
+                        <div className="col-span-full">
+                            <NKUploadImage name="avatar" label="Ảnh đại diện" listType="picture-circle" />
+                        </div>
+                        <div className="col-span-4">
+                            <NKTextareaField name="bio" label="Thông tin về bạn" />
+                        </div>
+                        <div className="col-span-2">
+                            <NKTextField name="name" label="Họ và tên" />
+                        </div>
+                        <div className="col-span-2">
+                            <NKTextField name="nickname" label="Tên hiển thị" />
+                        </div>
+                        <div className="col-span-2">
+                            <NKUploadImage name="cardIdFront" label="Ảnh mặt trước CMND" listType="picture" />
+                        </div>
+                        <div className="col-span-2">
+                            <NKUploadImage name="cardIdBack" label="Ảnh mặt sau CMND" listType="picture" />
+                        </div>
+                        <div className="col-span-4">
+                            <NKLocationField name="address" label="Địa chỉ" />
+                        </div>
+                        <div className="col-span-2">
+                            <NKTextField name="phone" label="Số điện thoại" />
+                        </div>
+                        <div className="col-span-2">
+                            <NKDateField name="dob" label="Ngày sinh" />
+                        </div>
                         <div className="col-span-full mt-6 flex  w-full justify-end">
                             <Button type="primary" className="bg-tango" htmlType="submit" disabled={!isChange} loading={isFetching}>
                                 Lưu
