@@ -20,7 +20,11 @@ export const userApi = {
         const res = await http.get<EnumListItem[]>(url);
         return res.data;
     },
-
+    v1GetEnumVerificationStatus: async () => {
+        const url = '/user/enum-options/verification-status';
+        const res = await http.get<EnumListItem[]>(url);
+        return res.data;
+    },
     v1GetReport: async (dto: IReportDto) => {
         const url = '/v1/user/report';
         const res = await http.get<ReportResponse[]>(url, { params: { ...dto } });

@@ -22,4 +22,7 @@ export interface User {
     dob: string;
     bio: string;
     nickname: string;
+    cardIdFront: string;
+    cardIdBack: string;
+    verificationStatus: string;
 }

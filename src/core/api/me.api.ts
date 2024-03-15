@@ -6,7 +6,8 @@ export interface IV1ChangePasswordDto {
     newPassword: string;
 }
 
-export interface IV1UpdateProfileDto extends Pick<User, 'name' | 'phone' | 'bio' | 'nickname' | 'address' | 'avatar' | 'dob'> {}
+export interface IV1UpdateProfileDto
+    extends Pick<User, 'name' | 'phone' | 'bio' | 'nickname' | 'address' | 'avatar' | 'dob' | 'cardIdFront' | 'cardIdBack'> {}
 
 export interface IV1UpdateMessageTokenDto {
     messageToken: string;
