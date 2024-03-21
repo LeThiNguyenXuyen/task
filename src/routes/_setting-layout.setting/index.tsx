@@ -50,8 +50,8 @@ const Page: React.FunctionComponent<PageProps> = () => {
                     name: meQuery.data?.name || '',
                     nickname: meQuery.data?.nickname || '',
                     phone: meQuery.data?.phone || '',
-                    cardIdFront: meQuery.data?.cardIdFront || '',
-                    cardIdBack: meQuery.data?.cardIdBack || '',
+                    cardIdFront: meQuery.data?.cardIdFront || 'N/A',
+                    cardIdBack: meQuery.data?.cardIdBack || 'N/A',
                 }}
                 onExtraSuccessAction={(data) => {
                     toast.success('Cập nhật thành công');
@@ -61,9 +61,6 @@ const Page: React.FunctionComponent<PageProps> = () => {
             >
                 {({ isChange, isFetching }) => (
                     <div className="grid w-full grid-cols-4 gap-x-4 gap-y-2">
-                        <div className="col-span-full">
-                            <FieldBadgeApi value={meQuery.data?.verificationStatus} apiAction={userApi.v1GetEnumVerificationStatus} />
-                        </div>
                         <div className="col-span-full">
                             <NKUploadImage name="avatar" label="Ảnh đại diện" listType="picture-circle" />
                         </div>
@@ -76,12 +73,7 @@ const Page: React.FunctionComponent<PageProps> = () => {
                         <div className="col-span-2">
                             <NKTextField name="nickname" label="Tên hiển thị" />
                         </div>
-                        <div className="col-span-2">
-                            <NKUploadImage name="cardIdFront" label="Ảnh mặt trước CMND" listType="picture" />
-                        </div>
-                        <div className="col-span-2">
-                            <NKUploadImage name="cardIdBack" label="Ảnh mặt sau CMND" listType="picture" />
-                        </div>
+
                         <div className="col-span-4">
                             <NKLocationField name="address" label="Địa chỉ" />
                         </div>
