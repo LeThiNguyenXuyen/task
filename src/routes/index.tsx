@@ -1,10 +1,36 @@
 import React from 'react';
 
+import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
+import { Button } from 'antd';
+
+import { subscriptionApi } from '@/core/api/subscription.api';
+import { useNKRouter } from '@/core/routing/hooks/NKRouter';
 
 const Page: React.FunctionComponent = () => {
+    const router = useNKRouter();
+    const subscriptionsQuery = useQuery({
+        queryKey: ['subscriptions'],
+        queryFn: async () => {
+            return subscriptionApi.v1Get({
+                filters: [],
+                orderBy: [],
+                page: 0,
+                pageSize: 9999,
+            });
+        },
+    });
+
+    const handleNavigateToCreate = () => {
+        if (import.meta.env.DEV) {
+            window.location.href = `http://localhost:3000?next=${encodeURI('/setting/subscription')}`;
+        } else {
+            window.location.href = `https://motel-admin.vercel.app?next=${encodeURI('/setting/subscription')}`;
+        }
+    };
+
     return (
-        <div className="mx-auto w-full ">
+        <div className="mx-auto w-full px-4 ">
             <div
                 className="nc-SectionOurFeatures relative mx-auto  flex max-w-7xl flex-col items-center lg:flex-row lg:py-14"
                 data-nc-id="SectionOurFeatures"
@@ -22,34 +48,34 @@ const Page: React.FunctionComponent = () => {
                     />
                 </div>
                 <div className="mt-10 max-w-2xl flex-shrink-0 lg:mt-0 lg:w-2/5 lg:pl-16">
-                    <span className="text-sm uppercase tracking-widest text-gray-400">BENnefits</span>
-                    <h2 className="mt-5 text-4xl font-semibold">Happening cities </h2>
+                    <span className="text-sm uppercase tracking-widest text-gray-400">Lợi ích</span>
+                    <h2 className="mt-5 text-4xl font-semibold">Thành phố vui vẻ</h2>
                     <ul className="mt-16 space-y-10">
                         <li className="space-y-4">
                             <span className="nc-Badge relative  inline-flex rounded-full bg-blue-100 px-2.5 py-1 text-xs font-medium  text-blue-800">
-                                Advertising
+                                Quảng cáo
                             </span>
-                            <span className="block text-xl font-semibold">Cost-effective advertising</span>
+                            <span className="block text-xl font-semibold">Quảng cáo tiết kiệm chi phí</span>
                             <span className="mt-5 block text-neutral-500 dark:text-neutral-400">
-                                With a free listing, you can advertise your rental with no upfront costs
+                                Với danh sách miễn phí, bạn có thể quảng cáo cho thuê của mình mà không mất phí trả trước
                             </span>
                         </li>
                         <li className="space-y-4">
                             <span className="nc-Badge relative  inline-flex rounded-full bg-green-100 px-2.5 py-1 text-xs font-medium  text-green-800">
-                                Exposure
+                                Khám phá
                             </span>
-                            <span className="block text-xl font-semibold">Reach millions with Chisfis</span>
+                            <span className="block text-xl font-semibold">Tiếp cận hàng triệu người với Chisfis</span>
                             <span className="mt-5 block text-neutral-500 dark:text-neutral-400">
-                                Millions of people are searching for unique places to stay around the world
+                                Hàng triệu người đang tìm kiếm những địa điểm lưu trú độc đáo trên khắp thế giới
                             </span>
                         </li>
                         <li className="space-y-4">
                             <span className="nc-Badge relative  inline-flex rounded-full bg-red-100 px-2.5 py-1 text-xs font-medium  text-red-800">
-                                Secure
+                                An toàn
                             </span>
-                            <span className="block text-xl font-semibold">Secure and simple</span>
+                            <span className="block text-xl font-semibold">Đơn giản và an toàn</span>
                             <span className="mt-5 block text-neutral-500 dark:text-neutral-400">
-                                A Holiday Lettings listing gives you a secure and easy way to take bookings and payments online
+                                Danh sách Holiday Lettings cung cấp cho bạn một cách an toàn và dễ dàng để đặt chỗ và thanh toán trực tuyến
                             </span>
                         </li>
                     </ul>
@@ -58,9 +84,9 @@ const Page: React.FunctionComponent = () => {
             <div className="nc-SectionHowItWork  mx-auto mt-16 max-w-7xl" data-nc-id="SectionHowItWork">
                 <div className="nc-Section-Heading relative mb-10 text-neutral-900 dark:text-neutral-50">
                     <div className="mx-auto mb-4 w-full max-w-2xl text-center">
-                        <h2 className="text-3xl font-semibold md:text-4xl">How it work</h2>
+                        <h2 className="text-3xl font-semibold md:text-4xl">Cách thức hoạt động</h2>
                         <span className="mt-2 block text-base font-normal text-neutral-500 dark:text-neutral-400 sm:text-lg md:mt-3">
-                            Keep calm &amp; travel on
+                            Chỉ cần giữ bình tĩnh và đi tiếp
                         </span>
                     </div>
                 </div>
@@ -89,9 +115,9 @@ const Page: React.FunctionComponent = () => {
                             style={{ color: 'transparent' }}
                         />
                         <div className="mt-auto text-center">
-                            <h3 className="text-xl font-semibold">Book &amp; relax</h3>
+                            <h3 className="text-xl font-semibold">Đặt phòng và thư giản</h3>
                             <span className="mt-5 block text-neutral-500 dark:text-neutral-400">
-                                Let each trip be an inspirational journey, each room a peaceful space
+                                Hãy để mỗi chuyến đi là một hành trình đầy cảm hứng, mỗi căn phòng là một không gian yên bình
                             </span>
                         </div>
                     </div>
@@ -108,9 +134,9 @@ const Page: React.FunctionComponent = () => {
                             style={{ color: 'transparent' }}
                         />
                         <div className="mt-auto text-center">
-                            <h3 className="text-xl font-semibold">Smart checklist</h3>
+                            <h3 className="text-xl font-semibold">Danh sách kiểm tra thông minh</h3>
                             <span className="mt-5 block text-neutral-500 dark:text-neutral-400">
-                                Let each trip be an inspirational journey, each room a peaceful space
+                                Hãy để mỗi chuyến đi là một hành trình đầy cảm hứng, mỗi căn phòng là một không gian yên bình
                             </span>
                         </div>
                     </div>
@@ -127,13 +153,53 @@ const Page: React.FunctionComponent = () => {
                             style={{ color: 'transparent' }}
                         />
                         <div className="mt-auto text-center">
-                            <h3 className="text-xl font-semibold">Save more</h3>
+                            <h3 className="text-xl font-semibold">Tiết kiệm hơn</h3>
                             <span className="mt-5 block text-neutral-500 dark:text-neutral-400">
-                                Let each trip be an inspirational journey, each room a peaceful space
+                                Hãy để mỗi chuyến đi là một hành trình đầy cảm hứng, mỗi căn phòng là một không gian yên bình
                             </span>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div className="nc-SectionHowItWork  mx-auto mt-16 max-w-7xl" data-nc-id="SectionHowItWork">
+                <div className="nc-Section-Heading relative mb-10 text-neutral-900 dark:text-neutral-50">
+                    <div className="mx-auto mb-4 w-full max-w-2xl text-center">
+                        <h2 className="text-3xl font-semibold md:text-4xl">Đăng ký gói dịch vụ</h2>
+                        <span className="mt-2 block text-base font-normal text-neutral-500 dark:text-neutral-400 sm:text-lg md:mt-3">
+                            Gồm nhiều gói dịch vụ phù hợp với nhu cầu của bạn
+                        </span>
+                    </div>
+                </div>
+                <ul className="m-0 flex list-none items-center justify-center gap-4 p-0">
+                    {subscriptionsQuery.data?.data.map((subscription) => {
+                        return (
+                            <li key={subscription.id}>
+                                <div className="flex flex-col items-center gap-2 rounded border border-solid border-neutral-200 p-2 shadow-sm">
+                                    <img src={subscription.imageUrls[0]} alt="subscription-image" className="h-36 w-36 object-cover" />
+                                    <span className="block text-center text-lg font-medium">{subscription.name}</span>
+                                    <span className="font-medium">✅ Hỗ trợ 24/7</span>
+                                    <span className="font-medium">✅ Trải nghiệm tính năng mới nhất</span>
+                                    <span className="font-medium">✅ Tối đa {subscription.maxCompany} khách sạn</span>
+                                    <span className="text-lg font-medium">
+                                        {new Intl.NumberFormat('vi-VN', {
+                                            style: 'currency',
+                                            currency: 'VND',
+                                        }).format(subscription.price)}{' '}
+                                        / {subscription.duration} ngày
+                                    </span>
+
+                                    <button
+                                        className="w-full rounded-md bg-tango-500 p-2 font-medium text-white hover:bg-tango-400"
+                                        onClick={handleNavigateToCreate}
+                                    >
+                                        Đăng ký
+                                    </button>
+                                </div>
+                            </li>
+                        );
+                    })}
+                </ul>
             </div>
 
             <div className="relative mx-auto mt-16 max-w-7xl py-16">
@@ -146,13 +212,13 @@ const Page: React.FunctionComponent = () => {
                         <a className="ttnc-logo text-primary-6000 inline-block h-12 w-12 focus:outline-none focus:ring-0" href="/">
                             <img src="/assets/images/logo.png" />
                         </a>
-                        <h2 className="mt-6 text-3xl font-semibold sm:mt-11 sm:text-4xl">Why did you choose us?</h2>
+                        <h2 className="mt-6 text-3xl font-semibold sm:mt-11 sm:text-4xl">Tại sao bạn nên chọn chúng tôi? </h2>
                         <span className="mt-6 block text-neutral-500 dark:text-neutral-400">
-                            Accompanying us, you have a trip full of experiences. With Chisfis, booking accommodation, resort villas, hotels, private
-                            houses, apartments... becomes fast, convenient and easy.
+                            Đồng hành cùng chúng tôi, bạn sẽ có một chuyến đi đầy trải nghiệm. Với Chisfis, đặt chỗ ở, biệt thự nghỉ dưỡng, khách sạn,
+                            tư nhân
                         </span>
                         <button className="nc-Button ttnc-ButtonPrimary bg-primary-6000 hover:bg-primary-700 relative mt-6 inline-flex h-auto items-center justify-center rounded-full px-4 py-3 text-sm  font-medium text-neutral-50 transition-colors disabled:bg-opacity-70 sm:mt-11 sm:px-6 sm:text-base ">
-                            Become an author
+                            Trở thành tác giả
                         </button>
                     </div>
                     <div className="flex-grow">
@@ -174,22 +240,22 @@ const Page: React.FunctionComponent = () => {
                 data-nc-id="SectionSubscribe2"
             >
                 <div className="mb-10 flex-shrink-0 lg:mb-0 lg:mr-10 lg:w-2/5">
-                    <h2 className="text-4xl font-semibold">Join our newsletter 🎉</h2>
+                    <h2 className="text-4xl font-semibold">Tham gia bản tin của chúng tôi 🎉</h2>
                     <span className="mt-5 block text-neutral-500 dark:text-neutral-400">
-                        Read and share new perspectives on just about any topic. Everyone’s welcome.
+                        Đọc và chia sẻ những quan điểm mới về bất kỳ chủ đề nào. Mọi người đều được chào đón.
                     </span>
                     <ul className="mt-10 space-y-4">
                         <li className="flex items-center space-x-4">
                             <span className="nc-Badge relative  inline-flex rounded-full bg-blue-100 px-2.5 py-1 text-xs font-medium  text-blue-800">
                                 01
                             </span>
-                            <span className="font-medium text-neutral-700 dark:text-neutral-300">Get more discount</span>
+                            <span className="font-medium text-neutral-700 dark:text-neutral-300">Nhận được nhiều ưu đãi hơn</span>
                         </li>
                         <li className="flex items-center space-x-4">
                             <span className="nc-Badge relative  inline-flex rounded-full bg-red-100 px-2.5 py-1 text-xs font-medium  text-red-800">
                                 02
                             </span>
-                            <span className="font-medium text-neutral-700 dark:text-neutral-300">Get premium magazines</span>
+                            <span className="font-medium text-neutral-700 dark:text-neutral-300">Nhận tạp chí cao cấp</span>
                         </li>
                     </ul>
                     <form className="relative mt-10 max-w-sm">
@@ -230,9 +296,9 @@ const Page: React.FunctionComponent = () => {
                 <div className="nc-SectionClientSay relative  ">
                     <div className="nc-Section-Heading relative mb-10 text-neutral-900 dark:text-neutral-50">
                         <div className="mx-auto mb-4 w-full max-w-2xl text-center">
-                            <h2 className="text-3xl font-semibold md:text-4xl">Good news from far away</h2>
+                            <h2 className="text-3xl font-semibold md:text-4xl">Tin vui từ phương xa</h2>
                             <span className="mt-2 block text-base font-normal text-neutral-500 dark:text-neutral-400 sm:text-lg md:mt-3">
-                                Let&apos;s see what people think of Chisfis
+                                Hãy xem mọi người nghĩ gì về Chisfis
                             </span>
                         </div>
                     </div>
@@ -345,7 +411,8 @@ const Page: React.FunctionComponent = () => {
                                     style={{ opacity: 1, transform: 'none' }}
                                 >
                                     <span className="block text-2xl">
-                                        This place is exactly like the picture posted on Chisfis. Great service, we had a great stay!
+                                        Nơi này giống hệt như hình ảnh được đăng trên Chisfis. Dịch vụ tuyệt vời, chúng tôi đã có một kỳ nghỉ tuyệt
+                                        vời!
                                     </span>
                                     <span className="mt-8 block text-2xl font-semibold">Tiana Abie</span>
                                     <div className="mt-2 flex items-center space-x-2 text-lg text-neutral-400">
@@ -457,27 +524,27 @@ const Page: React.FunctionComponent = () => {
                         <ul className="mt-5 space-y-4">
                             <li>
                                 <a className="text-neutral-6000 hover:text-black dark:text-neutral-300 dark:hover:text-white" href="#">
-                                    Design features
+                                    Đặc điểm thiết kế
                                 </a>
                             </li>
                             <li>
                                 <a className="text-neutral-6000 hover:text-black dark:text-neutral-300 dark:hover:text-white" href="#">
-                                    Prototyping
+                                    Nguyên mẫu
                                 </a>
                             </li>
                             <li>
                                 <a className="text-neutral-6000 hover:text-black dark:text-neutral-300 dark:hover:text-white" href="#">
-                                    Design systems
+                                    Hệ thống thiết kế
                                 </a>
                             </li>
                             <li>
                                 <a className="text-neutral-6000 hover:text-black dark:text-neutral-300 dark:hover:text-white" href="#">
-                                    Pricing
+                                    Định giá
                                 </a>
                             </li>
                             <li>
                                 <a className="text-neutral-6000 hover:text-black dark:text-neutral-300 dark:hover:text-white" href="#">
-                                    Security
+                                    Bảo mật
                                 </a>
                             </li>
                         </ul>
@@ -492,52 +559,52 @@ const Page: React.FunctionComponent = () => {
                             </li>
                             <li>
                                 <a className="text-neutral-6000 hover:text-black dark:text-neutral-300 dark:hover:text-white" href="#">
-                                    Support
+                                    Hỗ trợ
                                 </a>
                             </li>
                             <li>
                                 <a className="text-neutral-6000 hover:text-black dark:text-neutral-300 dark:hover:text-white" href="#">
-                                    Developers
+                                    Nhà phát triển
                                 </a>
                             </li>
                             <li>
                                 <a className="text-neutral-6000 hover:text-black dark:text-neutral-300 dark:hover:text-white" href="#">
-                                    Learn design
+                                    Học thiết kế
                                 </a>
                             </li>
                             <li>
                                 <a className="text-neutral-6000 hover:text-black dark:text-neutral-300 dark:hover:text-white" href="#">
-                                    Releases
+                                    Học lập trình
                                 </a>
                             </li>
                         </ul>
                     </div>
                     <div className="text-sm">
-                        <h2 className="font-semibold text-neutral-700 dark:text-neutral-200">Community</h2>
+                        <h2 className="font-semibold text-neutral-700 dark:text-neutral-200">Cộng đồng</h2>
                         <ul className="mt-5 space-y-4">
                             <li>
                                 <a className="text-neutral-6000 hover:text-black dark:text-neutral-300 dark:hover:text-white" href="#">
-                                    Discussion Forums
+                                    Forum
                                 </a>
                             </li>
                             <li>
                                 <a className="text-neutral-6000 hover:text-black dark:text-neutral-300 dark:hover:text-white" href="#">
-                                    Code of Conduct
+                                    Quy tắc cộng đồng
                                 </a>
                             </li>
                             <li>
                                 <a className="text-neutral-6000 hover:text-black dark:text-neutral-300 dark:hover:text-white" href="#">
-                                    Community Resources
+                                    Tài nguyên cộng đồng
                                 </a>
                             </li>
                             <li>
                                 <a className="text-neutral-6000 hover:text-black dark:text-neutral-300 dark:hover:text-white" href="#">
-                                    Contributing
+                                    Đóng góp
                                 </a>
                             </li>
                             <li>
                                 <a className="text-neutral-6000 hover:text-black dark:text-neutral-300 dark:hover:text-white" href="#">
-                                    Concurrent Mode
+                                    Sự kiện
                                 </a>
                             </li>
                         </ul>
