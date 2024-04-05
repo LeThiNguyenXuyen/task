@@ -21,7 +21,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         );
 
     return (
-        <div className="flex min-h-screen w-full flex-col">
+        <div className="flex-co flex min-h-screen w-full overflow-x-hidden">
             <Header />
             <div className="mt-20 flex h-full w-full flex-1 justify-center">{children}</div>
             {/* <Footer /> */}
