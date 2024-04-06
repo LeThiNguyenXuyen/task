@@ -7,6 +7,7 @@ import { Route as SettingLayoutImport } from './routes/_setting-layout'
 import { Route as LandlordLayoutImport } from './routes/_landlord-layout'
 import { Route as AuthLayoutImport } from './routes/_auth-layout'
 import { Route as IndexImport } from './routes/index'
+import { Route as PayOkIndexImport } from './routes/pay-ok/index'
 import { Route as SettingLayoutSettingIndexImport } from './routes/_setting-layout.setting/index'
 import { Route as LandlordLayoutLandlordIndexImport } from './routes/_landlord-layout.landlord/index'
 import { Route as SettingLayoutSettingPasswordImport } from './routes/_setting-layout.setting/password'
@@ -36,6 +37,11 @@ const AuthLayoutRoute = AuthLayoutImport.update({
 
 const IndexRoute = IndexImport.update({
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PayOkIndexRoute = PayOkIndexImport.update({
+  path: '/pay-ok/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -111,6 +117,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingLayoutImport
       parentRoute: typeof rootRoute
     }
+    '/pay-ok/': {
+      preLoaderRoute: typeof PayOkIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/_auth-layout/auth/login': {
       preLoaderRoute: typeof AuthLayoutAuthLoginImport
       parentRoute: typeof AuthLayoutImport
@@ -167,4 +177,5 @@ export const routeTree = rootRoute.addChildren([
     SettingLayoutSettingWalletWithdrawRoute,
     SettingLayoutSettingWalletIndexRoute,
   ]),
+  PayOkIndexRoute,
 ])
