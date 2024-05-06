@@ -1,10 +1,8 @@
 import * as React from 'react';
 
 import { useMutation } from '@tanstack/react-query';
-import { Button, PopconfirmProps } from 'antd';
+import { PopconfirmProps } from 'antd';
 import { Popconfirm } from 'antd/lib';
-import _get from 'lodash/get';
-import { toast } from 'react-toastify';
 
 interface CTAButtonProps {
     ctaApi: () => any;

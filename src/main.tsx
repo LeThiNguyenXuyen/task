@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import 'react-photo-view/dist/react-photo-view.css';
 
+import './core/i18n';
 import { routeTree } from './routeTree.gen';
 
 const queryClient = new QueryClient({

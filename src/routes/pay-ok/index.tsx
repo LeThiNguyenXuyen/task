@@ -1,11 +1,6 @@
 import React from 'react';
 
-import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { Button } from 'antd';
-
-import { subscriptionApi } from '@/core/api/subscription.api';
-import { useNKRouter } from '@/core/routing/hooks/NKRouter';
 
 const Page: React.FunctionComponent = () => {
     return (

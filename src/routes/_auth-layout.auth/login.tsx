@@ -1,19 +1,14 @@
 import * as React from 'react';
 
-import { createFileRoute, useParams, useSearch } from '@tanstack/react-router';
-import { Button } from 'antd';
+import { createFileRoute } from '@tanstack/react-router';
 import joi from 'joi';
-import { MdLockOutline, MdOutlineEmail } from 'react-icons/md';
 import { toast } from 'react-toastify';
 import Cookies from 'universal-cookie';
 
-import { NKConfig } from '@/core/NKConfig';
 import { NKConstant } from '@/core/NKConstant';
-import { NKRouter } from '@/core/NKRouter';
 import { authApi } from '@/core/api/auth.api';
-import NKFormWrapper from '@/core/components/form/NKFormWrapper';
-import NKTextField from '@/core/components/form/NKTextField';
-import { NKLink } from '@/core/routing/components/NKLink';
+import { NKFormType } from '@/core/components/form/NKForm';
+import NKFormBuilder from '@/core/components/form/NKFormBuilder';
 import { useNKSearch } from '@/core/routing/hooks/NKRouter';
 import { store } from '@/core/store';
 import { userActions } from '@/core/store/user';
@@ -39,7 +34,52 @@ const Page: React.FC<AuthLoginProps> = () => {
     return (
         <div className="fade-in w-full max-w-md rounded-2xl bg-white p-10">
             <h1 className="mb-2 text-xl font-semibold text-black">Đăng nhập</h1>
-            <NKFormWrapper
+            <NKFormBuilder
+                className="p-0"
+                apiAction={authApi.v1LoginEmail}
+                title=""
+                btnLabel="Đăng nhập"
+                defaultValues={{
+                    email: '',
+                    password: '',
+                }}
+                schema={{
+                    email: joi
+                        .string()
+                        .trim()
+                        .lowercase()
+                        .email({
+                            tlds: {
+                                allow: false,
+                            },
+                        })
+                        .required()
+                        .messages(NKConstant.MESSAGE_FORMAT),
+                    password: joi.string().trim().required().messages(NKConstant.MESSAGE_FORMAT),
+                }}
+                onExtraSuccessAction={(data: any) => {
+                    toast.success('Đăng nhập thành công');
+                    const cookies = new Cookies();
+                    cookies.set(NKConstant.TOKEN_COOKIE_KEY, data.token, {
+                        path: '/',
+                    });
+                    localStorage.setItem('isAds', '1');
+                    store.dispatch(userActions.setToken(data.token));
+                }}
+                fields={[
+                    {
+                        name: 'email',
+                        label: 'Email',
+                        type: NKFormType.TEXT,
+                    },
+                    {
+                        name: 'password',
+                        label: 'Mật Khẩu',
+                        type: NKFormType.PASSWORD,
+                    },
+                ]}
+            />
+            {/* <NKFormWrapper
                 apiAction={authApi.v1LoginEmail}
                 defaultValues={{
                     email: '',
@@ -138,7 +178,7 @@ const Page: React.FC<AuthLoginProps> = () => {
                         </div>
                     </div>
                 </div>
-            </NKFormWrapper>
+            </NKFormWrapper> */}
         </div>
     );
 };

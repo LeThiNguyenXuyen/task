@@ -8,7 +8,7 @@ import clsx from 'clsx';
 
 import { NKRouter } from '@/core/NKRouter';
 import AuthWrapper from '@/core/components/wrapper/AuthWrapper';
-import { NKLink } from '@/core/routing/components/NKLink';
+import NKLink from '@/core/routing/components/NKLink';
 import { useNKPathname } from '@/core/routing/hooks/NKPathname';
 
 interface LayoutProps {}
@@ -99,21 +99,6 @@ const Layout: React.FunctionComponent<LayoutProps> = () => {
                                                                             </span>
                                                                         )}
                                                                     </NKLink>
-                                                                    {/* <a href={subItem.href}>
-                                                                        <span
-                                                                            className={clsx(
-                                                                                'block rounded-md py-2 pl-9 pr-2 text-sm leading-6 text-gray-700 duration-200',
-                                                                                {
-                                                                                    'bg-tango text-white': subItem.href === pathname,
-                                                                                    'text-gray-700 hover:bg-tango-50': !Boolean(
-                                                                                        subItem.href === pathname,
-                                                                                    ),
-                                                                                },
-                                                                            )}
-                                                                        >
-                                                                            {subItem.name}
-                                                                        </span>
-                                                                    </a> */}
                                                                 </Disclosure.Button>
                                                             </li>
                                                         ))}

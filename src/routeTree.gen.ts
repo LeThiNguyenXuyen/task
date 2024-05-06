@@ -9,7 +9,6 @@ import { Route as AuthLayoutImport } from './routes/_auth-layout'
 import { Route as IndexImport } from './routes/index'
 import { Route as PayOkIndexImport } from './routes/pay-ok/index'
 import { Route as SettingLayoutSettingIndexImport } from './routes/_setting-layout.setting/index'
-import { Route as LandlordLayoutLandlordIndexImport } from './routes/_landlord-layout.landlord/index'
 import { Route as SettingLayoutSettingPasswordImport } from './routes/_setting-layout.setting/password'
 import { Route as AuthLayoutAuthLoginImport } from './routes/_auth-layout.auth/login'
 import { Route as SettingLayoutSettingWalletIndexImport } from './routes/_setting-layout.setting/wallet/index'
@@ -49,12 +48,6 @@ const SettingLayoutSettingIndexRoute = SettingLayoutSettingIndexImport.update({
   path: '/setting/',
   getParentRoute: () => SettingLayoutRoute,
 } as any)
-
-const LandlordLayoutLandlordIndexRoute =
-  LandlordLayoutLandlordIndexImport.update({
-    path: '/landlord/',
-    getParentRoute: () => LandlordLayoutRoute,
-  } as any)
 
 const SettingLayoutSettingPasswordRoute =
   SettingLayoutSettingPasswordImport.update({
@@ -129,10 +122,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingLayoutSettingPasswordImport
       parentRoute: typeof SettingLayoutImport
     }
-    '/_landlord-layout/landlord/': {
-      preLoaderRoute: typeof LandlordLayoutLandlordIndexImport
-      parentRoute: typeof LandlordLayoutImport
-    }
     '/_setting-layout/setting/': {
       preLoaderRoute: typeof SettingLayoutSettingIndexImport
       parentRoute: typeof SettingLayoutImport
@@ -169,7 +158,7 @@ export const routeTree = rootRoute.addChildren([
     AuthLayoutAuthForgotPasswordIndexRoute,
     AuthLayoutAuthRegisterIndexRoute,
   ]),
-  LandlordLayoutRoute.addChildren([LandlordLayoutLandlordIndexRoute]),
+  LandlordLayoutRoute,
   SettingLayoutRoute.addChildren([
     SettingLayoutSettingPasswordRoute,
     SettingLayoutSettingIndexRoute,

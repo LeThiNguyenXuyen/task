@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 import { NKRouter } from '@/core/NKRouter';
 import AuthWrapper from '@/core/components/wrapper/AuthWrapper';
-import { NKLink } from '@/core/routing/components/NKLink';
+import NKLink from '@/core/routing/components/NKLink';
 import { useNKPathname } from '@/core/routing/hooks/NKPathname';
 
 interface LayoutProps {}

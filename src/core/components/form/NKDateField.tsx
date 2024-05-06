@@ -17,11 +17,11 @@ interface NKDateFieldProps {
 
 type Props = NKDateFieldProps & NKFieldWrapperProps & React.ComponentProps<typeof DatePicker>;
 
-const NKDateField: React.FC<Props> = ({ name, isShow = true, label, labelClassName, theme = 'DEFAULT', icon, ...rest }) => {
+const NKDateField: React.FC<Props> = ({ name, isShow = true, label, labelClassName, theme = 'DEFAULT', icon, onChangeExtra, ...rest }) => {
     const formMethods = useFormContext();
 
     return (
-        <NKFieldWrapper labelClassName={labelClassName} isShow={isShow} label={label} name={name}>
+        <NKFieldWrapper labelClassName={labelClassName} isShow={isShow} label={label} name={name} onChangeExtra={onChangeExtra}>
             <Controller
                 name={name}
                 control={formMethods.control}

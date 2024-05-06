@@ -3,22 +3,17 @@ import * as React from 'react';
 import { Input, InputProps } from 'antd';
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { FormTheme } from '@/core/models/common';
-
 import NKFieldWrapper, { NKFieldWrapperProps } from './NKFieldWrapper';
 
-export interface NKTextFieldProps extends InputProps {
-    theme?: FormTheme;
-    icon?: React.ReactNode;
-}
+export interface NKTextFieldProps extends InputProps {}
 
 type Props = NKTextFieldProps & NKFieldWrapperProps;
 
-const NKTextField: React.FC<Props> = ({ name, isShow, label, labelClassName, ...rest }) => {
+const NKTextField: React.FC<Props> = ({ name, isShow, label, labelClassName, onChangeExtra, ...rest }) => {
     const formMethods = useFormContext();
 
     return (
-        <NKFieldWrapper labelClassName={labelClassName} isShow={isShow} label={label} name={name}>
+        <NKFieldWrapper labelClassName={labelClassName} isShow={isShow} label={label} name={name} onChangeExtra={onChangeExtra}>
             <Controller name={name} control={formMethods.control} render={({ field }) => <Input {...field} {...rest} className="w-full" />} />
         </NKFieldWrapper>
     );

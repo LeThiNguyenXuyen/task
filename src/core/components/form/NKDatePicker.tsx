@@ -1,8 +1,6 @@
 import * as React from 'react';
 
 import { DatePicker, DatePickerProps } from 'antd';
-import { DatePickerType } from 'antd/lib/date-picker';
-import { PickerBaseProps, PickerDateProps } from 'antd/lib/date-picker/generatePicker';
 import dayjs from 'dayjs';
 import { isDate } from 'lodash';
 import moment from 'moment';
@@ -14,11 +12,11 @@ export interface NKDatePickerProps {}
 
 type Props = NKDatePickerProps & NKFieldWrapperProps & DatePickerProps;
 
-const NKDatePicker: React.FC<Props> = ({ name, isShow = true, label, labelClassName, ...rest }) => {
+const NKDatePicker: React.FC<Props> = ({ name, isShow = true, label, labelClassName, onChangeExtra, ...rest }) => {
     const formMethods = useFormContext();
 
     return (
-        <NKFieldWrapper labelClassName={labelClassName} isShow={isShow} label={label} name={name}>
+        <NKFieldWrapper labelClassName={labelClassName} isShow={isShow} label={label} name={name} onChangeExtra={onChangeExtra}>
             <div>
                 <Controller
                     name={name}

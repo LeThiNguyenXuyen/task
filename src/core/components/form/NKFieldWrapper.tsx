@@ -4,15 +4,24 @@ import _ from 'lodash';
 import { useFormContext } from 'react-hook-form';
 
 export interface NKFieldWrapperProps {
-    label: string | React.ReactNode;
+    label: string;
     name: string;
     isShow?: boolean;
     labelClassName?: string;
+    onChangeExtra?: (value: any, path: string, formMethods: any) => void;
 }
 
-const NKFieldWrapper: React.FC<NKFieldWrapperProps & React.PropsWithChildren> = ({ children, isShow = true, label, labelClassName, name }) => {
+const NKFieldWrapper: React.FC<NKFieldWrapperProps & React.PropsWithChildren> = ({
+    children,
+    isShow = true,
+    label,
+    labelClassName,
+    name,
+    onChangeExtra,
+}) => {
     const formMethods = useFormContext();
     const [errorMessage, setErrorMessage] = React.useState<string>('');
+    const value = formMethods.watch(name);
 
     React.useEffect(() => {
         const error = _.get(formMethods.formState.errors, `${name}.message`, '') as string;
@@ -20,16 +29,22 @@ const NKFieldWrapper: React.FC<NKFieldWrapperProps & React.PropsWithChildren> = 
             setErrorMessage('');
             return;
         }
-        const formatError = error.split(' ').slice(1).join(' ');
-        setErrorMessage(formatError);
+
+        setErrorMessage(error);
     }, [formMethods.formState.errors]);
+
+    React.useEffect(() => {
+        if (!onChangeExtra) return;
+
+        onChangeExtra(value, name, formMethods);
+    }, [value]);
 
     return (
         <div className="flex w-full flex-col gap-1">
-            {isShow && (typeof label === 'string' ? <label className={labelClassName}>{label}</label> : label)}
+            {isShow && <label className={labelClassName ? labelClassName : 'text-sm text-black'}>{label}</label>}
             {children}
             {Boolean(errorMessage) && (
-                <div className="flex gap-1 text-sm text-red-500">
+                <div className="text-sm text-red-500">
                     {label} {errorMessage}
                 </div>
             )}

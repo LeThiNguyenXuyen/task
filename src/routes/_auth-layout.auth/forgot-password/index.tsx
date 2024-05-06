@@ -27,18 +27,19 @@ const Page: React.FC<PageProps> = () => {
 
     const router = useNKRouter();
 
-    const resendEmailMutation = useMutation(
-        () => {
-            return userAnonymousApi.v1PostCreateResetPassword({
+    const resendEmailMutation = useMutation({
+        mutationFn: async () => {
+            await userAnonymousApi.v1PostCreateResetPassword({
                 email,
             });
         },
-        {
-            onSuccess: () => {
-                toast.success('Gửi lại email thành công');
-            },
+        onError: (error) => {
+            toast.error(error.message);
         },
-    );
+        onSuccess: () => {
+            toast.success('Resend email success');
+        },
+    });
 
     const countDownMethods = useCountDown({
         total: 60,
