@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import clsx from 'clsx';
-import blotFormatter from 'quill-blot-formatter/dist/BlotFormatter';
+import blotFormatter from 'quill-blot-formatter';
 import { Controller, useFormContext } from 'react-hook-form';
 import ReactQuill, { Quill, QuillOptions } from 'react-quill';
 
@@ -102,7 +102,7 @@ const NKRichText: React.FC<NKRichTextProps> = ({
             <Controller
                 name={name}
                 control={formMethods.control}
-                render={({ field }) => (
+                render={({ field }: any) => (
                     <div
                         className={clsx(' h-full   rounded-lg border border-solid border-gray-100', {
                             'rounded-full ': theme === NKRichTextTheme.DEFAULT,

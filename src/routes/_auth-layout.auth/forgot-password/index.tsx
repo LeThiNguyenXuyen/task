@@ -8,9 +8,9 @@ import { toast } from 'react-toastify';
 
 import { NKConstant } from '@/core/NKConstant';
 import { NKRouter } from '@/core/NKRouter';
-import { IV1CreateResetPasswordDto, IV1UpdateResetPasswordDto, userAnonymousApi } from '@/core/api/user-anonymous.api';
-import NKFormWrapper from '@/core/components/form/NKFormWrapper';
-import NKTextField from '@/core/components/form/NKTextField';
+import { IV1UpdateResetPasswordDto, userAnonymousApi } from '@/core/api/user-anonymous.api';
+import { NKFormType } from '@/core/components/form/NKForm';
+import NKFormBuilder from '@/core/components/form/NKFormBuilder';
 import { useCountDown } from '@/core/hooks/useCountDown';
 import { NKLink } from '@/core/routing/components/NKLink';
 import { useNKRouter } from '@/core/routing/hooks/NKRouter';
@@ -52,8 +52,8 @@ const Page: React.FC<PageProps> = () => {
                 <div className="w-full">
                     {isShowSubmit ? (
                         <div className="fade-in mx-auto flex max-w-2xl flex-col gap-4">
-                            <NKFormWrapper<ForgotPasswordUpdateForm>
-                                key="forgot-password-update"
+                            <NKFormBuilder
+                                className="p-0"
                                 apiAction={(data) => {
                                     return userAnonymousApi.v1PutUpdateResetPassword({
                                         password: data.password,
@@ -73,51 +73,50 @@ const Page: React.FC<PageProps> = () => {
                                 onExtraSuccessAction={(data) => {
                                     router.push(NKRouter.auth.login());
                                 }}
+                                title=""
+                                fields={[
+                                    {
+                                        name: 'token',
+                                        type: NKFormType.TEXT,
+                                        label: 'Code',
+                                        span: 4,
+                                        fieldProps: {
+                                            placeholder: 'Enter code',
+                                        },
+                                    },
+                                    {
+                                        name: 'password',
+                                        type: NKFormType.PASSWORD,
+                                        label: 'New Password',
+                                        span: 4,
+                                        fieldProps: {
+                                            placeholder: 'Enter new password',
+                                        },
+                                    },
+                                    {
+                                        name: 'confirmPassword',
+                                        type: NKFormType.PASSWORD,
+                                        label: 'Confirm Password',
+                                        span: 4,
+                                        fieldProps: {
+                                            placeholder: 'Enter confirm password',
+                                        },
+                                    },
+                                ]}
+                                btnLabel="Update Password"
+                            />
+                            <Button
+                                htmlType="button"
+                                type="text"
+                                onClick={() => {
+                                    if (countDownMethods.isFinished) {
+                                        resendEmailMutation.mutate();
+                                        countDownMethods.reset();
+                                    }
+                                }}
                             >
-                                <div className="flex flex-col gap-3">
-                                    <NKTextField
-                                        name="token"
-                                        label="Code"
-                                        isShow={false}
-                                        autoComplete="off"
-                                        placeholder="Enter code"
-                                        theme={'AUTH'}
-                                        className="text-black"
-                                    />
-                                    <NKTextField
-                                        name="password"
-                                        label="New Password"
-                                        isShow={false}
-                                        type="password"
-                                        placeholder="Enter new password"
-                                        theme={'AUTH'}
-                                        className="text-black"
-                                    />
-                                    <NKTextField
-                                        name="confirmPassword"
-                                        label="Confirm Password"
-                                        isShow={false}
-                                        type="password"
-                                        placeholder="Enter confirm password"
-                                        theme={'AUTH'}
-                                        className="text-black"
-                                    />
-
-                                    <Button htmlType="submit">Update Password</Button>
-                                    <Button
-                                        htmlType="button"
-                                        type="text"
-                                        onClick={() => {
-                                            if (countDownMethods.isFinished) {
-                                                resendEmailMutation.mutate();
-                                                countDownMethods.reset();
-                                            }
-                                        }}
-                                    >
-                                        Resend {countDownMethods.isFinished ? '' : `${countDownMethods.time}s`}
-                                    </Button>
-                                </div>
-                            </NKFormWrapper>
+                                Resend {countDownMethods.isFinished ? '' : `${countDownMethods.time}s`}
+                            </Button>
                             <div className="flex items-center justify-center gap-1 text-center">
                                 <Button
                                     onClick={() => {
@@ -130,13 +129,16 @@ const Page: React.FC<PageProps> = () => {
                         </div>
                     ) : (
                         <div className="mx-auto flex max-w-2xl flex-col gap-4">
-                            <NKFormWrapper<IV1CreateResetPasswordDto>
-                                key="forgot-password"
-                                apiAction={async (dto) => {
-                                    const res = await userAnonymousApi.v1PostCreateResetPassword(dto);
+                            <NKFormBuilder
+                                className="p-0"
+                                apiAction={(data) => {
+                                    const res = userAnonymousApi.v1PostCreateResetPassword({
+                                        email: data.email,
+                                    });
+
                                     return {
                                         ...res,
-                                        email: dto.email,
+                                        email: data.email,
                                     };
                                 }}
                                 defaultValues={{
@@ -156,20 +158,20 @@ const Page: React.FC<PageProps> = () => {
                                     setIsShowSubmit(true);
                                     setEmail(data.email);
                                 }}
-                            >
-                                <div className="flex flex-col gap-3">
-                                    <NKTextField
-                                        name="email"
-                                        label="Email"
-                                        isShow={false}
-                                        placeholder="Nhập email"
-                                        theme={'AUTH'}
-                                        className="text-black"
-                                    />
-
-                                    <Button htmlType="submit">Send to Email</Button>
-                                </div>
-                            </NKFormWrapper>
+                                title=""
+                                fields={[
+                                    {
+                                        name: 'email',
+                                        type: NKFormType.TEXT,
+                                        label: 'Email',
+                                        span: 4,
+                                        fieldProps: {
+                                            placeholder: 'Enter email',
+                                        },
+                                    },
+                                ]}
+                                btnLabel="Send to Email"
+                            />
                             <div className="flex items-center justify-center gap-1 text-center">
                                 <div>Go Back? </div>
                                 <NKLink href={NKRouter.auth.login()}>
