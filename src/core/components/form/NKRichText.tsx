@@ -1,50 +1,65 @@
 import * as React from 'react';
 
 import clsx from 'clsx';
-import BlotFormatter from 'quill-blot-formatter';
+import blotFormatter from 'quill-blot-formatter';
 import { Controller, useFormContext } from 'react-hook-form';
 import ReactQuill, { Quill, QuillOptions } from 'react-quill';
 
 import { uploadFileApi } from '@/core/api/upload-file.api';
-import { FormTheme } from '@/core/models/common';
 
-import NKFieldWrapper, { NKFieldWrapperProps } from './NKFieldWrapper';
+import NKFieldWrapper from './NKFieldWrapper';
 
 const BaseImageFormat = Quill.import('formats/image');
 const ImageFormatAttributesList = ['alt', 'height', 'width', 'style'];
-// class ImageFormat extends BaseImageFormat {
-//     static formats(domNode: any) {
-//         return ImageFormatAttributesList.reduce(function (formats, attribute) {
-//             if (domNode.hasAttribute(attribute)) {
-//                 (formats as Record<any, any>)[attribute] = domNode.getAttribute(attribute);
-//             }
-//             return formats;
-//         }, {});
-//     }
-//     format(name: any, value: any) {
-//         if (ImageFormatAttributesList.indexOf(name) > -1) {
-//             if (value) {
-//                 this.domNode.setAttribute(name, value);
-//             } else {
-//                 this.domNode.removeAttribute(name);
-//             }
-//         } else {
-//             super.format(name, value);
-//         }
-//     }
-// }
-// Quill.register(ImageFormat, true);
-// Quill.register('modules/blotFormatter', BlotFormatter);
+class ImageFormat extends BaseImageFormat {
+    static formats(domNode: any) {
+        return ImageFormatAttributesList.reduce(function (formats, attribute) {
+            if (domNode.hasAttribute(attribute)) {
+                (formats as Record<any, any>)[attribute] = domNode.getAttribute(attribute);
+            }
+            return formats;
+        }, {});
+    }
+    format(name: any, value: any) {
+        if (ImageFormatAttributesList.indexOf(name) > -1) {
+            if (value) {
+                this.domNode.setAttribute(name, value);
+            } else {
+                this.domNode.removeAttribute(name);
+            }
+        } else {
+            super.format(name, value);
+        }
+    }
+}
+Quill.register(ImageFormat, true);
+Quill.register('modules/blotFormatter', blotFormatter);
+
+export enum NKRichTextTheme {
+    DEFAULT = 'DEFAULT',
+}
 export interface NKRichTextProps extends QuillOptions {
-    className?: string;
-    theme?: FormTheme;
+    name: string;
+    label: string;
+    isShow?: boolean;
+    labelClassName?: string;
+    extraProps?: any;
+    theme?: NKRichTextTheme;
     icon?: React.ReactNode;
+    className?: string;
 }
 
-type Props = NKRichTextProps & NKFieldWrapperProps;
-
-const NKRichText: React.FC<Props> = ({ name, isShow = true, label, labelClassName, icon, theme, className, ...rest }) => {
-    const formMethods = useFormContext();
+const NKRichText: React.FC<NKRichTextProps> = ({
+    name,
+    label,
+    extraProps,
+    icon,
+    isShow = true,
+    labelClassName,
+    theme = NKRichTextTheme.DEFAULT,
+    className = '',
+    ...rest
+}) => {
     const editorRef = React.useRef<ReactQuill>(null);
     const [isShowEditor, setIsShowEditor] = React.useState<boolean>(false);
 
@@ -70,6 +85,7 @@ const NKRichText: React.FC<Props> = ({ name, isShow = true, label, labelClassNam
         const range = editor.getSelection();
         if (range) editor.insertEmbed(range.index, 'image', `${imageUrl}`);
     };
+    const formMethods = useFormContext();
 
     React.useEffect(() => {
         if (editorRef.current) {
@@ -86,10 +102,10 @@ const NKRichText: React.FC<Props> = ({ name, isShow = true, label, labelClassNam
             <Controller
                 name={name}
                 control={formMethods.control}
-                render={({ field }) => (
+                render={({ field }: any) => (
                     <div
-                        className={clsx(' h-full ', {
-                            'rounded-full bg-[#E6EEFA]/50': theme === 'DEFAULT',
+                        className={clsx(' h-full   rounded-lg border border-solid border-gray-100', {
+                            'rounded-full ': theme === NKRichTextTheme.DEFAULT,
                             'hide-toolbar': !isShowEditor,
                         })}
                     >
@@ -99,7 +115,7 @@ const NKRichText: React.FC<Props> = ({ name, isShow = true, label, labelClassNam
                             {...field}
                             onFocus={() => setIsShowEditor(true)}
                             onBlur={() => setIsShowEditor(false)}
-                            className={clsx('rounded-md border border-black bg-white', className)}
+                            className={clsx('', className)}
                             modules={{
                                 toolbar: [
                                     // [{ header: [1, 2, 3, 4, false] }],

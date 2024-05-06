@@ -38,7 +38,7 @@ const CTAUploadFile: React.FC<CTAUploadFileProps> = ({ description }) => {
                 }}
                 showUploadList={false}
             >
-                {uploadMutation.isLoading ? (
+                {uploadMutation.isPending ? (
                     <>
                         <LoadingOutlined rev="" />{' '}
                     </>

@@ -2,34 +2,30 @@ import * as React from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { Button } from 'antd';
 import Joi from 'joi';
 import { toast } from 'react-toastify';
 
 import { NKConstant } from '@/core/NKConstant';
-import { IV1UpdateProfileDto, meApi } from '@/core/api/me.api';
-import { userApi } from '@/core/api/user.api';
-import FieldBadgeApi from '@/core/components/field/FieldBadgeApi';
-import NKDateField from '@/core/components/form/NKDateField';
-import NKFormWrapper from '@/core/components/form/NKFormWrapper';
-import NKLocationField from '@/core/components/form/NKLocationField';
-import NKTextField from '@/core/components/form/NKTextField';
-import NKTextareaField from '@/core/components/form/NKTextareaField';
-import NKUploadImage from '@/core/components/form/NKUploadImage';
+import { meApi } from '@/core/api/me.api';
+import { NKFormType } from '@/core/components/form/NKForm';
+import NKFormBuilder from '@/core/components/form/NKFormBuilder';
 
 interface PageProps {}
 
 const Page: React.FunctionComponent<PageProps> = () => {
-    const meQuery = useQuery(['me'], async () => {
-        const res = await meApi.v1Get();
-        return res;
+    const meQuery = useQuery({
+        queryKey: ['me'],
+        queryFn: meApi.v1Get,
     });
+
+    if (meQuery.isLoading) return <div>Loading...</div>;
 
     return (
         <div className="flex flex-col gap-6 text-black">
             <h1 className="text-2xl font-semibold text-black">Hồ sơ</h1>
-            <NKFormWrapper<IV1UpdateProfileDto>
-                isLoading={meQuery.isLoading}
+            <NKFormBuilder
+                className="p-0"
+                title=""
                 apiAction={meApi.v1Put}
                 schema={{
                     address: Joi.string().optional().empty().messages(NKConstant.MESSAGE_FORMAT),
@@ -57,40 +53,52 @@ const Page: React.FunctionComponent<PageProps> = () => {
                     toast.success('Cập nhật thành công');
                     meQuery.refetch();
                 }}
-                isDebug
-            >
-                {({ isChange, isFetching }) => (
-                    <div className="grid w-full grid-cols-4 gap-x-4 gap-y-2">
-                        <div className="col-span-full">
-                            <NKUploadImage name="avatar" label="Ảnh đại diện" listType="picture-circle" />
-                        </div>
-                        <div className="col-span-4">
-                            <NKTextareaField name="bio" label="Thông tin về bạn" />
-                        </div>
-                        <div className="col-span-2">
-                            <NKTextField name="name" label="Họ và tên" />
-                        </div>
-                        <div className="col-span-2">
-                            <NKTextField name="nickname" label="Tên hiển thị" />
-                        </div>
-
-                        <div className="col-span-4">
-                            <NKLocationField name="address" label="Địa chỉ" />
-                        </div>
-                        <div className="col-span-2">
-                            <NKTextField name="phone" label="Số điện thoại" />
-                        </div>
-                        <div className="col-span-2">
-                            <NKDateField name="dob" label="Ngày sinh" />
-                        </div>
-                        <div className="col-span-full mt-6 flex  w-full justify-end">
-                            <Button type="primary" className="bg-tango" htmlType="submit" disabled={!isChange} loading={isFetching}>
-                                Lưu
-                            </Button>
-                        </div>
-                    </div>
-                )}
-            </NKFormWrapper>
+                fields={[
+                    {
+                        name: 'avatar',
+                        type: NKFormType.UPLOAD_IMAGE,
+                        label: 'Ảnh đại diện',
+                        span: 4,
+                    },
+                    {
+                        name: 'bio',
+                        type: NKFormType.TEXTAREA,
+                        label: 'Thông tin về bạn',
+                        span: 4,
+                    },
+                    {
+                        name: 'name',
+                        type: NKFormType.TEXT,
+                        label: 'Họ và tên',
+                        span: 2,
+                    },
+                    {
+                        name: 'nickname',
+                        type: NKFormType.TEXT,
+                        label: 'Tên hiển thị',
+                        span: 2,
+                    },
+                    {
+                        name: 'address',
+                        type: NKFormType.TEXT,
+                        label: 'Địa chỉ',
+                        span: 4,
+                    },
+                    {
+                        name: 'phone',
+                        type: NKFormType.TEXT,
+                        label: 'Số điện thoại',
+                        span: 2,
+                    },
+                    {
+                        name: 'dob',
+                        type: NKFormType.DATE,
+                        label: 'Ngày sinh',
+                        span: 2,
+                    },
+                ]}
+                btnLabel="Lưu"
+            />
         </div>
     );
 };

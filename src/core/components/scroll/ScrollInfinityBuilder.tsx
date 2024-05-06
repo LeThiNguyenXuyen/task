@@ -1,68 +1,95 @@
 import * as React from 'react';
 
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { Loader2 } from 'lucide-react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { IPagingDto, ResponseList } from '@/core/models/common';
+import { cn } from '@/core/utils/tailwind';
 
-interface ScrollInfinityBuilderProps {
+interface ScrollInfinityBuilderProps<T = any> {
     sourceKey: string;
-    queryApi: (dto: IPagingDto) => Promise<ResponseList<any>>;
+    apiAction: (dto: IPagingDto) => Promise<ResponseList<T>>;
     pageSize?: number;
-    render: (item: any, index: number) => React.ReactNode;
+    render: (item: T, index: number) => React.ReactNode;
     className?: string;
     filters?: string[];
+    scrollableTarget?: string;
+    style?: React.CSSProperties;
+    height?: number;
+    children: (loading: boolean, data: T[]) => React.ReactNode;
 }
 
-const ScrollInfinityBuilder: React.FC<ScrollInfinityBuilderProps> = ({ sourceKey, queryApi, pageSize = 10, filters = [], render, className }) => {
-    const [currentData, setCurrentData] = React.useState<any[]>([]);
-
-    const [page, setPage] = React.useState(0);
-    const [isHasMore, setIsHasMore] = React.useState(true);
-
-    const _ = useQuery(
-        [sourceKey, 'paging', page, filters],
-        async () => {
-            const res = await queryApi({
-                page: page,
-                pageSize: pageSize,
-                orderBy: ['createdAt||DESC'],
+const NKScrollInfinityBuilder = <
+    T extends {
+        id: string;
+    } = {
+        id: string;
+    },
+>({
+    sourceKey,
+    apiAction,
+    pageSize = 10,
+    filters = [],
+    className,
+    scrollableTarget,
+    style,
+    height,
+    children,
+}: ScrollInfinityBuilderProps<T>) => {
+    const infiniteQuery = useInfiniteQuery({
+        queryKey: [sourceKey],
+        queryFn: async ({ pageParam = 0 }) => {
+            const data = await apiAction({
+                page: pageParam,
+                pageSize,
                 filters,
+                orderBy: ['createdAt||DESC'],
             });
 
-            return res.data;
+            return {
+                ...data,
+                prevPage: pageParam,
+            };
         },
-        {
-            initialData: [],
-            onSuccess: (data) => {
-                if (data.length === 0) {
-                    setIsHasMore(false);
-                }
+        getNextPageParam: (lastPage) => {
+            if (lastPage.prevPage + 1 >= lastPage.totalPage) {
+                return undefined;
+            }
 
-                const newData = [...currentData, ...data].filter((item, index, self) => self.findIndex((t) => t.id === item.id) === index);
-                setCurrentData(newData);
-            },
+            return lastPage.prevPage + 1;
         },
-    );
+        refetchOnReconnect: false,
+        refetchOnWindowFocus: false,
+        initialPageParam: 0,
+    });
+
+    const data = infiniteQuery.data?.pages.map((page) => page.data).flat() || [];
 
     return (
         <InfiniteScroll
-            className={className}
-            dataLength={currentData.length}
-            next={() => setPage(page + 1)}
-            endMessage={
-                <div className="col-span-4 flex items-center justify-center py-1 text-xs opacity-25">
-                    <b>Hết dữ liệu</b>
+            className={cn(
+                {
+                    'flex items-center justify-center': infiniteQuery.isLoading,
+                },
+                className,
+            )}
+            dataLength={data.length}
+            next={() => infiniteQuery.fetchNextPage()}
+            endMessage={<div className="col-span-3 flex items-center justify-center py-1 text-xs opacity-25"></div>}
+            hasMore={infiniteQuery.hasNextPage || false}
+            loader={
+                <div className="col-span-3 flex items-center justify-center py-4">
+                    <Loader2 className="text-primary h-4 w-4 animate-spin" />
                 </div>
             }
-            hasMore={isHasMore}
-            loader={<div className="col-span-4 flex items-center justify-center py-4">loading...</div>}
+            scrollableTarget={scrollableTarget}
+            style={style}
+            height={height}
         >
-            {currentData.map((item, index) => {
-                return render(item, index);
-            })}
+            {children(infiniteQuery.isLoading, data)}
         </InfiniteScroll>
     );
 };
 
-export default ScrollInfinityBuilder;
+export default NKScrollInfinityBuilder;

@@ -1,14 +1,16 @@
 import * as React from 'react';
 
-import _ from 'lodash';
-
 import NKBooleanInput, { NKBooleanInputProps } from './NKBooleanInput';
 import NKDatePicker, { NKDatePickerProps } from './NKDatePicker';
-import NKLocationField, { NKLocationFieldProps } from './NKLocationField';
+import NKDateRangePicker, { NKDateRangeProps } from './NKDateRangePicker';
+import NKInputNumber, { NKInputNumberProps } from './NKInputNumber';
 import NKRichText, { NKRichTextProps } from './NKRichText';
 import NKSelectApiOption, { NKSelectApiOptionProps } from './NKSelectApiOption';
+import NKSelectIcon, { NKSelectIconProps } from './NKSelectIcon';
+import NKSelectMultiApiOption, { NKSelectMultiApiOptionProps } from './NKSelectMultiApiOption';
 import NKTextField, { NKTextFieldProps } from './NKTextField';
 import NKTextareaField, { NKTextAreaFieldProps } from './NKTextareaField';
+import NKTimeRangePicker, { NKTimeRangeProps } from './NKTimeRangePicker';
 import NKUploadImage, { NKUploadImageProps } from './NKUploadImage';
 import NKUploadMultipleImage, { NKUploadMultipleImageProps } from './NKUploadMultipleImage';
 import NKWatchDisplay, { NKWatchDisplayProps } from './NKWatchDisplay';
@@ -23,7 +25,9 @@ export enum NKFormType {
     DATE_MONTH = 'date_month',
     DATE_QUARTER = 'date_quarter',
     DATE_YEAR = 'date_year',
+    DATE_RANGE = 'date_range',
     SELECT_API_OPTION = 'select_api_option',
+    SELECT_MULTI_API_OPTION = 'select_multi_api_option',
     SELECT_ICON = 'select_icon',
     UPLOAD_IMAGE = 'upload_image',
     MULTI_UPLOAD_IMAGE = 'multi_upload_image',
@@ -31,8 +35,7 @@ export enum NKFormType {
     BOOLEAN = 'boolean',
     RICH_TEXT = 'rich_text',
     WATCH_DISPLAY = 'watch_display',
-    LOCATION_NAME = 'location_name',
-    LOCATION_PLACE = 'location_place',
+    TIME_RANGE = 'time_range',
 }
 
 interface NKFormProps {
@@ -54,11 +57,14 @@ export type FieldProps = NKFormProps &
         | NKRequireFieldsProps<NKFormType.SELECT_API_OPTION, NKSelectApiOptionProps>
         | NKFieldsProps<NKFormType.UPLOAD_IMAGE, NKUploadImageProps>
         | NKFieldsProps<NKFormType.MULTI_UPLOAD_IMAGE, NKUploadMultipleImageProps>
+        | NKFieldsProps<NKFormType.NUMBER, NKInputNumberProps>
         | NKFieldsProps<NKFormType.BOOLEAN, NKBooleanInputProps>
         | NKFieldsProps<NKFormType.WATCH_DISPLAY, NKWatchDisplayProps>
         | NKFieldsProps<NKFormType.RICH_TEXT, NKRichTextProps>
-        | NKFieldsProps<NKFormType.LOCATION_NAME, NKLocationFieldProps>
-        | NKFieldsProps<NKFormType.LOCATION_PLACE, NKLocationFieldProps>
+        | NKFieldsProps<NKFormType.SELECT_ICON, NKSelectIconProps>
+        | NKRequireFieldsProps<NKFormType.SELECT_MULTI_API_OPTION, NKSelectMultiApiOptionProps>
+        | NKFieldsProps<NKFormType.DATE_RANGE, NKDateRangeProps>
+        | NKFieldsProps<NKFormType.TIME_RANGE, NKTimeRangeProps>
     );
 
 interface NKFieldsProps<Type, IField> {
@@ -93,7 +99,8 @@ const NKForm: React.FC<FieldProps> = ({ label, name, type, fieldProps }) => {
             return <NKDatePicker name={name} label={label} picker="year" {...fieldProps} />;
         case NKFormType.UPLOAD_IMAGE:
             return <NKUploadImage name={name} label={label} maxCount={1} {...fieldProps} />;
-
+        case NKFormType.NUMBER:
+            return <NKInputNumber name={name} label={label} {...fieldProps} />;
         case NKFormType.MULTI_UPLOAD_IMAGE:
             return <NKUploadMultipleImage name={name} label={label} {...fieldProps} />;
         case NKFormType.BOOLEAN:
@@ -104,11 +111,14 @@ const NKForm: React.FC<FieldProps> = ({ label, name, type, fieldProps }) => {
             return <NKWatchDisplay name={name} label={label} {...fieldProps} />;
         case NKFormType.SELECT_API_OPTION:
             return <NKSelectApiOption name={name} label={label} {...fieldProps} />;
-        case NKFormType.LOCATION_NAME:
-            return <NKLocationField name={name} label={label} {...fieldProps} valueField="name" />;
-        case NKFormType.LOCATION_PLACE:
-            return <NKLocationField name={name} label={label} {...fieldProps} valueField="placeId" />;
-
+        case NKFormType.SELECT_ICON:
+            return <NKSelectIcon name={name} label={label} {...fieldProps} />;
+        case NKFormType.SELECT_MULTI_API_OPTION:
+            return <NKSelectMultiApiOption name={name} label={label} {...fieldProps} />;
+        case NKFormType.DATE_RANGE:
+            return <NKDateRangePicker name={name} label={label} {...fieldProps} />;
+        case NKFormType.TIME_RANGE:
+            return <NKTimeRangePicker name={name} label={label} {...fieldProps} />;
         default:
             return <NKTextField name={name} label={label} {...(fieldProps as any)} />;
     }

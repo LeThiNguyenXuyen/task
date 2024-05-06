@@ -4,18 +4,18 @@ import { Button, ButtonProps, Modal } from 'antd';
 
 interface ModalBuilderProps {
     btnLabel: string | React.ReactNode;
-    modalTitle: string;
+    title?: string;
     btnProps?: ButtonProps;
     children: React.ReactNode | ((close: () => void) => React.ReactNode);
     className?: string;
     width?: string;
 }
 
-const ModalBuilder: React.FC<ModalBuilderProps> = ({ btnLabel, modalTitle, btnProps, children, className, width }) => {
+const NKModalBuilder: React.FC<ModalBuilderProps> = ({ btnLabel, title: modalTitle, btnProps, children, className, width }) => {
     const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
 
     return (
-        <div>
+        <>
             <Button {...btnProps} onClick={() => setIsDrawerOpen(true)}>
                 {btnLabel}
             </Button>
@@ -28,11 +28,11 @@ const ModalBuilder: React.FC<ModalBuilderProps> = ({ btnLabel, modalTitle, btnPr
                     onCancel={() => setIsDrawerOpen(false)}
                     title={modalTitle}
                 >
-                    {typeof children === 'function' ? children(() => setIsDrawerOpen(false)) : children}
+                    {isDrawerOpen && <>{typeof children === 'function' ? children(() => setIsDrawerOpen(false)) : children}</>}
                 </Modal>
             )}
-        </div>
+        </>
     );
 };
 
-export default ModalBuilder;
+export default NKModalBuilder;

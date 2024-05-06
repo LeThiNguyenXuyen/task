@@ -3,25 +3,20 @@ import * as React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { Descriptions } from 'antd';
-import _get from 'lodash/get';
 
 import { meWalletApi } from '@/core/api/me-wallet.api';
-import { meApi } from '@/core/api/me.api';
 import { userWalletTransactionApi } from '@/core/api/user-wallet-transaction.api';
-import FieldBadgeApi from '@/core/components/field/FieldBadgeApi';
-import { FieldType } from '@/core/components/field/FieldDisplay';
-import FieldTime from '@/core/components/field/FieldTime';
-import TableBuilder from '@/core/components/table/TableBuilder';
+import { FieldType } from '@/core/components/field/NKFieldDisplay';
+import TableBuilder from '@/core/components/table/NkTableBuilder';
 import { FilterComparator } from '@/core/models/common';
-import { UserWalletTransaction } from '@/core/models/userWalletTransaction';
 import { formatMoneyVND } from '@/core/utils/string.helper';
 
 interface PageProps {}
 
 const Page: React.FunctionComponent<PageProps> = () => {
-    const meWallet = useQuery(['me-wallet'], async () => {
-        const res = await meWalletApi.v1Get();
-        return res;
+    const meWallet = useQuery({
+        queryKey: ['me-wallet'],
+        queryFn: meWalletApi.v1Get,
     });
 
     return (
@@ -39,19 +34,19 @@ const Page: React.FunctionComponent<PageProps> = () => {
                 <TableBuilder
                     columns={[
                         {
-                            key: 'amount',
+                            name: 'amount',
                             title: 'Số Tiền',
                             type: FieldType.NUMBER,
                         },
                         {
-                            key: 'status',
+                            name: 'status',
                             width: 120,
                             title: 'Trạng thái',
                             type: FieldType.BADGE_API,
                             apiAction: userWalletTransactionApi.v1GetEnumStatus,
                         },
                         {
-                            key: 'type',
+                            name: 'type',
                             width: 120,
                             title: 'Loại',
                             type: FieldType.BADGE_API,
@@ -59,14 +54,14 @@ const Page: React.FunctionComponent<PageProps> = () => {
                         },
 
                         {
-                            key: 'createdAt',
+                            name: 'createdAt',
                             width: 200,
                             title: 'Thời gian tạo',
                             type: FieldType.TIME_FULL,
                         },
                     ]}
                     extraFilter={[`userWallet.id||${FilterComparator.EQUAL}||${meWallet.data?.id}`]}
-                    queryApi={userWalletTransactionApi.v1Get}
+                    apiAction={userWalletTransactionApi.v1Get}
                     sourceKey="transaction"
                     title=""
                 />
