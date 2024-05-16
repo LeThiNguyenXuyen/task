@@ -8,24 +8,16 @@ export function AntdConfigProvider({ children }: ProviderProps) {
     return (
         <ConfigProvider
             theme={{
-                algorithm:
-                    // nowTheme === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
-                    theme.defaultAlgorithm,
+                algorithm: theme.defaultAlgorithm,
                 token: {
-                    borderRadius: 8,
-                    colorPrimary: '#EA6D22',
-                    colorInfo: '#EA6D22',
-                    colorPrimaryActive: '#EA6D22',
-                    // colorBgBase: '#F4F7FE',
-                    // colorBgLayout: '#F4F7FE',
+                    borderRadius: 4,
+                    colorPrimary: '#FF7364',
+                    colorInfo: '#FF7364',
+                    colorPrimaryActive: '#FF7364',
                 },
                 components: {
                     Menu: {
-                        // itemBg: '#FADCCA',
-                        itemSelectedColor: '#EA6D22',
-                    },
-                    Table: {
-                        // colorBgContainer: '#F4F7FE',
+                        itemSelectedColor: '#FF7364',
                     },
                     Layout: {
                         colorBgBody: '#F4F7FE',

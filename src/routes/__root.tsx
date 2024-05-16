@@ -5,7 +5,6 @@ import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 import { ToastContainer } from 'react-toastify';
 
 import ThemeProvider from '@/core/components/common/ThemeProvider';
-import MainLayout from '@/core/components/layout/MainLayout';
 import TryAuthWrapper from '@/core/components/wrapper/TryAuthWrapper';
 import { Providers } from '@/core/store/provider';
 
@@ -19,14 +18,9 @@ const RootLayout: React.FunctionComponent<RootLayoutProps> = () => {
         <Providers>
             <TryAuthWrapper>
                 <ThemeProvider>
-                    {/* <CartProvider> */}
-                    <MainLayout>
-                        <Outlet />
-                    </MainLayout>
-                    {/* </CartProvider> */}
+                    <Outlet />
                     <ToastContainer closeButton={false} theme="colored" autoClose={4000} limit={2} />
                     <TanStackRouterDevtools position="bottom-right" />
-                    {/* </DynamicLayout> */}
                 </ThemeProvider>
             </TryAuthWrapper>
         </Providers>

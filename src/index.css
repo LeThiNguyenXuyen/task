@@ -59,3 +59,18 @@
     flex-direction: column;
     gap: 4px;
 }
+
+.container-app {
+    max-width: 1492px;
+    margin: 0 auto;
+    padding: 0 16px;
+    width: 100%;
+}
+
+.ant-btn-primary {
+    background-color: #ff7364;
+}
+
+body {
+    color: #302f5b;
+}
