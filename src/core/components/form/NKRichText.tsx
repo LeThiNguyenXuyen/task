@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import clsx from 'clsx';
-import blotFormatter from 'quill-blot-formatter';
+import blotFormatter from 'quill-blot-formatter/dist/BlotFormatter';
 import { Controller, useFormContext } from 'react-hook-form';
 import ReactQuill, { Quill, QuillOptions } from 'react-quill';
 
