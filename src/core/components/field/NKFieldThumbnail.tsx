@@ -1,15 +1,8 @@
-'use client';
-
 import * as React from 'react';
-
-
 
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 
-
-
 import FieldImage from './NKFieldImage';
-
 
 interface FieldThumbnailProps {
     value: string;
