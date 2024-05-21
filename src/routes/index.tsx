@@ -24,6 +24,7 @@ import {
 
 import ButtonSecondary from '@/core/components/buttons/ButtonSecondary';
 import NKLink from '@/core/routing/components/NKLink';
+import { formatNumber } from '@/core/utils/number.helper';
 import { cn } from '@/core/utils/tailwind';
 
 const BRANDS = [
@@ -38,26 +39,26 @@ const BRANDS = [
 
 const PROCESS_CARDS = [
     {
-        title: ' Input Processing                                    ',
-        desc: ' The chatbot receives user’s message or query and uses nLP.                                        ',
+        title: 'Nhập nguyên liệu',
+        desc: 'Người dùng nhập nguyên liệu cần tìm kiếm.',
         img: '/assets/images/svg-image-4.svg',
         mt: 0,
     },
     {
-        title: 'Holistic perception',
-        desc: 'The chatbot understands the user’s query and context.',
+        title: 'Hiểu yêu cầu',
+        desc: 'Chatbot hiểu yêu cầu của người dùng.',
         img: '/assets/images/svg-image-5.svg',
         mt: 40,
     },
     {
-        title: 'Query Processing',
-        desc: 'The chatbot processes the user’s query and provides a response.',
+        title: 'Xử lý yêu cầu',
+        desc: 'Chatbot xử lý yêu cầu của người dùng.',
         img: '/assets/images/svg-image-6.svg',
         mt: 0,
     },
     {
-        title: 'Output Delivery',
-        desc: 'The chatbot delivers the response to the user.',
+        title: 'Phản hồi',
+        desc: 'Đưa ra kết quả món ăn phù hợp với nguyên liệu.',
         img: '/assets/images/svg-image-7.svg',
         mt: 40,
     },
@@ -65,48 +66,42 @@ const PROCESS_CARDS = [
 
 const FEATURE_CARDS = [
     {
-        title: ' Authentication',
-        desc: 'The chatbot authenticates the user and provides access to the system.',
+        title: 'An toàn',
+        desc: 'Công thức an toàn, không gây hại cho sức khỏe.',
         icon: Lightbulb,
     },
     {
-        title: 'Voice',
-        desc: 'The chatbot processes the user’s query and provides a response.',
+        title: 'Dễ dàng',
+        desc: 'Dễ dàng sử dụng, không cần kỹ năng nấu ăn.',
         icon: BellIcon,
     },
     {
-        title: 'Api',
-        desc: 'Chatbot uses APIs to fetch data and provide responses to the user.',
+        title: 'Tiết kiệm thời gian',
+        desc: 'Không cần lo nghĩ hôm nay nấu gì.',
         icon: ClipboardList,
     },
     {
-        title: 'Gated Flow',
-        desc: 'The chatbot uses a gated flow to guide the user through the conversation.',
+        title: 'Hướng dẫn',
+        desc: 'Hướng dẫn cách nấu ăn chi tiết.',
         icon: PieChart,
     },
 ];
 
-const FEATURE_LIST_CHECK = ['Boost SEO ranking', 'Marketing', 'Visual Reviews', 'Social Sharing', 'Retention', 'Reviews'];
+const FEATURE_LIST_CHECK = ['Gợi ý công thức nấu ăn', 'Hiển thị lượng calo', 'Đưa ra địa chỉ mua nguyên liệu', 'Hướng dẫn cách nấu ăn'];
 
 const PRICING_LIST = [
     {
-        name: 'starter',
-        price: 25,
-        type: 'month',
-        items: ['5 chatbot', '200 subscribers', '1000 monthly message'],
+        name: 'Miễn Phí',
+        price: 0,
+        type: 'Tháng',
+        items: ['Gợi ý công thức nấu ăn', 'Hướng dẫn cách nấu ăn'],
     },
     {
-        name: 'professional',
-        price: 199,
-        type: 'year',
-        items: ['150 chatbot', '1000 subscribers', '10000 monthly message', 'Provide watermark', 'Internal support services'],
+        name: 'Premium',
+        price: 99000,
+        type: 'Tháng',
+        items: ['Tất cả tính năng miễn phí', 'Hiển thị lượng calo', 'Đưa ra địa chỉ mua nguyên liệu', 'Group chat hội viên'],
         isMain: true,
-    },
-    {
-        name: 'enterprise',
-        price: 99,
-        type: 'month',
-        items: ['50 chatbot', '550 subscribers', '5000 monthly message'],
     },
 ];
 
@@ -161,23 +156,23 @@ const OUR_SERVICES = [
 const REVIEWS = [
     {
         avatar: 'https://i.pravatar.cc/300?u=1',
-        username: 'Denver Mark',
-        position: 'Software Engineer',
-        content: 'Egestas nunc, elementum ut consectetur faucibus vulputate. Massa purus feugiat massa vivamus viverra senectus.',
+        username: 'Chị Hằng',
+        position: 'Bán hàng',
+        content: 'CookPal giúp tôi tiết kiệm thời gian và công sức trong việc tìm kiếm công thức nấu ăn và mua sắm nguyên liệu.',
         rate: 4,
     },
     {
         avatar: 'https://i.pravatar.cc/300?u=2',
-        username: 'Maria Ozawa',
-        position: 'Software Engineer',
-        content: 'Egestas nunc, elementum ut consectetur faucibus vulputate. Massa purus feugiat massa vivamus viverra senectus.',
+        username: 'Anh Huy',
+        position: 'Lập trình viên',
+        content: 'Từ khi sử dụng CookPal, tôi thường nấu ăn tại nhà và thực hiện các món ăn ngon và dễ dàng.',
         rate: 5,
     },
     {
         avatar: 'https://i.pravatar.cc/300?u=3',
-        username: 'Jenny Doe',
-        position: 'Web Developer',
-        content: 'Egestas nunc, elementum ut consectetur faucibus vulputate. Massa purus feugiat massa vivamus viverra senectus.',
+        username: 'Chị Chi',
+        position: 'Kế toán',
+        content: 'CookPal giảm thời gian tìm kiếm công thức nấu ăn và mua sắm nguyên liệu cho gia đình tôi.',
         rate: 4,
     },
     {
@@ -190,10 +185,10 @@ const REVIEWS = [
 ];
 
 const PORTFOLIOS = [
-    'https://wordpress.iqonic.design/product/wp/talkie/wp-content/uploads/2023/04/data-science-1.jpg',
-    'https://wordpress.iqonic.design/product/wp/talkie/wp-content/uploads/2023/04/Digital-marketing-1.jpg',
-    'https://wordpress.iqonic.design/product/wp/talkie/wp-content/uploads/2023/04/mind-mapping-1.jpg',
-    'https://wordpress.iqonic.design/product/wp/talkie/wp-content/uploads/2023/04/virtual-reality.jpg',
+    'https://plus.unsplash.com/premium_photo-1665394004212-0d014eb6da68?q=80&w=3578&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=3570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'https://media.istockphoto.com/id/1633125312/vi/anh/m%E1%BB%99t-ng%C6%B0%E1%BB%9Di-%C4%91%C3%A0n-%C3%B4ng-ch%C3%A2u-%C3%A1-vui-v%E1%BA%BB-qu%C4%83ng-b%C3%A1nh-k%E1%BA%BFp-l%C3%AAn-ch%E1%BA%A3o-r%C3%A1n-th%C3%ADch-n%E1%BA%A5u-b%C3%A1nh-k%E1%BA%BFp-trong-b%E1%BA%BFp.jpg?s=2048x2048&w=is&k=20&c=LCTmjfZD3JwWcTWXxXHOb35kk7mJULHXoyeo6r7mG6c=',
+    'https://images.unsplash.com/photo-1616169776580-c86189ee67b8?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
 ];
 
 const OUR_TEAM_MEMBERS = [
@@ -240,30 +235,30 @@ const ARTICLES = [
 
 const INFO_CARDS = [
     {
-        name: '24/7 Available',
+        name: 'Hỗ Trợ 24/7',
         img: '/assets/images/svg-image-11.svg',
-        value: '+123456789',
+        value: '+0903220099',
     },
     {
-        name: 'Address',
+        name: 'Địa Chỉ',
         img: '/assets/images/svg-image-12.svg',
-        value: '1234 North Avenue Luke Lane, South Bend, IN 360001',
+        value: 'Hoa Lac Hi-tech Park, km 29, Đại lộ, Thăng Long, Hà Nội',
     },
     {
-        name: 'Online Support Mail',
+        name: 'Email Liên Hệ',
         img: '/assets/images/svg-image-13.svg',
-        value: 'support@iqonic.design',
+        value: 'support@cookpal.com',
     },
 ];
 
 const FOOTER_COLS = [
     {
-        title: 'Quick Links',
-        items: ['About Us', 'Services', 'Portfolio', 'Team'],
+        title: 'CookPal',
+        items: ['Trang chủ', 'Giới thiệu', 'Tính năng', 'Bảng giá', 'Liên hệ'],
     },
     {
-        title: 'Integrations',
-        items: ['Slack', 'Google Drive', 'Dropbox', 'Github'],
+        title: 'Dịch vụ',
+        items: ['Bảng giá', 'Tính năng', 'Liên hệ', 'Hỗ trợ', 'Tài liệu'],
     },
 ];
 
@@ -285,7 +280,7 @@ const Title = ({
 
     className?: string;
 }) => {
-    return <h3 className={cn('text-governor-bay-800 text-center text-5xl font-medium', className)}>{children}</h3>;
+    return <h3 className={cn('text-center text-5xl font-medium text-governor-bay-800', className)}>{children}</h3>;
 };
 
 const Description = ({ children, className }: { children: React.ReactNode; className?: string }) => {
@@ -306,12 +301,8 @@ const Header = () => {
                     </NKLink>
 
                     <div className="flex items-center gap-4">
-                        <Badge size="small" count={0} showZero>
-                            <ShoppingCart className="h-5 w-5 cursor-pointer text-[#302F5B]" />
-                        </Badge>
-                        <Search className="h-5 w-5 cursor-pointer  text-[#302F5B]" />
                         <Button type="primary" className="flex items-center gap-2" size="large">
-                            Login
+                            Dùng thử ngay
                             <ArrowUpRight className="h-4 w-4" />
                         </Button>
                     </div>
@@ -327,17 +318,18 @@ const Hero = () => {
             <div className="container-app">
                 <div className="flex items-center justify-between">
                     <div className="flex max-w-[600px] flex-col items-start gap-10">
-                        <h1 className="text-governor-bay-800 flex flex-wrap items-center gap-6 text-7xl font-semibold">
-                            <span className="">Revise</span>
+                        <h1 className="flex flex-wrap items-center gap-6 text-7xl font-semibold text-governor-bay-800">
+                            <span className="">CookPal</span>
                             <img src="/assets/images/hero-1.png" alt="" /> # <img src="/assets/images/hero-2.png" alt="" />{' '}
-                            <span className="font-normal">Content With</span> Chatbot <img src="/assets/images/hero-3.png" alt="" />
+                            <span className="font-normal">Telegram </span> Chatbot <img src="/assets/images/hero-3.png" alt="" />
                         </h1>
                         <p className="max-w-[376px]">
-                            Robotic Process Automation, or RPA, uses AI and machine learning to perform a variety of repeatable tasks, such as
-                            calculations, data entry, handling queries, etc.
+                            CookPal là ứng dụng telegram chatbot giúp bạn tìm kiếm công thức nấu ăn, mua sắm nguyên liệu và thực hiện các món ăn ngon
+                            và dễ dàng.
                         </p>
                         <ButtonSecondary className="h-auto gap-2 px-7 py-4 uppercase ">
-                            Get Started <ArrowUpRight className="h-4 w-4" />
+                            Dùng thử ngay
+                            <ArrowUpRight className="h-4 w-4" />
                         </ButtonSecondary>
                     </div>
                     <div className="max-w-3xl">
@@ -372,12 +364,12 @@ const ProcessCard = ({ title, desc, img, mt }: { title: string; desc: string; im
             }}
         >
             <div className="flex h-56 w-56 items-center justify-center rounded-full border border-solid border-neutral-200 bg-white">
-                <div className="bg-governor-bay-100 flex h-44 w-44 items-center justify-center rounded-full">
+                <div className="flex h-44 w-44 items-center justify-center rounded-full bg-governor-bay-100">
                     <img src={img} alt="" className="h-20 w-20 object-cover" />
                 </div>
             </div>
             <div className="mt-9">
-                <span className="text-governor-bay-800 mb-3 text-xl font-medium">{title}</span>
+                <span className="mb-3 text-xl font-medium text-governor-bay-800">{title}</span>
                 <p className="text-[#302F5B]">{desc}</p>
             </div>
         </div>
@@ -390,9 +382,10 @@ const SectionProcess = () => {
             <div className="container-app">
                 <div className="mb-11">
                     <SubTitle hasBorder>Process</SubTitle>
-                    <Title>Engage in Conversations </Title>
+                    <Title>Nấu ăn dễ dàng với CookPal</Title>
                     <Description>
-                        There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.
+                        CookPal là ứng dụng telegram chatbot giúp bạn tìm kiếm công thức nấu ăn, mua sắm nguyên liệu và thực hiện các món ăn ngon và
+                        dễ dàng.
                     </Description>
                 </div>
                 <div
@@ -427,7 +420,7 @@ const FeatureCard = ({ title, desc, icon }: { title: string; desc: string; icon:
             }}
         >
             <Icon className="mb-5 h-10 w-10 text-bittersweet-400 " />
-            <span className="text-governor-bay-800 mb-1 text-xl font-medium">{title}</span>
+            <span className="mb-1 text-xl font-medium text-governor-bay-800">{title}</span>
             <p className="text-[#302F5B]">{desc}</p>
         </div>
     );
@@ -460,10 +453,10 @@ const SectionFeatures = () => {
                         <SubTitle className="justify-start text-left" hasBorder>
                             Features
                         </SubTitle>
-                        <Title className="text-left">Our Core Features </Title>
+                        <Title className="text-left">Tính năng nổi bật của CookPal</Title>
                         <Description className="text-left">
-                            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its
-                            layout. The point of using Lorem Ipsum is that it has.
+                            CookPal là ứng dụng telegram chatbot giúp bạn tìm kiếm công thức nấu ăn, mua sắm nguyên liệu và thực hiện các món ăn ngon
+                            và dễ dàng.
                         </Description>
                         <ul className="mt-8 grid grid-cols-2 gap-4">
                             {FEATURE_LIST_CHECK.map((feature, index) => {
@@ -476,7 +469,8 @@ const SectionFeatures = () => {
                             })}
                         </ul>
                         <ButtonSecondary className="mt-5 h-auto px-8 py-4">
-                            Read More <ArrowUpRight className="h-4 w-4" />
+                            Dùng thử ngay
+                            <ArrowUpRight className="h-4 w-4" />
                         </ButtonSecondary>
                     </div>
                 </div>
@@ -491,9 +485,9 @@ const SectionPricing = () => {
             <div className="container-app">
                 <div className="mb-11">
                     <SubTitle hasBorder>Pricing</SubTitle>
-                    <Title>Our Pricing Plans</Title>
+                    <Title>Bảng giá</Title>
                 </div>
-                <div className="grid grid-cols-3 items-center gap-5">
+                <div className="mx-auto grid max-w-4xl grid-cols-2 items-center gap-5">
                     {PRICING_LIST.map((item) => {
                         return (
                             <div
@@ -513,18 +507,18 @@ const SectionPricing = () => {
                                     {item.name}
                                 </span>
                                 <span
-                                    className={cn('text-governor-bay-900 text-6xl font-medium', {
+                                    className={cn('text-6xl font-medium text-governor-bay-900', {
                                         'text-white': item.isMain,
                                     })}
                                 >
-                                    {item.price}$
+                                    {formatNumber(item.price)} VNĐ
                                 </span>
                                 <span
                                     className={cn('uppercase text-bittersweet-400', {
                                         'text-white': item.isMain,
                                     })}
                                 >
-                                    Per {item.type}
+                                    hàng {item.type}
                                 </span>
                                 <ul
                                     className={cn('flex flex-col items-center font-medium text-[#302F5B]', {
@@ -545,7 +539,7 @@ const SectionPricing = () => {
                                     })}
                                     type="primary"
                                 >
-                                    Read more
+                                    Dùng thử ngay
                                     <ArrowUpRight className="h-4 w-4" />
                                 </Button>
                             </div>
@@ -580,7 +574,7 @@ const SectionBestService = () => {
                             return (
                                 <div
                                     key={index}
-                                    className={cn('text-governor-bay-800 flex cursor-pointer items-center gap-2 px-4 py-2 ', {
+                                    className={cn('flex cursor-pointer items-center gap-2 px-4 py-2 text-governor-bay-800 ', {
                                         'text-bittersweet-400': index === activeTabIndex,
                                     })}
                                     onClick={() => setActiveTabIndex(index)}
@@ -592,7 +586,7 @@ const SectionBestService = () => {
                         })}
                     </div>
                     <div className="pl-14">
-                        <span className="text-governor-bay-800 mb-4 inline-block text-2xl font-medium">{activeTab.content.title}</span>
+                        <span className="mb-4 inline-block text-2xl font-medium text-governor-bay-800">{activeTab.content.title}</span>
                         <p className="tex-lg text-[#302F5B]">{activeTab.content.desc}</p>
                         <ul className="tex-lg mt-4 grid grid-cols-2 gap-2 text-[#302F5B]">
                             {activeTab.content.items.map((item, index) => {
@@ -616,20 +610,21 @@ const SectionBestService = () => {
 
 const SectionTestimonials = () => {
     return (
-        <Section className="bg-governor-bay-50 overflow-x-hidden">
+        <Section className="overflow-x-hidden bg-governor-bay-50">
             <div className="container-app">
                 <div className="flex items-start gap-7">
                     <div className="w-full max-w-3xl flex-shrink-0">
                         <SubTitle hasBorder className="justify-start">
                             Testimonial
                         </SubTitle>
-                        <Title className="text-start">What Our Trusted Client Say About -Talkie</Title>
+                        <Title className="text-start">Đánh Giá Khách Hàng - CookPal</Title>
                         <Description className="mx-0 text-start">
-                            It is a long established fact that a reader will be distracted by the of readable content the of readable content of a
-                            page when looking at its layout of a page when looking at its layout.
+                            CookPal là ứng dụng telegram chatbot giúp bạn tìm kiếm công thức nấu ăn, mua sắm nguyên liệu và thực hiện các món ăn ngon
+                            và dễ dàng.
                         </Description>
                         <ButtonSecondary className="mt-11 h-auto px-8 py-4 uppercase">
-                            Contact now <ArrowUpRight className="h-4 w-4" />
+                            Dùng thử ngay
+                            <ArrowUpRight className="h-4 w-4" />
                         </ButtonSecondary>
                     </div>
                     <div className="w-full flex-1 flex-shrink-0">
@@ -685,7 +680,7 @@ const SectionPortfolio = () => {
                         <SubTitle hasBorder className="justify-start">
                             Portfolio
                         </SubTitle>
-                        <Title className="text-left">Our Amazing Portfolio</Title>
+                        <Title className="text-left">Chúng tôi đã thực hiện nhiều dự án thành công</Title>
                     </div>
                     <ul className="flex items-center gap-4">
                         <li>All</li>
@@ -728,60 +723,8 @@ const SectionOurTeam = () => {
                                     <div className="aspect-square w-full">
                                         <img src={member.img} className="h-full w-full rounded object-cover" />
                                     </div>
-                                    <span className="text-governor-bay-800 mt-5 inline-block text-xl font-semibold">{member.name}</span>
+                                    <span className="mt-5 inline-block text-xl font-semibold text-governor-bay-800">{member.name}</span>
                                     <span className="mt-2 inline-block">{member.position}</span>
-                                </div>
-                            </li>
-                        );
-                    })}
-                </ul>
-            </div>
-        </Section>
-    );
-};
-
-const SectionArticle = () => {
-    return (
-        <Section>
-            <div className="container-app">
-                <div>
-                    <SubTitle hasBorder>Articles</SubTitle>
-                    <Title>Latest Blog Post</Title>
-                </div>
-                <ul className="mt-11 grid grid-cols-3 gap-7">
-                    {ARTICLES.map((article, index) => {
-                        return (
-                            <li key={index}>
-                                <div
-                                    className="flex flex-col items-center rounded"
-                                    style={{
-                                        boxShadow: '0 12px 32px 0 rgba(25,41,66,0.07)',
-                                    }}
-                                >
-                                    <img src={article.img} className="h-full w-full rounded border-b border-neutral-200 object-cover" />
-                                    <div className="w-full px-5 py-8 ">
-                                        <div className="flex w-full items-center justify-between text-[#302F5B]">
-                                            <div className="flex items-center gap-2">
-                                                <div className="flex items-center gap-1">
-                                                    <CalendarIcon className="h-4 w-4" />
-                                                    <span className="text-governor-bay-800 text-sm font-medium">{article.created_at}</span>
-                                                </div>
-                                                <span className="bg-governor-bay-50 inline-block rounded p-1 text-sm font-medium ">
-                                                    {article.tag}
-                                                </span>
-                                            </div>
-                                            <div className="flex items-center gap-1">
-                                                <MessageSquareIcon className="h-4 w-4" />
-                                                <span>{article.comments}</span>
-                                            </div>
-                                        </div>
-                                        <span className="text-governor-bay-800 mt-4 line-clamp-2 inline-block text-xl font-semibold">
-                                            {article.title}
-                                        </span>
-                                    </div>
-                                    <div className="hover:bg-governor-bay-800 flex w-full items-center justify-center py-5 text-sm font-semibold uppercase hover:text-white">
-                                        Read More <ArrowUpRight className="h-4 w-4" />
-                                    </div>
                                 </div>
                             </li>
                         );
@@ -805,7 +748,7 @@ const SectionInfo = () => {
                                 </div>
                                 <div className="flex flex-col gap-1">
                                     <span>{card.name}</span>
-                                    <span className="text-governor-bay-800 text-lg">{card.value}</span>
+                                    <span className="text-lg text-governor-bay-800">{card.value}</span>
                                 </div>
                             </li>
                         );
@@ -818,7 +761,7 @@ const SectionInfo = () => {
 
 const Footer = () => {
     return (
-        <footer className="bg-governor-bay-50  border-t border-neutral-200">
+        <footer className="border-t  border-neutral-200 bg-governor-bay-50">
             <div className="container-app">
                 <Section className="border-b border-neutral-200">
                     <div className="flex gap-14">
@@ -827,7 +770,7 @@ const Footer = () => {
                                 <img src="/assets/images/logo.jpg" className="h-12 w-12 rounded-full object-cover" />
                             </NKLink>
                             <p className="mb-12 mt-6">
-                                Talkie Programmed To Generate Human-Like Responses And Provide Information On A Wide Range Of Topics.
+                                CookPal là ứng dụng telegram chatbot giúp bạn tìm kiếm công thức nấu ăn, mua sắm nguyên liệu và thực hiện các món ăn
                             </p>
                             <div className="flex items-center gap-4">
                                 <ButtonSecondary className="h-9 w-9">
@@ -845,7 +788,7 @@ const Footer = () => {
                             {FOOTER_COLS.map((col, index) => {
                                 return (
                                     <li key={index} className="min-w-44">
-                                        <span className="text-governor-bay-800 text-xl font-semibold">{col.title}</span>
+                                        <span className="text-xl font-semibold text-governor-bay-800">{col.title}</span>
                                         <ul className="mt-4 space-y-4">
                                             {col.items.map((item, index) => {
                                                 return (
@@ -860,22 +803,22 @@ const Footer = () => {
                                 );
                             })}
                             <li className="min-w-44">
-                                <span className="text-governor-bay-800 text-xl font-semibold">Subscribe Us</span>
-                                <p className="text-governor-bay-800 mb-8 mt-4 font-semibold">Get hot news and benefits delivered to your inbox</p>
+                                <span className="text-xl font-semibold text-governor-bay-800">Theo dõi</span>
+                                <p className="mb-8 mt-4 font-semibold text-governor-bay-800">Thông tin mới nhất từ CookPal dành cho bạn</p>
                                 <div className="flex w-full items-center border-b border-neutral-200 pb-1">
                                     <input type="text" placeholder="Enter your email" className="w-full border-none bg-transparent outline-none" />
                                     <div className="flex h-9 w-9 flex-shrink-0 cursor-pointer items-center justify-center rounded bg-white">
                                         <ArrowUpRight className="h-4 w-4" />
                                     </div>
                                 </div>
-                                <p className="mt-3 text-xs">For Any Question/Query Email: talkiehelp@gmail.com</p>
+                                <p className="mt-3 text-xs">Hỗ Trợ Email: support@cookpal.com</p>
                             </li>
                         </ul>
                     </div>
                 </Section>
             </div>
             <div className="flex items-center justify-center pb-12 pt-6">
-                <p className="font-medium">Copyright 2024 talkie All Rights Reserved.</p>
+                <p className="font-medium">Copyright 2024, All Rights Reserved By CookPal</p>
             </div>
         </footer>
     );
@@ -890,11 +833,11 @@ const Page: React.FunctionComponent = () => {
             <SectionProcess />
             <SectionFeatures />
             <SectionPricing />
-            <SectionBestService />
+            {/* <SectionBestService /> */}
             <SectionTestimonials />
             <SectionPortfolio />
-            <SectionOurTeam />
-            <SectionArticle />
+            {/* <SectionOurTeam /> */}
+
             <SectionInfo />
             <Footer />
         </>
