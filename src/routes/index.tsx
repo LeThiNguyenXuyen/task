@@ -39,7 +39,7 @@ const BRANDS = [
 
 const PROCESS_CARDS = [
     {
-        title: 'Nhập nguyên liệu',
+        title: 'Nhập nguyên liệu ',
         desc: 'Người dùng nhập nguyên liệu cần tìm kiếm.',
         img: '/assets/images/svg-image-4.svg',
         mt: 0,
@@ -302,7 +302,10 @@ const Header = () => {
 
                     <div className="flex items-center gap-4">
                         <Button type="primary" className="flex items-center gap-2" size="large">
-                            Dùng thử ngay
+                            <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Ft.me%2FCookPal_BOT%3Ffbclid%3DIwZXh0bgNhZW0CMTAAAR3yUFSK1pAQC5wEF88H_btfxifgNCfk0-E85Zk_DUbR6F_xUuwUbFPViyE_aem_AY_JpVDCWXpe1eX2pF-Z6RKP_BD0UZ7PeELBwCCEqs2SSq3aZR55Z6CL-s3FOuVzjoX3Nw8XzOKHIzHhnoF87o2v&h=AT2YU_6M43zzZqqheXZ0esFIkVI-aLc6kUrSQk4Q9prnGesG2rpBJgIyuFhMiaxHG6ON4_yy3Wrbq7y6twzNWKPO2lR6idRiOPfnUuFOa21_4dyDD-jLIWLcJWI8xaQTT1_60t8YxckyF2TLEJTfnw">
+                                {' '}
+                                Dùng thử ngay
+                            </a>
                             <ArrowUpRight className="h-4 w-4" />
                         </Button>
                     </div>
@@ -328,7 +331,9 @@ const Hero = () => {
                             và dễ dàng.
                         </p>
                         <ButtonSecondary className="h-auto gap-2 px-7 py-4 uppercase ">
-                            Dùng thử ngay
+                            <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Ft.me%2FCookPal_BOT%3Ffbclid%3DIwZXh0bgNhZW0CMTAAAR3yUFSK1pAQC5wEF88H_btfxifgNCfk0-E85Zk_DUbR6F_xUuwUbFPViyE_aem_AY_JpVDCWXpe1eX2pF-Z6RKP_BD0UZ7PeELBwCCEqs2SSq3aZR55Z6CL-s3FOuVzjoX3Nw8XzOKHIzHhnoF87o2v&h=AT2YU_6M43zzZqqheXZ0esFIkVI-aLc6kUrSQk4Q9prnGesG2rpBJgIyuFhMiaxHG6ON4_yy3Wrbq7y6twzNWKPO2lR6idRiOPfnUuFOa21_4dyDD-jLIWLcJWI8xaQTT1_60t8YxckyF2TLEJTfnw">
+                                Dùng thử ngay
+                            </a>
                             <ArrowUpRight className="h-4 w-4" />
                         </ButtonSecondary>
                     </div>
@@ -469,7 +474,9 @@ const SectionFeatures = () => {
                             })}
                         </ul>
                         <ButtonSecondary className="mt-5 h-auto px-8 py-4">
-                            Dùng thử ngay
+                            <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Ft.me%2FCookPal_BOT%3Ffbclid%3DIwZXh0bgNhZW0CMTAAAR33r8GElb2Uy57tXZSwPzxKqwt3sI4P1UtgnKOYCWa7dJvP98yvlvNs-kU_aem_AY_VnxoDbtcsVru8w-VloQAzTsq1KNc-CfC1uUBV6OW_Bhj1zLtJ6zWwkyx5Hy5Vv-HjwXqbz46YFXQjPaSHO2TS&h=AT2YU_6M43zzZqqheXZ0esFIkVI-aLc6kUrSQk4Q9prnGesG2rpBJgIyuFhMiaxHG6ON4_yy3Wrbq7y6twzNWKPO2lR6idRiOPfnUuFOa21_4dyDD-jLIWLcJWI8xaQTT1_60t8YxckyF2TLEJTfnw">
+                                Dùng thử ngay
+                            </a>
                             <ArrowUpRight className="h-4 w-4" />
                         </ButtonSecondary>
                     </div>
@@ -539,7 +546,9 @@ const SectionPricing = () => {
                                     })}
                                     type="primary"
                                 >
-                                    Dùng thử ngay
+                                    <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Ft.me%2FCookPal_BOT%3Ffbclid%3DIwZXh0bgNhZW0CMTAAAR33r8GElb2Uy57tXZSwPzxKqwt3sI4P1UtgnKOYCWa7dJvP98yvlvNs-kU_aem_AY_VnxoDbtcsVru8w-VloQAzTsq1KNc-CfC1uUBV6OW_Bhj1zLtJ6zWwkyx5Hy5Vv-HjwXqbz46YFXQjPaSHO2TS&h=AT2YU_6M43zzZqqheXZ0esFIkVI-aLc6kUrSQk4Q9prnGesG2rpBJgIyuFhMiaxHG6ON4_yy3Wrbq7y6twzNWKPO2lR6idRiOPfnUuFOa21_4dyDD-jLIWLcJWI8xaQTT1_60t8YxckyF2TLEJTfnw">
+                                        Dùng thử ngay
+                                    </a>
                                     <ArrowUpRight className="h-4 w-4" />
                                 </Button>
                             </div>
@@ -623,7 +632,9 @@ const SectionTestimonials = () => {
                             và dễ dàng.
                         </Description>
                         <ButtonSecondary className="mt-11 h-auto px-8 py-4 uppercase">
-                            Dùng thử ngay
+                            <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Ft.me%2FCookPal_BOT%3Ffbclid%3DIwZXh0bgNhZW0CMTAAAR33r8GElb2Uy57tXZSwPzxKqwt3sI4P1UtgnKOYCWa7dJvP98yvlvNs-kU_aem_AY_VnxoDbtcsVru8w-VloQAzTsq1KNc-CfC1uUBV6OW_Bhj1zLtJ6zWwkyx5Hy5Vv-HjwXqbz46YFXQjPaSHO2TS&h=AT2YU_6M43zzZqqheXZ0esFIkVI-aLc6kUrSQk4Q9prnGesG2rpBJgIyuFhMiaxHG6ON4_yy3Wrbq7y6twzNWKPO2lR6idRiOPfnUuFOa21_4dyDD-jLIWLcJWI8xaQTT1_60t8YxckyF2TLEJTfnw">
+                                Dùng thử ngay
+                            </a>
                             <ArrowUpRight className="h-4 w-4" />
                         </ButtonSecondary>
                     </div>
